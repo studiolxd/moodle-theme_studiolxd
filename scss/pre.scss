@@ -1,0 +1,4 @@
+// Theme studiolxd: SCSS injected before the preset (variables, maps, functions).
+
+// Studio LXD brand tokens ($slxd-*). Vendored by studiolxd/sync_brand.sh (repository root); they only define variables, no CSS.
+@import "brand/tokens/index.legacy";

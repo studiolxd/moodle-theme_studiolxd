@@ -1,0 +1,50 @@
+
+// Do not edit directly, this file was auto-generated.
+
+$slxd-color-picker-trigger-size: 2.5rem; // Lado del disparador: cuadrado a la altura de los controles, talla md
+$slxd-color-picker-trigger-sm-size: 2rem; // Lado del disparador — sm
+$slxd-color-picker-trigger-lg-size: 3rem; // Lado del disparador — lg (y de partida en la superficie pública)
+$slxd-color-picker-trigger-padding: 0.25rem; // Aire entre el borde del disparador y la muestra que lleva dentro
+$slxd-color-picker-trigger-bg: #ffffff; // Fondo del disparador: el de un campo
+$slxd-color-picker-trigger-border-width: 1px; // Grosor del borde: el de un campo
+$slxd-color-picker-trigger-border-style: solid; // Estilo del borde
+$slxd-color-picker-trigger-border-color: #111e30; // Color del borde: el de un campo
+$slxd-color-picker-trigger-border-radius: 0px; // Radio del disparador
+$slxd-color-picker-trigger-cursor: pointer; // Cursor: abre el panel
+$slxd-color-picker-trigger-focus-border-color: #111e30; // Borde en foco: el de un campo
+$slxd-color-picker-trigger-focus-ring-width: 2px; // Grosor del anillo de foco, por dentro del borde como en un campo
+$slxd-color-picker-trigger-focus-ring-inset-offset: 1px; // Separación entre el borde y el anillo
+$slxd-color-picker-trigger-focus-ring-color: #111e30; // Color del anillo de foco
+$slxd-color-picker-trigger-error-border-color: #b30000; // Borde en error
+$slxd-color-picker-trigger-error-focus-ring-color: #b30000; // Anillo de foco en error
+$slxd-color-picker-trigger-disabled-bg: #f2f2f2; // Fondo deshabilitado
+$slxd-color-picker-trigger-disabled-border-color: #d0d0d0; // Borde deshabilitado
+$slxd-color-picker-trigger-disabled-cursor: not-allowed; // Cursor deshabilitado
+$slxd-color-picker-trigger-disabled-opacity: 0.4; // Opacidad de la muestra con el disparador deshabilitado: el color sigue ahí, atenuado
+$slxd-color-picker-panel-gap: 0.75rem; // Separación entre las partes del panel: área, bandas, campo hex, predefinidos
+$slxd-color-picker-panel-width: calc(8 * 24px + 7 * 0.5rem); // Ancho del panel: ocho predefinidos por fila y sus siete huecos. El área y las bandas lo ocupan entero
+$slxd-color-picker-area-height: calc(6 * 24px + 5 * 0.5rem); // Alto del área de saturación y brillo: seis filas de la misma rejilla que mide el ancho
+$slxd-color-picker-area-border-width: 1px; // Borde del área y de las bandas
+$slxd-color-picker-area-border-color: #d0d0d0; // Color del borde del área y de las bandas: el separador neutro
+$slxd-color-picker-area-saturation-start: #ffffff; // Origen del degradado de saturación: sin saturación, el tono se lava hacia el blanco. Es el modelo HSV, no una decisión de marca
+$slxd-color-picker-area-brightness-end: #000000; // Fin del degradado de brillo: sin brillo, cualquier tono es negro. Es el modelo HSV
+$slxd-color-picker-area-cursor: crosshair; // Cursor sobre el área: se apunta a un punto
+$slxd-color-picker-channel-track-size: 0.75rem; // Grosor de las bandas de tono y de opacidad: más gruesas que un deslizador, porque la banda es el dato
+$slxd-color-picker-thumb-size: 16px; // Lado del pulgar del área y de las bandas
+$slxd-color-picker-thumb-border-width: 2px; // Aro claro del pulgar
+$slxd-color-picker-thumb-border-color: #ffffff; // Aro claro del pulgar: junto al contorno oscuro, se ve sobre cualquier color, claro u oscuro. No cambia en oscuro
+$slxd-color-picker-thumb-outline-width: 1px; // Contorno oscuro del pulgar, por fuera y por dentro del aro
+$slxd-color-picker-thumb-outline-color: #111e30; // Contorno oscuro del pulgar. No cambia en oscuro: lo que tiene detrás es el color, no la superficie
+$slxd-color-picker-thumb-border-radius: 0px; // Radio del pulgar
+$slxd-color-picker-thumb-focus-ring-width: 2px; // Anillo de foco del pulgar
+$slxd-color-picker-thumb-focus-ring-offset: 2px; // Separación del anillo de foco
+$slxd-color-picker-thumb-focus-ring-color: #111e30; // Color del anillo de foco del pulgar
+$slxd-color-picker-preset-size: 24px; // Lado de un predefinido: la muestra md
+$slxd-color-picker-preset-gap: 0.5rem; // Hueco entre predefinidos
+$slxd-color-picker-preset-cursor: pointer; // Cursor sobre un predefinido
+$slxd-color-picker-preset-focus-ring-width: 2px; // Anillo de foco de un predefinido
+$slxd-color-picker-preset-focus-ring-offset: 2px; // Separación del anillo de foco
+$slxd-color-picker-preset-focus-ring-color: #111e30; // Color del anillo de foco
+$slxd-color-picker-preset-selected-ring-width: 2px; // Marca del predefinido que coincide con el valor: un aro por fuera
+$slxd-color-picker-preset-selected-ring-offset: 1px; // Separación de la marca
+$slxd-color-picker-preset-selected-ring-color: #111e30; // Color de la marca del seleccionado

@@ -1,0 +1,26 @@
+// Typography: heading line height and letter spacing per level, lead line height.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Bootstrap has a single
+// $headings-line-height, no letter spacing variable and no line height for .lead, so the brand's values are
+// applied here. Sizes and weights are set by variables in mapping/light/_typography.scss.
+
+$studiolxd-headings: (
+    1: ($mds-line-height-headings-1, $slxd-text-h1-letter-spacing),
+    2: ($mds-line-height-headings-2, $slxd-text-h2-letter-spacing),
+    3: ($mds-line-height-headings-3, $slxd-text-h3-letter-spacing),
+    4: ($mds-line-height-headings-4, $slxd-text-h4-letter-spacing),
+    5: ($mds-line-height-headings-5, $slxd-text-h5-letter-spacing),
+    6: ($mds-line-height-headings-6, $slxd-text-h6-letter-spacing),
+);
+
+@each $level, $values in $studiolxd-headings {
+    h#{$level},
+    .h#{$level} {
+        line-height: nth($values, 1);
+        letter-spacing: nth($values, 2);
+    }
+}
+
+.lead {
+    line-height: $mds-line-height-paragraph-lead;
+}

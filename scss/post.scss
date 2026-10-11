@@ -7,3 +7,4 @@
 @import "mapping/dark/color";
 
 // Overrides: CSS rules only for what variables cannot reach, one file per Moodle area (overrides/_<area>.scss).
+@import "overrides/typography";

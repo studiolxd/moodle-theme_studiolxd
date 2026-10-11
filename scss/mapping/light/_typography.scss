@@ -3,3 +3,66 @@
 // Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
 // Map $slxd-* brand tokens onto $mds-* design system tokens first; set Bootstrap variables only where MDS does
 // not reach them. Moodle's variables are !default, so the values assigned here win.
+//
+// Boost only wires the font family to MDS ($mds-font-family-base -> $font-family-sans-serif). Sizes, weights and
+// line heights of body text and headings are still drawn by Bootstrap, so its variables are set from the same
+// $mds-* tokens: brand -> MDS -> Bootstrap, one source per value.
+
+// Families.
+// MDS takes the family name alone. Bootstrap's stack is set to the brand's whole stack (with its own fallbacks)
+// instead of Boost's, which would append the font-stack.scss fallbacks to $mds-font-family-base.
+$mds-font-family-base: nth($slxd-font-family-sans, 1);
+$mds-font-family-code: nth($slxd-font-family-mono, 1);
+$font-family-sans-serif: $slxd-font-family-sans;
+$font-family-monospace: $slxd-font-family-mono;
+
+// Weights. The brand uses two weights only, as roles: default (300, body text and components) and emphasis
+// (500, headings, strong, labels). Its 700 is "not used by the system", so bold is emphasis too.
+// Components that use emphasis instead of default (tag, progress bar, avatar) are adjusted in phase 5.
+$mds-font-weight-regular: $slxd-font-weight-default;
+$mds-font-weight-medium: $slxd-font-weight-emphasis;
+$mds-font-weight-bold: $slxd-font-weight-emphasis;
+$font-weight-base: $mds-font-weight-regular;
+$font-weight-bold: $mds-font-weight-bold;
+// <b> and <strong>: Bootstrap's `bolder` would only step 300 up to 400.
+$font-weight-bolder: $mds-font-weight-bold;
+$headings-font-weight: $slxd-text-heading-font-weight;
+$lead-font-weight: $slxd-font-weight-default;
+
+// Body text.
+$mds-font-size-paragraph-default: $slxd-text-font-size;
+$mds-line-height-paragraph-default: $slxd-text-line-height;
+$mds-letter-spacing-default: $slxd-text-letter-spacing;
+$font-size-base: $mds-font-size-paragraph-default;
+$line-height-base: $mds-line-height-paragraph-default;
+
+// Small and lead paragraphs. The lead is the brand's large paragraph, as used for the hero's tagline
+// (`Paragraph size="lg"`); its line height, which Bootstrap has no variable for, is in overrides/_typography.scss.
+$mds-font-size-paragraph-small: $slxd-text-paragraph-small-font-size;
+$mds-line-height-paragraph-small: $slxd-text-paragraph-small-line-height;
+$mds-font-size-paragraph-lead: $slxd-text-paragraph-large-font-size;
+$mds-line-height-paragraph-lead: $slxd-text-paragraph-large-line-height;
+$lead-font-size: $mds-font-size-paragraph-lead;
+
+// Headings.
+$mds-font-size-headings-1: $slxd-text-h1-font-size;
+$mds-font-size-headings-2: $slxd-text-h2-font-size;
+$mds-font-size-headings-3: $slxd-text-h3-font-size;
+$mds-font-size-headings-4: $slxd-text-h4-font-size;
+$mds-font-size-headings-5: $slxd-text-h5-font-size;
+$mds-font-size-headings-6: $slxd-text-h6-font-size;
+$mds-line-height-headings-1: $slxd-text-h1-line-height;
+$mds-line-height-headings-2: $slxd-text-h2-line-height;
+$mds-line-height-headings-3: $slxd-text-h3-line-height;
+$mds-line-height-headings-4: $slxd-text-h4-line-height;
+$mds-line-height-headings-5: $slxd-text-h5-line-height;
+$mds-line-height-headings-6: $slxd-text-h6-line-height;
+$h1-font-size: $mds-font-size-headings-1;
+$h2-font-size: $mds-font-size-headings-2;
+$h3-font-size: $mds-font-size-headings-3;
+$h4-font-size: $mds-font-size-headings-4;
+$h5-font-size: $mds-font-size-headings-5;
+$h6-font-size: $mds-font-size-headings-6;
+$headings-margin-bottom: $slxd-text-heading-space-after;
+// The brand defines line height per level only, with no common value, so Bootstrap's single
+// $headings-line-height is left as is: overrides/_typography.scss sets every level, and letter spacing.

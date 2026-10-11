@@ -1,0 +1,49 @@
+// Checks: checkboxes, radios and switches (.form-check-input, .form-switch, and the design system's switch).
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// Bootstrap compiles the checked and disabled colours, and draws the tick, the dot and the thumb as SVG images with
+// fixed colours, so dark mode, the radio's empty dot and the switch track are in overrides/_checks.scss.
+// Row numbers refer to docs/brand-mapping.md (phase 5, checks).
+
+// Box (1-3): size, border in the text colour (checkbox.border-color = color.text.on-light; dark: color.text.on-dark,
+// which --bs-body-color holds in each mode), square checkbox and round radio, transparent background.
+$form-check-input-width: $slxd-checkbox-size;
+$form-check-input-bg: $slxd-checkbox-bg;
+$form-check-input-border: $slxd-checkbox-border-width $slxd-checkbox-border-style var(--bs-body-color);
+$form-check-input-border-radius: $slxd-checkbox-border-radius;
+$form-check-radio-border-radius: $slxd-radio-border-radius;
+
+// Checked checkbox (4): prussian box with the brand's white tick (functions/_checks.scss).
+$form-check-input-checked-color: $slxd-checkbox-check-color;
+$form-check-input-checked-bg-image: studiolxd-checkbox-tick($slxd-checkbox-check-color);
+$form-check-input-checked-bg-color: $slxd-checkbox-checked-bg;
+$form-check-input-checked-border-color: $slxd-checkbox-checked-bg;
+
+// Checked radio (5): the brand's radio is not filled; it shows a dot of radio.dot-size in a box of radio.size.
+// Bootstrap's dot is a circle in a -4…4 viewBox, so its radius is 4 × dot-size / size.
+$form-check-radio-checked-bg-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='#{4 * $slxd-radio-dot-size / $slxd-radio-size}' fill='#{$slxd-radio-dot-color}'/></svg>");
+
+// Indeterminate checkbox (13): not filled; a line in the border colour (functions/_checks.scss).
+$form-check-input-indeterminate-bg-color: $slxd-checkbox-bg;
+$form-check-input-indeterminate-border-color: $slxd-checkbox-border-color;
+$form-check-input-indeterminate-bg-image: studiolxd-checkbox-dash($slxd-checkbox-border-color);
+
+// Disabled (6): the brand shows disabled checks with colours, not by fading them (overrides/_checks.scss).
+$form-check-input-disabled-opacity: $slxd-opacity-full;
+
+// Switch (7-8): track size and radius, white thumb (prussian on a dark surface). Bootstrap draws the thumb as an
+// SVG, which cannot take a custom property, so its focus colour is the thumb's own colour.
+$form-switch-width: $slxd-switcher-track-width;
+$form-switch-border-radius: $slxd-switcher-track-border-radius;
+$form-switch-color: $slxd-switcher-thumb-bg;
+$form-switch-checked-color: $slxd-switcher-thumb-bg;
+$form-switch-focus-color: $slxd-switcher-thumb-bg;
+$form-switch-color-dark: $slxd-color-primary;
+
+// The design system's switch (9), used for the edit mode switch: track and thumb at rest. The brand's switch has
+// no hover colours, so hover keeps the rest colours. Dark values in mapping/dark/_color.scss; the checked state is
+// in overrides/_checks.scss.
+$mds-bg-switch-track-default: $slxd-switcher-track-bg;
+$mds-bg-switch-track-hover: $slxd-switcher-track-bg;
+$mds-bg-switch-thumb-default: $slxd-switcher-thumb-bg;
+$mds-bg-switch-thumb-hover: $slxd-switcher-thumb-bg;

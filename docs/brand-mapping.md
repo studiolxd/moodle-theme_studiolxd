@@ -254,3 +254,38 @@ los dos modos, foco). Las alturas se obtienen con un padding calculado solo con 
 - **a.** Los campos pasan de `38px` a `40px` de alto, y su padding lateral de `0.75rem` a `1rem`.
 - **b.** La marca señala el error con el borde y el mensaje, sin icono; el campo de error no tiene token de icono.
 
+
+### Checkbox, radio e interruptor
+
+`mapping/light/components/_checks.scss`, `overrides/_checks.scss` y, para el interruptor de MDS en oscuro,
+`mapping/dark/_color.scss`. Bootstrap compila los colores de marcado y deshabilitado y dibuja la marca, el punto y la
+bolita como SVG de color fijo: el modo oscuro, el radio sin relleno y la pista del interruptor van como reglas.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Tamaño de checkbox y radio | Sí | `1.25em` `checkbox.size`, `radio.size` (antes `1em`) | = claro |
+| 2. Borde | Sí | `1px` `#111E30` `checkbox.border-*` | `#FFFFFF` `checkbox.surface-dark-border-color` |
+| 3. Forma | Sí | checkbox cuadrado `checkbox.border-radius`; radio redondo `radio.border-radius` | = claro |
+| 4. Fondo | Sí | transparente `checkbox.bg` | = claro |
+| 5. Checkbox marcado | Sí | relleno `#111E30` con la marca de la marca `#FFFFFF`, de `0.65em` girada `15deg` `checkbox.checked-bg`, `checkbox.check-*` ⚠️a | relleno `#FFFFFF` con marca `#111E30` `checkbox.surface-dark-checked-bg`, `…-check-color` |
+| 6. Radio marcado | Sí | sin relleno; borde y punto `#111E30`, punto de `0.5em` `radio.dot-*` | borde y punto `#FFFFFF` `radio.surface-dark-dot-color` |
+| 7. Deshabilitado | Sí | borde `#D0D0D0`; checkbox marcado relleno `#D0D0D0`; punto `#D0D0D0`; sin atenuar `checkbox.disabled-*`, `radio.disabled-*` | `#D0D0D0` `color.text.muted-on-dark` |
+| 8. Error | Sí | borde `#B30000` (campos, fila 6) | `#FF8585` |
+| 9. Interruptor: pista | Sí | `2.75em` × `1.5em`, píldora, sin borde; `#D0D0D0` apagado y `#111E30` encendido `switcher.track-*` | `#FFFFFF` apagado y `#BAABFF` encendido `switcher.surface-dark-track-*` |
+| 10. Interruptor: bolita | Sí | `#FFFFFF`, también al enfocarlo `switcher.thumb-bg` ⚠️c | `#111E30` `switcher.surface-dark-thumb-bg` |
+| 11. Interruptor deshabilitado | Sí | opacidad `0.4` `switcher.disabled-opacity` | = claro |
+| 12. Interruptor de modo edición (MDS) | Sí | pista `#D0D0D0` / `#111E30` encendida, bolita `#FFFFFF` `switcher.*` ⚠️d | pista `#FFFFFF` / `#BAABFF` encendida, bolita `#111E30` `switcher.surface-dark-*` |
+| 13. Checkbox indeterminado | Sí | sin relleno; línea `#111E30` del `60%` del ancho y `1px` `checkbox.border-color`, `checkbox.border-width` ⚠️e | línea y borde `#FFFFFF` `checkbox.surface-dark-border-color` |
+
+**Notas**
+
+- **a.** Tamaño, giro y color salen de los tokens; el polígono de la marca de verificación está en el CSS del
+  Checkbox de la marca (no es un token) y se copia en `functions/_checks.scss`.
+- **c.** Corrige un fallo de la fase 3: el color de foco de la bolita era una propiedad CSS dentro de un SVG, que no
+  funciona, y la bolita desaparecía al enfocar. En oscuro Boost la pintaba blanca translúcida.
+- **d.** El interruptor de la marca no tiene colores de hover: el hover mantiene los de reposo. El estado encendido se
+  pone sobre el propio interruptor, porque el interactivo primario de MDS sigue sin decidir (fase 2, fila 13).
+- **e.** Tercer estado de un checkbox ("en parte", p. ej. *seleccionar todo* con solo algunas filas marcadas); solo se
+  activa por JavaScript y el core de Moodle no lo usa. La marca lo dibuja como una línea; su CSS no rellena la caja
+  y la línea es del color de la marca de verificación (blanca), así que se ha decidido caja vacía con la línea en el
+  color del borde. El `60%` está en el CSS del Checkbox de la marca (no es un token).

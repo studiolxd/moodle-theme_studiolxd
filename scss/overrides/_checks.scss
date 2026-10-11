@@ -1,0 +1,123 @@
+// Checks: what Bootstrap compiles with fixed colours or draws as fixed-colour SVG images.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Variables are in
+// mapping/light/components/_checks.scss. Dark values are the brand's surface-dark-* pairs, resolved through their
+// *-on-dark tokens. Row numbers refer to docs/brand-mapping.md (phase 5, checks).
+
+// The radio's dot and the switch's thumb in a given colour, as Bootstrap draws them. The checkbox's tick is the
+// brand's own (functions/_checks.scss).
+@function studiolxd-radio-dot($colour) {
+    $radius: 4 * $slxd-radio-dot-size / $slxd-radio-size;
+    @return escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='#{$radius}' fill='#{$colour}'/></svg>"));
+}
+
+@function studiolxd-switch-thumb($colour) {
+    @return escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$colour}'/></svg>"));
+}
+
+// Checked checkbox in dark mode (4): white box, prussian tick (checkbox.surface-dark-checked-bg = color.text.on-dark,
+// checkbox.surface-dark-check-color = color.bg.dark).
+.form-check-input:checked[type="checkbox"] {
+    @include dark-mode {
+        background-color: $slxd-color-text-on-dark;
+        border-color: $slxd-color-text-on-dark;
+        --#{$prefix}form-check-bg-image: #{escape-svg(studiolxd-checkbox-tick($slxd-color-bg-dark))};
+    }
+}
+
+// Indeterminate checkbox in dark mode (13): the line and the border are white (checkbox.surface-dark-border-color =
+// color.text.on-dark).
+.form-check-input[type="checkbox"]:indeterminate {
+    @include dark-mode {
+        border-color: $slxd-color-text-on-dark;
+        --#{$prefix}form-check-bg-image: #{escape-svg(studiolxd-checkbox-dash($slxd-color-text-on-dark))};
+    }
+}
+
+// Checked radio (5): not filled; the border and the dot are the dot colour (white on a dark surface,
+// radio.surface-dark-dot-color = color.text.on-dark).
+.form-check-input:checked[type="radio"] {
+    background-color: $slxd-radio-bg;
+    border-color: $slxd-radio-dot-color;
+
+    @include dark-mode {
+        border-color: $slxd-color-text-on-dark;
+        --#{$prefix}form-check-bg-image: #{studiolxd-radio-dot($slxd-color-text-on-dark)};
+    }
+}
+
+// Disabled (6): light grey border; a checked checkbox fills with it and a checked radio's dot takes it
+// (checkbox.disabled-*, radio.disabled-*; on a dark surface color.text.muted-on-dark).
+.form-check-input:disabled {
+    border-color: $slxd-checkbox-disabled-border-color;
+
+    @include dark-mode {
+        border-color: $slxd-color-text-muted-on-dark;
+    }
+}
+
+.form-check-input:checked:disabled[type="checkbox"] {
+    background-color: $slxd-checkbox-checked-disabled-bg;
+    border-color: $slxd-checkbox-checked-disabled-bg;
+
+    @include dark-mode {
+        background-color: $slxd-color-text-muted-on-dark;
+        border-color: $slxd-color-text-muted-on-dark;
+    }
+}
+
+.form-check-input:checked:disabled[type="radio"] {
+    border-color: $slxd-radio-disabled-border-color;
+    --#{$prefix}form-check-bg-image: #{studiolxd-radio-dot($slxd-radio-disabled-dot-color)};
+
+    @include dark-mode {
+        border-color: $slxd-color-text-muted-on-dark;
+        --#{$prefix}form-check-bg-image: #{studiolxd-radio-dot($slxd-color-text-muted-on-dark)};
+    }
+}
+
+// Switch (7-8): the brand's switch is a filled track with no border (no border tokens), grey at rest and prussian when on (white at
+// rest and lavender when on, with a prussian thumb, on a dark surface: switcher.surface-dark-*). Disabled, it fades.
+.form-switch .form-check-input {
+    height: $slxd-switcher-track-height;
+    background-color: $slxd-switcher-track-bg;
+    border-color: transparent;
+
+    &:checked {
+        background-color: $slxd-switcher-track-checked-bg;
+    }
+
+    &:disabled {
+        opacity: $slxd-switcher-disabled-opacity;
+    }
+
+    @include dark-mode {
+        background-color: $slxd-color-text-on-dark;
+
+        // Prussian thumb on the white track, also on focus. Boost draws a translucent white one with this selector.
+        &:not(:checked),
+        &:not(:checked):not(:focus) {
+            --#{$prefix}form-switch-bg: #{studiolxd-switch-thumb($slxd-color-primary)};
+        }
+
+        &:checked {
+            background-color: $slxd-color-accent-1;
+            --#{$prefix}form-switch-bg: #{studiolxd-switch-thumb($slxd-color-primary)};
+        }
+    }
+}
+
+// The design system's switch, checked (9): its track and thumb take the interactive primary tokens, which the
+// brand does not settle globally yet (phase 2, row 13), and Boost points them at $primary on the edit mode
+// switch. They are set on the switch itself with the brand's switch colours.
+.mds-switch {
+    --mds-bg-interactive-primary-default: #{$slxd-switcher-track-checked-bg};
+    --mds-bg-interactive-primary-hover: #{$slxd-switcher-track-checked-bg};
+    --mds-bg-interactive-primary-default-light: #{$slxd-switcher-thumb-bg};
+
+    @include dark-mode {
+        --mds-bg-interactive-primary-default: #{$slxd-color-accent-1};
+        --mds-bg-interactive-primary-hover: #{$slxd-color-accent-1};
+        --mds-bg-interactive-primary-default-light: #{$slxd-color-primary};
+    }
+}

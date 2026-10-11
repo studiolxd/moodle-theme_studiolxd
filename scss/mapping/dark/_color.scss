@@ -76,6 +76,13 @@
     --#{$prefix}form-invalid-color: #{$slxd-color-error-text-on-dark};
     --#{$prefix}form-invalid-border-color: #{$slxd-color-error-text-on-dark};
 
+    // The design system's switch at rest (phase 5, checks, row 9): white track and prussian thumb
+    // (switcher.surface-dark-track-bg = color.text.on-dark, switcher.surface-dark-thumb-bg = color.primary).
+    --mds-bg-switch-track-default: #{$slxd-color-text-on-dark};
+    --mds-bg-switch-track-hover: #{$slxd-color-text-on-dark};
+    --mds-bg-switch-thumb-default: #{$slxd-color-primary};
+    --mds-bg-switch-thumb-hover: #{$slxd-color-primary};
+
     // Links (41-42) (link.surface-dark-color = color.accent-2): yellow at rest and on hover.
     --#{$prefix}link-color: #{$slxd-color-accent-2};
     --#{$prefix}link-color-rgb: #{to-rgb($slxd-color-accent-2)};

@@ -1,0 +1,29 @@
+// Checkbox helpers for the mapping files and overrides. Functions only: no CSS, no variables.
+
+// The brand's tick as an SVG image for Bootstrap's checkbox. The brand draws it with clip-path on a square of
+// checkbox.check-size, centred in the box of checkbox.size and rotated checkbox.check-rotate; the polygon is the one in
+// the brand's Checkbox.css (it is not a token). Here it is placed in a 0…100 box with the same proportions.
+@function studiolxd-checkbox-tick($colour) {
+    $polygon: (14 44) (0 65) (50 100) (100 16) (80 0) (43 62);
+    $scale: $slxd-checkbox-check-size / $slxd-checkbox-size;
+    $offset: (1 - $scale) * 50;
+    $points: "";
+
+    @each $point in $polygon {
+        $x: $offset + nth($point, 1) * $scale;
+        $y: $offset + nth($point, 2) * $scale;
+        $points: $points + "#{$x},#{$y} ";
+    }
+
+    $rotate: $slxd-checkbox-check-rotate / 1deg;
+
+    @return url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='#{$points}' transform='rotate(#{$rotate} 50 50)' fill='#{$colour}'/></svg>");
+}
+
+// The brand's indeterminate checkbox as an SVG image: a horizontal line 60% wide (as in the brand's Checkbox.css) and
+// checkbox.border-width thick. The stroke does not scale with the image, so it keeps the border width in px.
+@function studiolxd-checkbox-dash($colour) {
+    $width: $slxd-checkbox-border-width / 1px;
+
+    @return url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><line x1='20' y1='50' x2='80' y2='50' stroke='#{$colour}' stroke-width='#{$width}' vector-effect='non-scaling-stroke'/></svg>");
+}

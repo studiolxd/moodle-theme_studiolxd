@@ -1,4 +1,9 @@
-// Theme studiolxd: SCSS injected after the preset (rules and overrides).
+// Theme studiolxd: SCSS injected after Boost's preset. Only @imports, in order.
 
 // Studio LXD brand fonts (@font-face). Vendored by studiolxd/sync_brand.sh (repository root).
 @import "brand/fonts";
+
+// Dark mapping: re-points the design system custom properties in dark mode.
+@import "mapping/dark/color";
+
+// Overrides: CSS rules only for what variables cannot reach, one file per Moodle area (overrides/_<area>.scss).

@@ -1,0 +1,5 @@
+// Colour: text, surfaces, borders, links, feedback and interactive (primary) colours.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// Map $slxd-* brand tokens onto $mds-* design system tokens first; set Bootstrap variables only where MDS does
+// not reach them. Moodle's variables are !default, so the values assigned here win.

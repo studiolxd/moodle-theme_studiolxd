@@ -1,4 +1,10 @@
-// Theme studiolxd: SCSS injected before the preset (variables, maps, functions).
+// Theme studiolxd: SCSS injected before Boost's preset. Only @imports, in order.
 
 // Studio LXD brand tokens ($slxd-*). Vendored by studiolxd/sync_brand.sh (repository root); they only define variables, no CSS.
 @import "brand/tokens/index.legacy";
+
+// Light mapping: brand tokens -> MDS and Bootstrap variables.
+@import "mapping/light/typography";
+@import "mapping/light/color";
+@import "mapping/light/shape";
+@import "mapping/light/spacing";

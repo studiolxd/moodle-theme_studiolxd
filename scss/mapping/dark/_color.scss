@@ -1,0 +1,5 @@
+// Colour, dark mode: mirror of mapping/light/_color.scss.
+//
+// Dark mapping (imported from post.scss, after Boost's moodle/dark.scss): ONLY CSS custom properties
+// (--mds-*, --bs-*) re-pointed to the brand's *-on-dark tokens, inside @include color-mode(dark) { ... }.
+// Moodle switches modes with data-bs-theme="dark" on <html> (theme_boost/enablecolourmodes).

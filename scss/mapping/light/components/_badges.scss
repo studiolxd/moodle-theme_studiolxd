@@ -1,0 +1,11 @@
+// Badges: Moodle's .badge is the brand's tag.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// Boost overrides some of these by hand on .badge; overrides/_badges.scss hands them back to these variables.
+// Row 3 of docs/brand-mapping.md (phase 3).
+
+$badge-border-radius: $slxd-tag-border-radius;
+$badge-font-size: $slxd-tag-font-size;
+$badge-font-weight: $slxd-tag-font-weight;
+$badge-padding-y: $slxd-tag-padding-block;
+$badge-padding-x: $slxd-tag-padding-inline;

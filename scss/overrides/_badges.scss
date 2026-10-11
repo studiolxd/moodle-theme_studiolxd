@@ -1,0 +1,13 @@
+// Badges: hand Boost's fixed values back to the brand's tag variables.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Boost sets font size and
+// weight to inherit, a .5rem side padding and a 10rem radius directly on .badge, after Bootstrap's own rule, so the
+// $badge-* variables of mapping/light/components/_badges.scss would not show. Bootstrap's .badge already has
+// line-height: 1, the tag's. Row 3 of docs/brand-mapping.md (phase 3).
+
+.badge {
+    font-size: var(--#{$prefix}badge-font-size);
+    font-weight: var(--#{$prefix}badge-font-weight);
+    padding-inline: var(--#{$prefix}badge-padding-x);
+    border-radius: var(--#{$prefix}badge-border-radius);
+}

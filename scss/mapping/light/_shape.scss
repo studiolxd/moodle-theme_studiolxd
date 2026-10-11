@@ -3,3 +3,54 @@
 // Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
 // Map $slxd-* brand tokens onto $mds-* design system tokens first; set Bootstrap variables only where MDS does
 // not reach them. Moodle's variables are !default, so the values assigned here win.
+//
+// Shape does not change with the colour mode. The focus ring takes its colour from var(--mds-focus-default), which is
+// prussian in light mode and white in dark mode (mapping/*/_color.scss), so the same values serve both modes.
+// Row numbers refer to docs/brand-mapping.md (phase 3).
+
+// Border radius (1-3). Every corner in the brand is straight; pills and circles use the round role.
+$mds-border-radius-xs: $slxd-border-radius-default;
+$mds-border-radius-sm: $slxd-border-radius-default;
+$mds-border-radius-md: $slxd-border-radius-default;
+$mds-border-radius-lg: $slxd-border-radius-default;
+$mds-border-radius-xl: $slxd-border-radius-default;
+$mds-border-radius-xxl: $slxd-border-radius-default;
+$mds-border-radius-pill: $slxd-border-radius-round;
+$border-radius: $slxd-border-radius-default;
+$border-radius-sm: $slxd-border-radius-default;
+$border-radius-lg: $slxd-border-radius-default;
+$border-radius-xl: $slxd-border-radius-default;
+$border-radius-xxl: $slxd-border-radius-default;
+$border-radius-pill: $slxd-border-radius-round;
+// Badges are the brand's tag, a pill: see mapping/light/components/_badges.scss.
+
+// Border width (4).
+$border-width: $slxd-border-width-default;
+
+// Shadows (5-6). No element of the brand casts a shadow: elevation is expressed with borders and panel backgrounds.
+$box-shadow: $slxd-shadow-default;
+$box-shadow-sm: $slxd-shadow-default;
+$box-shadow-lg: $slxd-shadow-default;
+$box-shadow-inset: $slxd-shadow-default;
+$box-shadow-drawer-left: $slxd-shadow-default;
+$box-shadow-drawer-right: $slxd-shadow-default;
+
+// Focus ring (7-11): solid, 2px, in the surface's ink. Widths and gaps are the brand's tokens; colours go through
+// var(--mds-focus-default) and var(--bs-body-bg), which hold the brand's tokens of each mode (phase 2, rows 6 and 18),
+// because a compiled SCSS value could not change with the mode.
+// Bootstrap's $prefix is only defined by the preset, after this file, so its custom properties are written as --bs-*.
+// The design system's outline is already 2px (--mds-stroke-weight-md); its 1px offset is the brand's for controls.
+$mds-spacing-offset: $slxd-checkbox-focus-ring-offset;
+$focus-ring-width: $slxd-border-width-focus;
+$focus-ring-opacity: $slxd-opacity-full;
+$focus-ring-color: $slxd-input-focus-ring-color;
+// Outside ring with the brand's 1px gap (checkbox, radio, the .focus-ring utility): the gap is the page background.
+$focus-ring-box-shadow:
+    0 0 0 $slxd-checkbox-focus-ring-offset var(--bs-body-bg),
+    0 0 0 calc(#{$slxd-checkbox-focus-ring-offset} + #{$slxd-checkbox-focus-ring-width}) var(--mds-focus-default);
+// Text fields and selects: the brand's inset ring, 2px inside the border with a 1px gap of the field's background.
+$input-focus-border-color: var(--mds-focus-default);
+$input-focus-box-shadow:
+    inset 0 0 0 calc(#{$slxd-input-focus-ring-width} + #{$slxd-input-focus-ring-inset-offset}) var(--mds-focus-default),
+    inset 0 0 0 $slxd-input-focus-ring-inset-offset var(--bs-body-bg);
+$form-select-focus-box-shadow: $input-focus-box-shadow;

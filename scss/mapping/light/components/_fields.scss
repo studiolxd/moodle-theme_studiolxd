@@ -1,0 +1,61 @@
+// Fields: text fields, textareas and selects (.form-control, .form-select).
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// Bootstrap already paints fields with custom properties that follow the colour mode (--bs-body-bg, --bs-body-color,
+// --bs-secondary-color), and these hold the brand's tokens of each mode (phase 2), so colours point to them where they
+// match the brand's field tokens. What has no such property (disabled, error in dark mode, textareas) is in
+// overrides/_fields.scss. Row numbers refer to docs/brand-mapping.md (phase 5, fields).
+
+// Colours (1-4). Background, text and placeholder already follow the mode: input.bg = color.bg.light / bg.dark,
+// input.color = text.on-light / on-dark, input.placeholder-color = text.muted-on-light / on-dark.
+// The border is the text colour in the brand (input.border-color = color.text.on-light; dark: color.text.on-dark).
+$input-border-color: var(--bs-body-color);
+$form-select-indicator-color: $slxd-select-color;
+$form-select-indicator-color-dark: $slxd-color-text-on-dark;
+
+// Disabled (5): light values; dark values in overrides/_fields.scss.
+$input-disabled-bg: $slxd-input-disabled-bg;
+$input-disabled-color: $slxd-input-disabled-color;
+$input-disabled-border-color: $slxd-input-disabled-border-color;
+$form-select-disabled-color: $slxd-input-disabled-color;
+
+// Error (6): border and message; dark values in mapping/dark/_color.scss.
+$form-invalid-color: $slxd-color-error-text-on-light;
+$form-invalid-border-color: $slxd-input-error-border-color;
+
+// Type (7).
+$input-font-weight: $slxd-input-font-weight;
+$input-font-size: $slxd-input-font-size;
+
+// Single-line size (8): 2.5rem high with a line height of 1. Bootstrap derives the height from the padding.
+// Textareas share .form-control but keep the brand's 1.5 line height: overrides/_fields.scss.
+$input-line-height: $slxd-input-line-height;
+$input-padding-x: $slxd-input-padding-inline;
+$input-padding-y: studiolxd-padding-for-height(
+    $slxd-input-height,
+    $slxd-input-font-size,
+    $slxd-input-line-height,
+    $slxd-input-border-width
+);
+$input-font-size-sm: $slxd-input-sm-font-size;
+$input-padding-x-sm: $slxd-input-sm-padding-inline;
+$input-padding-y-sm: studiolxd-padding-for-height(
+    $slxd-input-sm-height,
+    $slxd-input-sm-font-size,
+    $slxd-input-line-height,
+    $slxd-input-border-width
+);
+$input-font-size-lg: $slxd-input-lg-font-size;
+$input-padding-x-lg: $slxd-input-lg-padding-inline;
+$input-padding-y-lg: studiolxd-padding-for-height(
+    $slxd-input-lg-height,
+    $slxd-input-lg-font-size,
+    $slxd-input-line-height,
+    $slxd-input-border-width
+);
+
+// Selects (9): the same box as a field, with the brand's select padding.
+$form-select-padding-x: $slxd-select-padding-inline;
+
+// Validation icon (10). Not settled: the brand marks an error with the border and the message only, no icon.
+// $enable-validation-icons: false;

@@ -163,9 +163,9 @@ con el modo; el anillo de foco toma su color de `--mds-focus-default`, que es pr
 | 3. Espaciado de MDS (xxs, xs, sm, md, xl, xxl) | Sí | `0.25` / `0.5` / `0.75` / `1` / `2` / `3rem` `spacing.1`, `2`, `3`, `4`, `6`, `7` | = claro |
 | 4. ⏸ Espaciado de MDS lg | No | ahora `1.25rem` MDS · sugerido `1.5rem` `spacing.5` | = claro |
 | 5. Margen bajo los títulos (componentes MDS) | Sí | `0.5em` `text.heading.space-after` (antes `0.5rem`) | = claro |
-| 6. ⏸ Campos: interlineado | Sí | ahora `1.5` Bootstrap · sugerido `1` `control.line-height` ⚠️b | = claro |
-| 7. ⏸ Campos: padding horizontal | Sí | ahora `0.75rem` Bootstrap · sugerido `1rem` `control.padding-inline` | = claro |
-| 8. ⏸ Campos: altura | Sí | ahora `38px` (derivada) · sugerido `2.5rem` `control.height` ⚠️c | = claro |
+| 6. Campos: interlineado | Sí | `1` `input.line-height` (aplicado en la fase 5, campos) | = claro |
+| 7. Campos: padding horizontal | Sí | `1rem` `input.padding-inline` (aplicado en la fase 5, campos) | = claro |
+| 8. Campos: altura | Sí | `2.5rem` `input.height` ⚠️c (aplicado en la fase 5, campos) | = claro |
 | 9a. Botones: interlineado | Sí | `1` `button.line-height` (aplicado en la fase 5, botones) | = claro |
 | 9b. Botones: padding horizontal | Sí | `2rem` `button.padding-inline` (aplicado en la fase 5, botones) | = claro |
 | 9c. Botones: altura | Sí | `2.5rem` `button.height` ⚠️c (aplicado en la fase 5, botones) | = claro |
@@ -175,10 +175,10 @@ con el modo; el anillo de foco toma su color de `--mds-focus-default`, que es pr
 - **a.** Los valores son los mismos que ya tenía Moodle, así que no cambia nada visible: solo pasan a salir de los
   tokens. La correspondencia de índices es mía, porque la escala de la marca tiene un paso más (`0.75rem`,
   `spacing.3`) que la de Bootstrap no tiene.
-- **b.** Pendiente de la fase 5: Bootstrap usa `.form-control` también para los `textarea`, que en la marca mantienen
-  interlineado `1.5` (`textarea.line-height`); hay que separar primero los campos de una línea de los de varias.
+- **b.** Bootstrap usa `.form-control` también para los `textarea`, que en la marca mantienen interlineado `1.5`
+  (`textarea.line-height`): en la fase 5 (campos) el textarea tiene su propia regla.
 - **c.** Bootstrap no tiene variable de altura: la deriva del padding vertical. La altura se obtiene con un padding
-  calculado solo con tokens: `(altura − tamaño de fuente × interlineado − 2 × grosor de borde) / 2`, con
+  calculado solo con tokens (`functions/_sizing.scss`): `(altura − tamaño × interlineado − 2 × borde) / 2`, con
   `control.height`, `control.font-size`, `control.line-height`, `control.border-width` en los campos y
   `button.height`, `button.font-size`, `button.line-height`, `button.border-width` en los botones.
 
@@ -226,4 +226,31 @@ los dos modos, foco). Las alturas se obtienen con un padding calculado solo con 
   hover. Deshabilitado, como el outline.
 - **g.** Los botones de icono serían el ghost de la marca; es correspondencia mía. Su hover es el fondo secundario
   (fase 2, fila 37).
+
+### Campos de texto, textarea y select
+
+`mapping/light/components/_fields.scss`, `overrides/_fields.scss` y, para el error en oscuro,
+`mapping/dark/_color.scss`. Fondo, texto y placeholder ya los pinta Bootstrap con propiedades que siguen al modo
+(`--bs-body-bg`, `--bs-body-color`, `--bs-secondary-color`), que valen los tokens de la marca de cada modo (fase 2).
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Fondo | Sí | `#FFFFFF` `input.bg` | `#111E30` `input.surface-dark-bg` |
+| 2. Texto | Sí | `#111E30` `input.color` | `#FFFFFF` `input.surface-dark-color` |
+| 3. Placeholder | Sí | `#4A4A4A` `input.placeholder-color` | `#D0D0D0` `input.surface-dark-placeholder-color` |
+| 4. Borde | Sí | `#111E30` `input.border-color` (antes gris) | `#FFFFFF` `input.surface-dark-border-color` |
+| 5. Deshabilitado | Sí | fondo `#F2F2F2`, texto `#4A4A4A`, borde `#D0D0D0` `input.disabled-*` | fondo `#4A4A4A`, texto `#D0D0D0`, borde `#6B6B6B` `input.surface-dark-disabled-*` |
+| 6. Error: borde y mensaje | Sí | `#B30000` `input.error-border-color` | `#FF8585` `input.surface-dark-error-border-color` |
+| 7. Peso y tamaño | Sí | `300` / `1rem` `input.font-weight`, `input.font-size` | = claro |
+| 8. Talla normal | Sí | `2.5rem` alto, interlineado `1`, `1rem` lateral `input.height`, `input.line-height`, `input.padding-inline` ⚠️a | = claro |
+| 9. Tallas sm y lg (`.form-control-sm/-lg`) | Sí | sm `2rem`, `0.75rem` lateral, `0.875rem`; lg `3rem`, `1.5rem`, `1.25rem` `input.sm-*`, `input.lg-*` | = claro |
+| 10. Select: padding y flecha | Sí | `1rem` lateral `select.padding-inline`; flecha `#111E30` `select.color` | flecha `#FFFFFF` `color.text.on-dark` |
+| 11. Textarea | Sí | interlineado `1.5`, padding `1rem`, mínimo cuatro filas `textarea.*` | = claro |
+| 12. Foco con error | Sí | anillo interior `2px` con hueco `1px`, `#B30000` `input.error-focus-ring-color` | `#FF8585` `color.error-text-on-dark` |
+| 13. ⏸ Icono de validación | No | ahora icono rojo de Bootstrap dentro del campo · sugerido sin icono ⚠️b | = claro |
+
+**Notas**
+
+- **a.** Los campos pasan de `38px` a `40px` de alto, y su padding lateral de `0.75rem` a `1rem`.
+- **b.** La marca señala el error con el borde y el mensaje, sin icono; el campo de error no tiene token de icono.
 

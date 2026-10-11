@@ -1,0 +1,8 @@
+// Sizing helpers for the mapping files (imported from pre.scss, first). Functions only: no CSS, no variables.
+
+// Vertical padding that makes a single-line box exactly $height high, as Bootstrap derives the height of buttons
+// and fields from their padding: (height - font size × line height - 2 × border width) / 2. Sass works out the
+// rem part; calc() subtracts the borders, which are in px.
+@function studiolxd-padding-for-height($height, $font-size, $line-height, $border-width) {
+    @return calc((#{$height - $font-size * $line-height} - #{2 * $border-width}) / 2);
+}

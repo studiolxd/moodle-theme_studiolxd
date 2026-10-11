@@ -72,6 +72,10 @@
     --#{$prefix}info: #{$slxd-color-text-on-dark};
     --#{$prefix}info-rgb: #{to-rgb($slxd-color-text-on-dark)};
 
+    // Field error colour (phase 5, fields, row 6): input.surface-dark-error-border-color = color.error-text-on-dark.
+    --#{$prefix}form-invalid-color: #{$slxd-color-error-text-on-dark};
+    --#{$prefix}form-invalid-border-color: #{$slxd-color-error-text-on-dark};
+
     // Links (41-42) (link.surface-dark-color = color.accent-2): yellow at rest and on hover.
     --#{$prefix}link-color: #{$slxd-color-accent-2};
     --#{$prefix}link-color-rgb: #{to-rgb($slxd-color-accent-2)};

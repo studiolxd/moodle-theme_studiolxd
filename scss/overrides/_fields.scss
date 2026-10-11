@@ -1,0 +1,35 @@
+// Fields: textareas, dark mode disabled fields and the error focus ring.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Variables are in
+// mapping/light/components/_fields.scss. Row numbers refer to docs/brand-mapping.md (phase 5, fields).
+
+// Textareas (11): .form-control is single-line in the brand (line height 1, 2.5rem); a textarea keeps its own
+// line height, padding and a minimum of four rows.
+textarea.form-control {
+    min-height: $slxd-textarea-min-height;
+    padding-block: $slxd-textarea-padding-block;
+    padding-inline: $slxd-textarea-padding-inline;
+    line-height: $slxd-textarea-line-height;
+}
+
+// Disabled fields in dark mode (5): Bootstrap compiles the light values (color.disabled.*-on-light).
+.form-control:disabled,
+.form-select:disabled {
+    @include dark-mode {
+        color: $slxd-color-disabled-text-on-dark;
+        background-color: $slxd-color-disabled-bg-on-dark;
+        border-color: $slxd-color-disabled-border-on-dark;
+    }
+}
+
+// Error focus ring (12): the brand's inset ring in the error colour (input.error-focus-ring-color), instead of
+// Bootstrap's translucent red halo. --bs-form-invalid-border-color follows the mode (phase 5, fields, row 6).
+.form-control.is-invalid:focus,
+.was-validated .form-control:invalid:focus,
+.form-select.is-invalid:focus,
+.was-validated .form-select:invalid:focus {
+    box-shadow:
+        inset 0 0 0 calc(#{$slxd-input-focus-ring-width} + #{$slxd-input-focus-ring-inset-offset})
+        var(--#{$prefix}form-invalid-border-color),
+        inset 0 0 0 $slxd-input-focus-ring-inset-offset var(--#{$prefix}body-bg);
+}

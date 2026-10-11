@@ -1,0 +1,142 @@
+// Buttons: the brand's variants on Moodle's button classes, and the brand's focus ring.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Bootstrap computes each
+// variant's colours from $theme-colors and Boost adds its own focus and dark mode rules, so the brand's colours are
+// set on each variant's --bs-btn-* properties, in light and dark mode (the brand's surface-dark-* pairs, resolved
+// through their *-on-dark tokens). Sizes and type are variables in mapping/light/components/_buttons.scss.
+// Row numbers refer to docs/brand-mapping.md (phase 5, buttons).
+
+// Colours of a variant: a list of rest, hover, active and disabled, each as (text, background, border).
+@mixin studiolxd-button-colours($states) {
+    $rest: nth($states, 1);
+    $hover: nth($states, 2);
+    $active: nth($states, 3);
+    $disabled: nth($states, 4);
+
+    --#{$prefix}btn-color: #{nth($rest, 1)};
+    --#{$prefix}btn-bg: #{nth($rest, 2)};
+    --#{$prefix}btn-border-color: #{nth($rest, 3)};
+    --#{$prefix}btn-hover-color: #{nth($hover, 1)};
+    --#{$prefix}btn-hover-bg: #{nth($hover, 2)};
+    --#{$prefix}btn-hover-border-color: #{nth($hover, 3)};
+    --#{$prefix}btn-active-color: #{nth($active, 1)};
+    --#{$prefix}btn-active-bg: #{nth($active, 2)};
+    --#{$prefix}btn-active-border-color: #{nth($active, 3)};
+    --#{$prefix}btn-disabled-color: #{nth($disabled, 1)};
+    --#{$prefix}btn-disabled-bg: #{nth($disabled, 2)};
+    --#{$prefix}btn-disabled-border-color: #{nth($disabled, 3)};
+}
+
+// Primary (9): the brand's primary button, lavender with prussian text, yellow on hover. It has no dark pairs
+// (only its focus ring, which follows the mode below), so dark mode repeats it to win over Boost's dark rules.
+$studiolxd-button-primary: (
+    ($slxd-button-primary-color, $slxd-button-primary-bg, $slxd-button-primary-border),
+    ($slxd-button-primary-hover-color, $slxd-button-primary-hover-bg, $slxd-button-primary-hover-border),
+    ($slxd-button-primary-active-color, $slxd-button-primary-active-bg, $slxd-button-primary-hover-border),
+    ($slxd-button-primary-disabled-color, $slxd-button-primary-disabled-bg, $slxd-button-primary-disabled-border),
+);
+
+// Secondary and outline (10-11): the brand's outline button, prussian; white on a dark surface
+// (button.outline.surface-dark-* = color.text.on-dark, hover color.white with color.text.on-light).
+$studiolxd-button-outline: (
+    ($slxd-button-outline-color, $slxd-button-outline-bg, $slxd-button-outline-border),
+    ($slxd-button-outline-hover-color, $slxd-button-outline-hover-bg, $slxd-button-outline-hover-border),
+    ($slxd-button-outline-active-color, $slxd-button-outline-active-bg, $slxd-button-outline-hover-border),
+    ($slxd-button-outline-disabled-color, $slxd-button-outline-bg, $slxd-button-outline-disabled-border),
+);
+$studiolxd-button-outline-dark: (
+    ($slxd-color-text-on-dark, $slxd-button-outline-bg, $slxd-color-text-on-dark),
+    ($slxd-color-text-on-light, $slxd-color-white, $slxd-color-white),
+    ($slxd-color-text-on-light, $slxd-color-white, $slxd-color-white),
+    ($slxd-color-disabled-text-on-dark, $slxd-button-outline-bg, $slxd-color-disabled-border-on-dark),
+);
+
+// Danger (12): the brand's outline button with destructive intent, red, filled on hover; disabled as the outline.
+// On a dark surface its text and border are color.destructive-text-on-dark; the fill is universal.
+$studiolxd-button-destructive: (
+    ($slxd-button-destructive-color, $slxd-button-outline-bg, $slxd-button-destructive-border),
+    ($slxd-button-destructive-hover-color, $slxd-button-destructive-hover-bg, $slxd-button-destructive-hover-border),
+    ($slxd-button-destructive-active-color, $slxd-button-destructive-active-bg, $slxd-button-destructive-active-border),
+    ($slxd-button-outline-disabled-color, $slxd-button-outline-bg, $slxd-button-outline-disabled-border),
+);
+$studiolxd-button-destructive-dark: (
+    ($slxd-color-destructive-text-on-dark, $slxd-button-outline-bg, $slxd-color-destructive-text-on-dark),
+    ($slxd-button-destructive-hover-color, $slxd-button-destructive-hover-bg, $slxd-button-destructive-hover-border),
+    ($slxd-button-destructive-active-color, $slxd-button-destructive-active-bg, $slxd-button-destructive-active-border),
+    ($slxd-color-disabled-text-on-dark, $slxd-button-outline-bg, $slxd-color-disabled-border-on-dark),
+);
+
+$studiolxd-buttons: (
+    ".btn-primary": ($studiolxd-button-primary, $studiolxd-button-primary),
+    ".btn-secondary": ($studiolxd-button-outline, $studiolxd-button-outline-dark),
+    ".btn-outline-primary": ($studiolxd-button-outline, $studiolxd-button-outline-dark),
+    ".btn-outline-secondary": ($studiolxd-button-outline, $studiolxd-button-outline-dark),
+    ".btn-danger": ($studiolxd-button-destructive, $studiolxd-button-destructive-dark),
+    ".btn-outline-danger": ($studiolxd-button-destructive, $studiolxd-button-destructive-dark),
+);
+
+@each $selector, $modes in $studiolxd-buttons {
+    #{$selector} {
+        @include studiolxd-button-colours(nth($modes, 1));
+
+        @include dark-mode {
+            @include studiolxd-button-colours(nth($modes, 2));
+        }
+    }
+}
+
+// Focus ring (13): the brand's solid outline at a distance from the button, in the surface's ink (prussian, white
+// on a dark surface, through --mds-focus-default), with no inner shadow. It replaces Boost's darkened outline and
+// white inset line, with the same selectors (`:focus.focus` is the focus ring Moodle forces from JavaScript).
+.btn:focus-visible,
+.btn:focus.focus {
+    outline: $slxd-button-focus-ring-width $slxd-button-focus-ring-style var(--mds-focus-default);
+    outline-offset: $slxd-button-focus-ring-offset;
+    box-shadow: none;
+}
+
+// The destructive ring is red (button.destructive.focus-ring-color; on a dark surface destructive-text-on-dark).
+.btn-danger,
+.btn-outline-danger {
+    &:focus-visible,
+    &:focus.focus {
+        outline-color: $slxd-button-destructive-focus-ring-color;
+
+        @include dark-mode {
+            outline-color: $slxd-color-destructive-text-on-dark;
+        }
+    }
+}
+
+// The design system's buttons share one focus offset with its other components (phase 3, row 11); on buttons
+// it is the brand's button offset.
+.mds-btn {
+    --mds-spacing-offset: #{$slxd-button-focus-ring-offset};
+}
+
+// Icon buttons (14). Not settled: their hover is Moodle's secondary background (phase 2, row 37). The brand's ghost
+// button (transparent, prussian fill on hover; white fill on a dark surface) would be:
+// .btn-icon {
+//     --#{$prefix}btn-hover-color: #{$slxd-button-ghost-hover-color};
+//     --#{$prefix}btn-hover-bg: #{$slxd-button-ghost-hover-bg};
+//
+//     @include dark-mode {
+//         --#{$prefix}btn-hover-color: #{$slxd-color-text-on-light};
+//         --#{$prefix}btn-hover-bg: #{$slxd-color-text-on-dark};
+//     }
+// }
+
+// Link buttons (15-16). Their colour and underline already follow the links (phase 2, rows 41-43), as the brand's
+// text button does. Bootstrap gives them its own weight and a computed grey when disabled; they take the text
+// button's (button.text.surface-dark-disabled-color = color.text.muted-on-dark).
+.btn-link {
+    --#{$prefix}btn-font-weight: #{$slxd-button-font-weight};
+    --#{$prefix}btn-disabled-color: #{$slxd-button-text-disabled-color};
+
+    @include dark-mode {
+        --#{$prefix}btn-disabled-color: #{$slxd-color-text-muted-on-dark};
+    }
+
+    // Not settled: they now take the buttons' 2rem side padding; the brand's text button has none.
+    // --#{$prefix}btn-padding-x: #{$slxd-button-text-padding-inline};
+}

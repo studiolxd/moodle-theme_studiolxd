@@ -32,11 +32,11 @@
     --#{$prefix}body-bg: #{$slxd-color-bg-dark};
     --#{$prefix}body-bg-rgb: #{to-rgb($slxd-color-bg-dark)};
 
-    // Secondary and tertiary backgrounds (37-38): the support colours, the same as in light mode.
-    --#{$prefix}secondary-bg: #{$slxd-color-support-1};
-    --#{$prefix}secondary-bg-rgb: #{to-rgb($slxd-color-support-1)};
-    --#{$prefix}tertiary-bg: #{$slxd-color-support-2};
-    --#{$prefix}tertiary-bg-rgb: #{to-rgb($slxd-color-support-2)};
+    // Secondary and tertiary backgrounds (37-38). Not settled; suggested: the support colours, as in light mode.
+    // --#{$prefix}secondary-bg: #{$slxd-color-support-1};
+    // --#{$prefix}secondary-bg-rgb: #{to-rgb($slxd-color-support-1)};
+    // --#{$prefix}tertiary-bg: #{$slxd-color-support-2};
+    // --#{$prefix}tertiary-bg-rgb: #{to-rgb($slxd-color-support-2)};
 
     // Borders (11-12). Not settled. The brand's derivation rule: the dark pair of the border is color.text.on-dark.
     // --mds-border-default: #{$slxd-color-text-on-dark};

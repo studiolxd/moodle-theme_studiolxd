@@ -1,0 +1,38 @@
+// Buttons: type, sizes and focus ring width.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// The colours of each variant, the focus ring and Boost's own button rules are in overrides/_buttons.scss.
+// Bootstrap derives a button's height from its padding, so each height is a padding computed from the brand's
+// height, font size, line height and border width. Row numbers refer to docs/brand-mapping.md (phase 5, buttons).
+
+// Type and border (1-3).
+$btn-font-weight: $slxd-button-font-weight;
+$btn-font-size: $slxd-button-font-size;
+$btn-line-height: $slxd-button-line-height;
+$btn-border-width: $slxd-button-border-width;
+
+// Default size (4-5): 2.5rem high.
+$btn-padding-x: $slxd-button-padding-inline;
+$btn-padding-y: calc(
+    (#{$slxd-button-height} - #{$slxd-button-font-size} * #{$slxd-button-line-height}
+    - 2 * #{$slxd-button-border-width}) / 2
+);
+
+// Small size (6): 2rem high.
+$btn-font-size-sm: $slxd-button-sm-font-size;
+$btn-padding-x-sm: $slxd-button-sm-padding-inline;
+$btn-padding-y-sm: calc(
+    (#{$slxd-button-sm-height} - #{$slxd-button-sm-font-size} * #{$slxd-button-line-height}
+    - 2 * #{$slxd-button-border-width}) / 2
+);
+
+// Large size (7): 3rem high.
+$btn-font-size-lg: $slxd-button-lg-font-size;
+$btn-padding-x-lg: $slxd-button-lg-padding-inline;
+$btn-padding-y-lg: calc(
+    (#{$slxd-button-lg-height} - #{$slxd-button-lg-font-size} * #{$slxd-button-line-height}
+    - 2 * #{$slxd-button-border-width}) / 2
+);
+
+// Focus ring width (8): Boost's button outline uses it.
+$btn-focus-width: $slxd-button-focus-ring-width;

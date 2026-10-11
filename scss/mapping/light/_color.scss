@@ -28,9 +28,10 @@ $mds-bg-surface-default: $slxd-color-bg-light;
 $mds-bg-surface-subtle: $slxd-color-surface-secondary-on-light;
 $body-bg: $mds-bg-surface-default;
 
-// Secondary and tertiary backgrounds (37-38): the brand's support colours, the same in both modes.
-$body-secondary-bg: $slxd-color-support-1;
-$body-tertiary-bg: $slxd-color-support-2;
+// Secondary and tertiary backgrounds (37-38). Not settled: it is not clear yet where Moodle uses them (hovers of
+// icon buttons, messaging and popovers, among others). Suggested: the brand's support colours, in both modes.
+// $body-secondary-bg: $slxd-color-support-1;
+// $body-tertiary-bg: $slxd-color-support-2;
 
 // Borders (11-12). Not settled: color.border.default-on-light is a subtle border the brand hardly uses.
 // $mds-border-default: $slxd-color-border-default-on-light;

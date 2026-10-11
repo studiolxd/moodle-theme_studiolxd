@@ -32,19 +32,13 @@ $mds-spacing-xxl: $slxd-spacing-7;
 // Space below a heading in the design system's components (5).
 $mds-margin-bottom-heading: $slxd-text-heading-space-after;
 
-// Control sizes (6-9). Not settled: Bootstrap's .form-control also styles textareas, which in the brand keep a 1.5
-// line height (textarea.line-height), so single-line fields and textareas have to be separated first (phase 5).
+// Field sizes (6-8). Not settled: Bootstrap's .form-control also styles textareas, which in the brand keep a 1.5
+// line height (textarea.line-height), so single-line fields and textareas have to be separated first.
 // The brand's single-line control is 2.5rem high with a line height of 1; Bootstrap derives the height from the
-// padding, so the padding is what makes it 2.5rem.
+// padding, so the padding is what makes it 2.5rem. Button sizes (9) are in mapping/light/components/_buttons.scss.
 // $input-line-height: $slxd-control-line-height;
 // $input-padding-x: $slxd-control-padding-inline;
 // $input-padding-y: calc(
 //     (#{$slxd-control-height} - #{$slxd-control-font-size} * #{$slxd-control-line-height}
 //     - 2 * #{$slxd-control-border-width}) / 2
-// );
-// $btn-line-height: $slxd-button-line-height;
-// $btn-padding-x: $slxd-button-padding-inline;
-// $btn-padding-y: calc(
-//     (#{$slxd-button-height} - #{$slxd-button-font-size} * #{$slxd-button-line-height}
-//     - 2 * #{$slxd-button-border-width}) / 2
 // );

@@ -91,8 +91,8 @@ Archivos: `scss/mapping/light/` (variables), `scss/mapping/dark/` (custom proper
 | 34. ⏸ Primario border-subtle | No | ahora `#A0A5AC` Bootstrap | ahora `#0A121D` Boost |
 | 35. ⏸ Primario text-emphasis | No | ahora `#070C13` Bootstrap | ahora `#A0A5AC` Boost |
 | 36. ⏸ Superficie "strong" (MDS) | No | ahora `#E9ECEF` MDS | ahora `#292E33` Boost |
-| 37. Fondo secundario | Sí | `#20E38E` `color.support-1` | `#20E38E` `color.support-1` |
-| 38. Fondo terciario | Sí | `#F05E1C` `color.support-2` | `#F05E1C` `color.support-2` |
+| 37. ⏸ Fondo secundario | Sí | ahora `#E9ECEF` Bootstrap · sugerido `#20E38E` `color.support-1` ⚠️k | ahora `#343A40` Boost · sugerido `#20E38E` `color.support-1` |
+| 38. ⏸ Fondo terciario | Sí | ahora `#F8F9FA` Bootstrap · sugerido `#F05E1C` `color.support-2` ⚠️k | ahora `#292E33` Boost · sugerido `#F05E1C` `color.support-2` |
 | 39. ⏸ Color de énfasis (Bootstrap) | No | ahora `#000000` Bootstrap | ahora `#FFFFFF` Boost |
 | 40. ⏸ Escala de grises | No | ahora `#F8F9FA`…`#1D2125` Moodle | ahora invertida por Boost |
 | 41. Enlaces: color | Sí | `#111E30` `link.color` | `#FFCD00` `link.surface-dark-color` |
@@ -108,10 +108,13 @@ Archivos: `scss/mapping/light/` (variables), `scss/mapping/dark/` (custom proper
 - **d.** Con esta fila comentada, los componentes MDS (checkbox, radio, paginación, botón MDS) siguen en el azul de
   Moodle. El interruptor de modo edición no, porque Boost lo pinta con `$primary`.
 - **e.** El botón primario de la marca no tiene par oscuro para "deshabilitado"; uso el semántico.
-- **f.** `.btn-primary` no sigue esta variable (Bootstrap compila sus colores): en oscuro sigue prusia hasta la fase 5.
+- **f.** `.btn-primary` no sigue esta variable (Bootstrap compila sus colores): es el botón lavanda de la marca en los
+  dos modos (fase 5, botones).
   `.bg-primary.text-white` (contadores, insignias) lleva texto prusia en oscuro, como `tag.surface-dark-primary-color`.
 - **h.** En oscuro MDS pone este texto sobre un tinte oscuro (`#665200`), no sobre el relleno: el prusia no se leería.
 - **i.** La marca no tiene "info" en Alert (sí en Banner, sin par oscuro); uso el de la alerta por defecto.
+- **k.** No está claro dónde usa Moodle estos fondos (entre otros, el hover de los botones de icono, la mensajería y
+  los popovers de notificaciones).
 
 ## Fase 3 — Forma
 
@@ -163,9 +166,9 @@ con el modo; el anillo de foco toma su color de `--mds-focus-default`, que es pr
 | 6. ⏸ Campos: interlineado | Sí | ahora `1.5` Bootstrap · sugerido `1` `control.line-height` ⚠️b | = claro |
 | 7. ⏸ Campos: padding horizontal | Sí | ahora `0.75rem` Bootstrap · sugerido `1rem` `control.padding-inline` | = claro |
 | 8. ⏸ Campos: altura | Sí | ahora `38px` (derivada) · sugerido `2.5rem` `control.height` ⚠️c | = claro |
-| 9a. ⏸ Botones: interlineado | Sí | ahora `1.5` Bootstrap · sugerido `1` `button.line-height` | = claro |
-| 9b. ⏸ Botones: padding horizontal | Sí | ahora `0.75rem` Bootstrap · sugerido `2rem` `button.padding-inline` | = claro |
-| 9c. ⏸ Botones: altura | Sí | ahora `38px` (derivada) · sugerido `2.5rem` `button.height` ⚠️c | = claro |
+| 9a. Botones: interlineado | Sí | `1` `button.line-height` (aplicado en la fase 5, botones) | = claro |
+| 9b. Botones: padding horizontal | Sí | `2rem` `button.padding-inline` (aplicado en la fase 5, botones) | = claro |
+| 9c. Botones: altura | Sí | `2.5rem` `button.height` ⚠️c (aplicado en la fase 5, botones) | = claro |
 
 **Notas**
 
@@ -178,3 +181,49 @@ con el modo; el anillo de foco toma su color de `--mds-focus-default`, que es pr
   calculado solo con tokens: `(altura − tamaño de fuente × interlineado − 2 × grosor de borde) / 2`, con
   `control.height`, `control.font-size`, `control.line-height`, `control.border-width` en los campos y
   `button.height`, `button.font-size`, `button.line-height`, `button.border-width` en los botones.
+
+## Fase 5 — Componentes
+
+### Botones
+
+`mapping/light/components/_buttons.scss` (tipo y tallas) y `overrides/_buttons.scss` (colores de cada variante en
+los dos modos, foco). Las alturas se obtienen con un padding calculado solo con tokens (fase 4, nota c).
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Peso | Sí | `300` `button.font-weight` | = claro |
+| 2. Tamaño de fuente e interlineado | Sí | `1rem` / `1` `button.font-size`, `button.line-height` | = claro |
+| 3. Grosor de borde | Sí | `1px` `button.border-width` | = claro |
+| 4. Padding horizontal | Sí | `2rem` `button.padding-inline` ⚠️a | = claro |
+| 5. Altura | Sí | `2.5rem` `button.height` | = claro |
+| 6. Talla pequeña (`.btn-sm`) | Sí | `2rem` alto, `1.5rem` lateral, `0.875rem` `button.sm-*` | = claro |
+| 7. Talla grande (`.btn-lg`) | Sí | `3rem` alto, `4rem` lateral, `1.25rem` `button.lg-*` | = claro |
+| 8. Grosor del anillo de foco | Sí | `2px` `button.focus-ring-width` | = claro |
+| 9. `.btn-primary` (Guardar, Enviar) | Sí | `#BAABFF` con texto `#111E30`; hover y activo `#FFCD00`; deshabilitado `#4A4A4A` con texto `#FFFFFF` `button.primary.*` ⚠️b | = claro ⚠️b |
+| 10. `.btn-secondary` (Cancelar, acciones secundarias) | Sí | outline: transparente, texto y borde `#111E30`; hover y activo relleno `#111E30` con texto `#FFFFFF`; deshabilitado `#D0D0D0` `button.outline.*` ⚠️c | texto y borde `#FFFFFF`; hover relleno `#FFFFFF` con texto `#111E30` `button.outline.surface-dark-*`; deshabilitado `#D0D0D0` / `#6B6B6B` `color.disabled.*-on-dark` ⚠️d |
+| 11. `.btn-outline-primary`, `.btn-outline-secondary` | Sí | = fila 10 ⚠️e | = fila 10 |
+| 12. `.btn-danger`, `.btn-outline-danger` | Sí | outline rojo: texto y borde `#B30000`, relleno `#B30000` con texto `#FFFFFF` en hover `button.destructive.*` ⚠️f | texto y borde `#FF8585` `color.destructive-text-on-dark`; hover relleno `#B30000` (universal) |
+| 13. Anillo de foco | Sí | contorno `2px` sólido a `0.25rem` del botón, sin filete interior, `#111E30`; destructivo `#B30000` `button.focus-ring-*` | `#FFFFFF`; destructivo `#FF8585` |
+| 14. ⏸ Hover de los botones de icono (`.btn-icon`) | Sí | ahora `#E9ECEF` (fondo secundario) · sugerido relleno `#111E30` con icono `#FFFFFF` `button.ghost.hover-*` ⚠️g | ahora `#343A40` · sugerido relleno `#FFFFFF` con icono `#111E30` |
+| 15. ⏸ `.btn-link`: padding horizontal | Sí | ahora `2rem` (heredado) · sugerido `0` `button.text.padding-inline` | = claro |
+| 16. `.btn-link`: peso, color, subrayado, deshabilitado | Sí | `300`, `#111E30` subrayado (fase 2, enlaces), deshabilitado `#4A4A4A` `button.text.*` | `#FFCD00` subrayado; deshabilitado `#D0D0D0` `button.text.surface-dark-disabled-color` |
+| 17. Desplazamiento del foco de los botones MDS | Sí | `0.25rem` `button.focus-ring-offset` | = claro |
+| 18. ⏸ Colores de los botones MDS (`.mds-btn`) | Sí | ahora `#0F6CBF` MDS (fase 2, fila 13) | ahora `#0F6CBF` MDS |
+| 19. `.btn-success`, `.btn-warning` | No | relleno `#006616` / `#FFCD00` (rellenos de la fase 2), hover calculado por Bootstrap | = claro |
+| 20. `.btn-light`, `.btn-subtle-*` | No | Bootstrap / Boost | Bootstrap / Boost |
+
+**Notas**
+
+- **a.** Los botones de Moodle quedan bastante más anchos (antes `0.75rem` por lado).
+- **b.** El botón primario de la marca no tiene par oscuro (solo su anillo de foco): es lavanda en los dos modos. Así
+  se resuelve el `.btn-primary` invisible en oscuro de la fase 2. Para el borde en activo uso el del hover, porque la
+  marca no define uno propio (es el mismo amarillo).
+- **c.** En la marca, `Cancelar` es el botón outline. En la de outline tampoco hay borde propio para activo: uso el
+  del hover.
+- **d.** El outline no tiene par oscuro para deshabilitado; uso los semánticos de deshabilitado en oscuro.
+- **e.** La marca tiene un único outline (prusia); las variantes outline de color de Bootstrap pasan a ser ese.
+- **f.** Antes `.btn-danger` era un relleno rojo; en la marca el destructivo es un outline rojo que se rellena en
+  hover. Deshabilitado, como el outline.
+- **g.** Los botones de icono serían el ghost de la marca; es correspondencia mía. Su hover es el fondo secundario
+  (fase 2, fila 37).
+

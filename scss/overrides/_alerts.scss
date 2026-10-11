@@ -1,0 +1,59 @@
+// Alerts: the brand's alerts are solid fills, not tints.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Bootstrap paints alerts with
+// the generic --bs-*-bg-subtle / -text-emphasis / -border-subtle, which Boost also uses for its light buttons and
+// the course index, so the brand's colours are set on each alert's own --bs-alert-* properties instead.
+// Row numbers refer to docs/brand-mapping.md (phase 2).
+
+// $variant: (bg, text, border) in light mode, and in dark mode where the brand has a dark pair.
+$studiolxd-alerts: (
+    // Default alert (28): alert.*; dark: alert.surface-dark-* (bg and border color.text.on-dark, text color.primary).
+    "primary": (
+        light: ($slxd-alert-bg, $slxd-alert-description-color, $slxd-alert-border-color),
+        dark: ($slxd-color-text-on-dark, $slxd-color-primary, $slxd-color-text-on-dark),
+    ),
+    // Info (32): banner.info-*; the banner has no dark pair, so dark mode uses the default alert's.
+    "info": (
+        light: ($slxd-banner-info-bg, $slxd-banner-info-color, $slxd-banner-info-border-color),
+        dark: ($slxd-color-text-on-dark, $slxd-color-primary, $slxd-color-text-on-dark),
+    ),
+    // Danger, success and warning (29-31): universal fills, the same in both modes.
+    "danger": (
+        light: ($slxd-alert-error-bg, $slxd-alert-error-description-color, $slxd-alert-error-border-color),
+    ),
+    "success": (
+        light: ($slxd-alert-success-bg, $slxd-alert-success-description-color, $slxd-alert-success-border-color),
+    ),
+    "warning": (
+        light: ($slxd-alert-warning-bg, $slxd-alert-warning-description-color, $slxd-alert-warning-border-color),
+    ),
+);
+
+// Links and the close button take the alert's text colour, as in the brand (the close button is a ghost button that
+// follows the fill; on the warning fill it is prussian, alert.warning-close-color). Boost colours them with values
+// computed against its tints, so they are reset here, in light and dark mode.
+@mixin studiolxd-alert-colours($colours) {
+    --#{$prefix}alert-bg: #{nth($colours, 1)};
+    --#{$prefix}alert-color: #{nth($colours, 2)};
+    --#{$prefix}alert-link-color: #{nth($colours, 2)};
+    --#{$prefix}alert-border-color: #{nth($colours, 3)};
+
+    a,
+    .btn-close {
+        color: var(--#{$prefix}alert-color);
+    }
+}
+
+@each $variant, $modes in $studiolxd-alerts {
+    $light: map-get($modes, light);
+    // Without a dark pair the fill is universal: the light colours are repeated so Boost's dark rules do not win.
+    $dark: if(map-has-key($modes, dark), map-get($modes, dark), $light);
+
+    .alert-#{$variant} {
+        @include studiolxd-alert-colours($light);
+
+        @include dark-mode {
+            @include studiolxd-alert-colours($dark);
+        }
+    }
+}

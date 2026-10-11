@@ -1,0 +1,30 @@
+// Utilities: background helper classes.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. In the brand the light and
+// dark backgrounds are the page background of each mode (color.bg.light, color.bg.dark), so the helpers follow
+// the page instead of Bootstrap's theme colours ($light and $dark also paint buttons and text, so they stay).
+// Row numbers refer to docs/brand-mapping.md (phase 2).
+
+// .bg-light (9).
+.bg-light {
+    background-color: var(--#{$prefix}body-bg) !important; // stylelint-disable-line declaration-no-important
+
+    @include dark-mode {
+        background-color: var(--#{$prefix}body-bg) !important; // stylelint-disable-line declaration-no-important
+    }
+}
+
+// .bg-dark (10). Not settled: Moodle always puts white text on it (activity badges, the ad hoc task badge, the
+// debugging footer), which would be white on white in light mode.
+// .bg-dark {
+//     background-color: var(--#{$prefix}body-bg) !important;
+// }
+
+// .bg-primary with white text (17). In dark mode the primary is white, and Moodle almost always pairs .bg-primary
+// with .text-white (unread counters, the current section badge, the course index): the text takes the brand's dark
+// primary tag ink instead (tag.surface-dark-primary-color = color.bg.dark).
+.bg-primary.text-white {
+    @include dark-mode {
+        color: $slxd-color-bg-dark !important; // stylelint-disable-line declaration-no-important
+    }
+}

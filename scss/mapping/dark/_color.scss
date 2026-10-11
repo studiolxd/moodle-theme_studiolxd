@@ -1,5 +1,80 @@
-// Colour, dark mode: mirror of mapping/light/_color.scss.
+// Colour, dark mode: mirror of mapping/light/_color.scss and mapping/light/components/_links.scss.
 //
 // Dark mapping (imported from post.scss, after Boost's moodle/dark.scss): ONLY CSS custom properties
 // (--mds-*, --bs-*) re-pointed to the brand's *-on-dark tokens, inside @include color-mode(dark) { ... }.
 // Moodle switches modes with data-bs-theme="dark" on <html> (theme_boost/enablecolourmodes).
+//
+// The brand's surface-dark-* pairs are not published to SCSS, but each of them points to an *-on-dark semantic
+// token that is, so the pair named in each comment is resolved through that token. Commented-out properties are
+// not settled and do not apply. Row numbers refer to docs/brand-mapping.md (phase 2).
+
+@include color-mode(dark) {
+    // Text (1-5) (text.surface-dark-color = color.text.on-dark).
+    --mds-text-default: #{$slxd-color-text-on-dark};
+    --mds-text-emphasis: #{$slxd-color-text-on-dark};
+    --mds-text-subtle: #{$slxd-color-text-muted-on-dark};
+    --mds-text-muted: #{$slxd-color-text-muted-on-dark};
+    --mds-text-inverse: #{$slxd-color-text-on-light};
+    --mds-text-danger: #{$slxd-color-error-text-on-dark};
+    --mds-text-feedback-primary: #{$slxd-color-text-on-dark};
+    --mds-text-feedback-secondary: #{$slxd-color-text-on-dark};
+    --mds-text-feedback-danger: #{$slxd-color-error-text-on-dark};
+    --mds-text-feedback-success: #{$slxd-color-success-text-on-dark};
+    --#{$prefix}body-color: #{$slxd-color-text-on-dark};
+    --#{$prefix}body-color-rgb: #{to-rgb($slxd-color-text-on-dark)};
+    --#{$prefix}secondary-color: #{$slxd-color-text-muted-on-dark};
+    --#{$prefix}secondary-color-rgb: #{to-rgb($slxd-color-text-muted-on-dark)};
+    --#{$prefix}heading-color: #{$slxd-color-text-on-dark};
+
+    // Surfaces (6-8) (text.surface-dark-bg = color.bg.dark).
+    --mds-bg-surface-default: #{$slxd-color-bg-dark};
+    --mds-bg-surface-subtle: #{$slxd-color-surface-secondary-on-dark};
+    --#{$prefix}body-bg: #{$slxd-color-bg-dark};
+    --#{$prefix}body-bg-rgb: #{to-rgb($slxd-color-bg-dark)};
+
+    // Secondary and tertiary backgrounds (37-38): the support colours, the same as in light mode.
+    --#{$prefix}secondary-bg: #{$slxd-color-support-1};
+    --#{$prefix}secondary-bg-rgb: #{to-rgb($slxd-color-support-1)};
+    --#{$prefix}tertiary-bg: #{$slxd-color-support-2};
+    --#{$prefix}tertiary-bg-rgb: #{to-rgb($slxd-color-support-2)};
+
+    // Borders (11-12). Not settled. The brand's derivation rule: the dark pair of the border is color.text.on-dark.
+    // --mds-border-default: #{$slxd-color-text-on-dark};
+    // --mds-border-subtle: #{$slxd-color-text-on-dark};
+    // --#{$prefix}border-color: #{$slxd-color-text-on-dark};
+
+    // Interactive primary of the design system (13-14). Not settled.
+    // --mds-bg-interactive-primary-default: #{$slxd-color-text-on-dark};
+    // --mds-bg-interactive-primary-hover: #{$slxd-color-white};
+    // --mds-bg-interactive-primary-active: #{$slxd-color-white};
+    // --mds-border-interactive-primary-default: #{$slxd-color-text-on-dark};
+    // --mds-border-interactive-primary-hover: #{$slxd-color-white};
+    // --mds-border-interactive-primary-active: #{$slxd-color-white};
+
+    // Interactive primary, disabled (15-16).
+    --mds-bg-interactive-primary-disabled: #{$slxd-color-disabled-bg-on-dark};
+    --mds-border-interactive-primary-disabled: #{$slxd-color-disabled-border-on-dark};
+
+    // Bootstrap's primary (17): white on a dark surface, the brand's interactive ink there. Bootstrap compiles
+    // .btn-primary with fixed colours, so it does not follow this property (phase 5).
+    --#{$prefix}primary: #{$slxd-color-text-on-dark};
+    --#{$prefix}primary-rgb: #{to-rgb($slxd-color-text-on-dark)};
+
+    // Focus colour of the design system (18) (link.surface-dark-focus-ring-color = color.text.on-dark).
+    --mds-focus-default: #{$slxd-color-text-on-dark};
+
+    // Danger and feedback fills (20, 22, 24) and the text on the warning fill (25) are universal: no dark values.
+
+    // Info (26) (tag.surface-dark-info-bg = color.text.on-dark).
+    --mds-bg-feedback-info-default: #{$slxd-color-text-on-dark};
+    --#{$prefix}info: #{$slxd-color-text-on-dark};
+    --#{$prefix}info-rgb: #{to-rgb($slxd-color-text-on-dark)};
+
+    // Links (41-42) (link.surface-dark-color = color.accent-2): yellow at rest and on hover.
+    --#{$prefix}link-color: #{$slxd-color-accent-2};
+    --#{$prefix}link-color-rgb: #{to-rgb($slxd-color-accent-2)};
+    --#{$prefix}link-hover-color: #{$slxd-color-accent-2};
+    --#{$prefix}link-hover-color-rgb: #{to-rgb($slxd-color-accent-2)};
+    --mds-text-link-primary-default: #{$slxd-color-accent-2};
+    --mds-text-link-primary-hover: #{$slxd-color-accent-2};
+}

@@ -8,3 +8,6 @@
 
 // Overrides: CSS rules only for what variables cannot reach, one file per Moodle area (overrides/_<area>.scss).
 @import "overrides/typography";
+@import "overrides/utilities";
+@import "overrides/alerts";
+@import "overrides/links";

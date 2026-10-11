@@ -1,0 +1,19 @@
+// Links: underline on hover in dark mode.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. The brand underlines links
+// at rest and removes the line on hover in both modes (link.decoration-line / link.hover-decoration-line, no dark
+// pair). In dark mode Boost forces the underline on content links, hover included; the hover is reset here with
+// Boost's own selector, plus :hover. Row 43 of docs/brand-mapping.md (phase 2).
+
+$studiolxd-content-link: "a:not(.btn):not(.nav-link):not(.dropdown-item):not(.list-group-item):not(.page-link)";
+
+#page-header,
+#region-main,
+#page-footer,
+.block_html .card-text {
+    #{$studiolxd-content-link}:hover {
+        @include dark-mode {
+            text-decoration: $slxd-link-hover-decoration-line;
+        }
+    }
+}

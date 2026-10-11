@@ -1,5 +1,86 @@
-// Colour: text, surfaces, borders, links, feedback and interactive (primary) colours.
+// Colour: text, surfaces, borders, feedback and interactive (primary) colours.
 //
 // Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
 // Map $slxd-* brand tokens onto $mds-* design system tokens first; set Bootstrap variables only where MDS does
 // not reach them. Moodle's variables are !default, so the values assigned here win.
+//
+// Commented-out assignments are deliberate: they are not settled yet and do not apply. They keep the suggested
+// value so they can be switched on or changed later. Row numbers refer to docs/brand-mapping.md (phase 2).
+
+// Text (1-5).
+$mds-text-default: $slxd-color-text-on-light;
+$mds-text-emphasis: $slxd-color-text-on-light;
+$mds-text-subtle: $slxd-color-text-muted-on-light;
+$mds-text-muted: $slxd-color-text-muted-on-light;
+$mds-text-inverse: $slxd-color-text-on-dark;
+$mds-text-danger: $slxd-color-error-text-on-light;
+$mds-text-feedback-primary: $slxd-color-text-on-light;
+$mds-text-feedback-secondary: $slxd-color-text-on-light;
+$mds-text-feedback-danger: $slxd-color-error-text-on-light;
+$mds-text-feedback-success: $slxd-color-success-text-on-light;
+$body-color: $mds-text-default;
+$body-secondary-color: $mds-text-muted;
+$headings-color: $slxd-text-heading-color;
+
+// Surfaces (6-8). The page and its panels are the brand's light background; the secondary surface its light grey.
+// .bg-light (9) follows the page background: see overrides/_utilities.scss.
+$mds-bg-surface-default: $slxd-color-bg-light;
+$mds-bg-surface-subtle: $slxd-color-surface-secondary-on-light;
+$body-bg: $mds-bg-surface-default;
+
+// Secondary and tertiary backgrounds (37-38): the brand's support colours, the same in both modes.
+$body-secondary-bg: $slxd-color-support-1;
+$body-tertiary-bg: $slxd-color-support-2;
+
+// Borders (11-12). Not settled: color.border.default-on-light is a subtle border the brand hardly uses.
+// $mds-border-default: $slxd-color-border-default-on-light;
+// $mds-border-subtle: $slxd-color-border-default-on-light;
+// $border-color: $slxd-color-border-default-on-light;
+
+// Interactive primary of the design system (13-14). Not settled.
+// $mds-bg-interactive-primary-default: $slxd-color-primary;
+// $mds-bg-interactive-primary-hover: $slxd-button-outline-hover-bg;
+// $mds-bg-interactive-primary-active: $slxd-button-outline-active-bg;
+// $mds-border-interactive-primary-active: $slxd-button-outline-active-bg;
+
+// Interactive primary, disabled (15-16): the brand's disabled primary button.
+$mds-bg-interactive-primary-disabled: $slxd-button-primary-disabled-bg;
+$mds-border-interactive-primary-disabled: $slxd-button-primary-disabled-border;
+
+// Bootstrap's primary (17): prussian.
+$primary: $slxd-color-primary;
+
+// Focus colour of the design system (18): the brand's focus ring is the surface's ink.
+$mds-focus-default: $slxd-button-primary-focus-ring-color;
+
+// Danger (20-21): the brand's destructive role, one red in every state.
+$mds-bg-interactive-danger-default: $slxd-color-destructive-fill;
+$mds-bg-interactive-danger-hover: $slxd-button-destructive-hover-bg;
+$mds-bg-interactive-danger-active: $slxd-button-destructive-active-bg;
+$mds-border-interactive-danger-active: $slxd-button-destructive-active-bg;
+$danger: $mds-bg-interactive-danger-default;
+
+// Success and warning fills (22, 24), and the text on the warning fill (25). The brand's fills are universal.
+$mds-bg-feedback-success-default: $slxd-color-success-fill;
+$mds-bg-feedback-warning-default: $slxd-color-warning-fill;
+$mds-text-feedback-warning: $slxd-color-warning-fill-text;
+$success: $mds-bg-feedback-success-default;
+$warning: $mds-bg-feedback-warning-default;
+
+// Info (26): in the brand, info is the primary (tag.info-bg, banner.info-bg).
+$mds-bg-feedback-info-default: $slxd-tag-info-bg;
+$info: $mds-bg-feedback-info-default;
+
+// Secondary (27). Not settled: Cancel buttons and neutral badges; the brand's neutral tag would be:
+// $secondary: $slxd-tag-neutral-bg;
+
+// Bootstrap's subtle primary variants and the strong surface (33-36). Not settled; no brand equivalent.
+// Current values, computed by Bootstrap / set by MDS, for reference:
+// $primary-bg-subtle: #cfd2d6;
+// $primary-border-subtle: #a0a5ac;
+// $primary-text-emphasis: #070c13;
+// $mds-bg-surface-strong: #e9ecef;
+
+// Emphasis colour and grey scale (39-40). Not settled; no brand equivalent. Current values for reference:
+// $body-emphasis-color: #000000;
+// $gray-100 … $gray-900: Moodle's grey scale (#f8f9fa … #1d2125).

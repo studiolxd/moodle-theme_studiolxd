@@ -1,0 +1,12 @@
+// Links: colour and underline.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// In the brand a link has no colour of its own: it is text (prussian), told apart by its underline, which is
+// there at rest and goes away on hover. The underline's thickness and offset tokens are left for a later phase.
+
+$mds-text-link-primary-default: $slxd-link-color;
+$mds-text-link-primary-hover: $slxd-link-hover-color;
+$link-color: $mds-text-link-primary-default;
+$link-hover-color: $mds-text-link-primary-hover;
+$link-decoration: $slxd-link-decoration-line;
+$link-hover-decoration: $slxd-link-hover-decoration-line;

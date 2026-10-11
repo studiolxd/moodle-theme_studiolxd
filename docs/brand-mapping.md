@@ -289,3 +289,27 @@ bolita como SVG de color fijo: el modo oscuro, el radio sin relleno y la pista d
   activa por JavaScript y el core de Moodle no lo usa. La marca lo dibuja como una línea; su CSS no rellena la caja
   y la línea es del color de la marca de verificación (blanca), así que se ha decidido caja vacía con la línea en el
   color del borde. El `60%` está en el CSS del Checkbox de la marca (no es un token).
+
+### Etiquetas y mensajes de formulario
+
+`mapping/light/components/_form-text.scss` y `overrides/_form-text.scss`. Etiquetas y ayuda son la tinta en la marca
+(`label.color`, `form.helper-color`), que `--bs-body-color` ya vale en cada modo.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Etiquetas: tamaño, peso e interlineado | Sí | `0.875rem`, `500`, `1.5` `label.*` (antes el cuerpo) | = claro |
+| 2. Etiquetas: color | Sí | `#111E30` `label.color` | `#FFFFFF` `label.surface-dark-color` |
+| 3. Separación de la etiqueta al campo | Sí | `0.5rem` `input-field.gap` | = claro |
+| 4. Texto de ayuda | Sí | `0.875rem`, `300`, `#111E30` (antes gris) `form.helper-*` ⚠️a | `#FFFFFF` `form.surface-dark-helper-color` |
+| 5. Separación del campo a la ayuda y al error | Sí | `0.5rem` `input-field.gap` (antes `0.25rem`) | = claro |
+| 6. Mensaje de error | Sí | `0.875rem`, `#B30000` `form.error-*` | `#FF8585` `form.surface-dark-error-color` |
+| 7. Leyendas de los grupos (`legend`) | Sí | peso `500`, margen `0.5em` `text.heading.font-weight`, `fieldset.legend-space-after` | = claro |
+| 8. ⏸ Leyendas: tamaño | Sí | ahora `1.5rem` Bootstrap · sugerido `1.5rem` `text.h4.font-size` ⚠️b | = claro |
+| 9. ⏸ Separación entre campos | Sí | ahora `1rem` (`.mb-3` de Moodle) · sugerido `1.5rem` `form.gap` ⚠️c | = claro |
+
+**Notas**
+
+- **a.** Moodle añade `.text-muted` a su texto de ayuda; se sobrescribe para que sea tinta, como en la marca.
+- **b.** En la marca el tamaño de la leyenda se elige en cada grupo (es un título con talla); no hay uno por defecto.
+- **c.** Moodle separa sus filas de formulario con la utilidad `.mb-3`: cambiarlo exige sobrescribirla dentro de los
+  formularios.

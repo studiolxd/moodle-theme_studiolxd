@@ -1,0 +1,26 @@
+// Form text: what Bootstrap's form variables do not reach.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Variables are in
+// mapping/light/components/_form-text.scss. Row numbers refer to docs/brand-mapping.md (phase 5, form text).
+
+// Side labels (2): Bootstrap fixes .col-form-label's size (inherit) and line height (the field's, 1).
+.col-form-label {
+    font-size: $slxd-label-font-size;
+    line-height: $slxd-label-line-height;
+}
+
+// Error messages (4): Moodle sets a fixed red on .invalid-feedback; it goes back to the colour that follows the mode.
+.invalid-feedback {
+    color: var(--#{$prefix}form-invalid-color);
+}
+
+// Help text (3): Moodle adds .text-muted to its help text, which would make it grey; the brand's is ink.
+.form-text.text-muted {
+    color: var(--#{$prefix}body-color) !important; // stylelint-disable-line declaration-no-important
+}
+
+// Space between form items (6). Not settled: Moodle spaces its form rows with the .mb-3 utility (1rem); the brand's
+// gap between fields is form.gap (1.5rem).
+// .mform .fitem {
+//     margin-bottom: $slxd-form-gap !important;
+// }

@@ -1,0 +1,30 @@
+// Form text: labels, help text, error messages and legends.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// Labels and help text are the text colour in the brand (label.color, form.helper-color = color.text.on-light; dark:
+// color.text.on-dark), which --bs-body-color holds in each mode. What has no variable is in overrides/_form-text.scss.
+// Row numbers refer to docs/brand-mapping.md (phase 5, form text).
+
+// Labels (1-2): .form-label, and .col-form-label for Moodle's side labels.
+$form-label-font-size: $slxd-label-font-size;
+$form-label-font-weight: $slxd-label-font-weight;
+$form-label-color: var(--bs-body-color);
+$form-label-margin-bottom: $slxd-input-field-gap;
+// .col-form-label takes the weight and colour above; its size and line height are fixed by Bootstrap
+// (overrides/_form-text.scss).
+
+// Help text (3): ink, not grey, one step below the body, at the field's gap.
+$form-text-font-size: $slxd-form-helper-font-size;
+$form-text-font-weight: $slxd-form-helper-font-weight;
+$form-text-color: var(--bs-body-color);
+$form-text-margin-top: $slxd-input-field-gap;
+
+// Error messages (4): colour in mapping/light/components/_fields.scss (row 6) and mapping/dark/_color.scss.
+$form-feedback-font-size: $slxd-form-error-font-size;
+$form-feedback-margin-top: $slxd-input-field-gap;
+
+// Legends (5): a fieldset's legend is a heading in the brand, with the heading's weight and space after.
+$legend-font-weight: $slxd-text-heading-font-weight;
+$legend-margin-bottom: $slxd-fieldset-legend-space-after;
+// Not settled: the brand's legend takes a heading size chosen per fieldset; Bootstrap's is 1.5rem (an h4).
+// $legend-font-size: $slxd-text-h4-font-size;

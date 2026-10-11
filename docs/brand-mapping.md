@@ -148,3 +148,33 @@ con el modo; el anillo de foco toma su color de `--mds-focus-default`, que es pr
   aunque en la marca corresponderían a `number-badge` (`12px`, peso `300`).
 - **f.** Anchos y huecos son tokens; los colores van por `var(--mds-focus-default)` y `var(--bs-body-bg)`, que valen
   los tokens de cada modo (fase 2, filas 6 y 18): un valor SCSS compilado no cambiaría con el modo.
+
+## Fase 4 — Espaciado y tallas
+
+`mapping/light/_spacing.scss`. El espaciado no cambia con el modo.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Unidad base (`$spacer`) | Sí | `1rem` `spacing.4` | = claro |
+| 2. Escala de Bootstrap (spacers 1–6: `m-*`, `p-*`, `gap-*`) | Sí | `0.25` / `0.5` / `1` / `1.5` / `2` / `3rem` `spacing.1`, `2`, `4`, `5`, `6`, `7` ⚠️a | = claro |
+| 3. Espaciado de MDS (xxs, xs, sm, md, xl, xxl) | Sí | `0.25` / `0.5` / `0.75` / `1` / `2` / `3rem` `spacing.1`, `2`, `3`, `4`, `6`, `7` | = claro |
+| 4. ⏸ Espaciado de MDS lg | No | ahora `1.25rem` MDS · sugerido `1.5rem` `spacing.5` | = claro |
+| 5. Margen bajo los títulos (componentes MDS) | Sí | `0.5em` `text.heading.space-after` (antes `0.5rem`) | = claro |
+| 6. ⏸ Campos: interlineado | Sí | ahora `1.5` Bootstrap · sugerido `1` `control.line-height` ⚠️b | = claro |
+| 7. ⏸ Campos: padding horizontal | Sí | ahora `0.75rem` Bootstrap · sugerido `1rem` `control.padding-inline` | = claro |
+| 8. ⏸ Campos: altura | Sí | ahora `38px` (derivada) · sugerido `2.5rem` `control.height` ⚠️c | = claro |
+| 9a. ⏸ Botones: interlineado | Sí | ahora `1.5` Bootstrap · sugerido `1` `button.line-height` | = claro |
+| 9b. ⏸ Botones: padding horizontal | Sí | ahora `0.75rem` Bootstrap · sugerido `2rem` `button.padding-inline` | = claro |
+| 9c. ⏸ Botones: altura | Sí | ahora `38px` (derivada) · sugerido `2.5rem` `button.height` ⚠️c | = claro |
+
+**Notas**
+
+- **a.** Los valores son los mismos que ya tenía Moodle, así que no cambia nada visible: solo pasan a salir de los
+  tokens. La correspondencia de índices es mía, porque la escala de la marca tiene un paso más (`0.75rem`,
+  `spacing.3`) que la de Bootstrap no tiene.
+- **b.** Pendiente de la fase 5: Bootstrap usa `.form-control` también para los `textarea`, que en la marca mantienen
+  interlineado `1.5` (`textarea.line-height`); hay que separar primero los campos de una línea de los de varias.
+- **c.** Bootstrap no tiene variable de altura: la deriva del padding vertical. La altura se obtiene con un padding
+  calculado solo con tokens: `(altura − tamaño de fuente × interlineado − 2 × grosor de borde) / 2`, con
+  `control.height`, `control.font-size`, `control.line-height`, `control.border-width` en los campos y
+  `button.height`, `button.font-size`, `button.line-height`, `button.border-width` en los botones.

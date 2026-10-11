@@ -3,3 +3,48 @@
 // Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
 // Map $slxd-* brand tokens onto $mds-* design system tokens first; set Bootstrap variables only where MDS does
 // not reach them. Moodle's variables are !default, so the values assigned here win.
+//
+// Spacing does not change with the colour mode. Commented-out assignments are not settled and do not apply.
+// Row numbers refer to docs/brand-mapping.md (phase 4).
+
+// Bootstrap's spacing scale (1-2): spacers 1-6 (m-1…m-6, p-1…p-6, gap-*) on the brand's steps of the same value.
+$spacer: $slxd-spacing-4;
+$spacers: (
+    0: 0,
+    1: $slxd-spacing-1,
+    2: $slxd-spacing-2,
+    3: $slxd-spacing-4,
+    4: $slxd-spacing-5,
+    5: $slxd-spacing-6,
+    6: $slxd-spacing-7,
+);
+
+// Design system spacing (3-4).
+$mds-spacing-xxs: $slxd-spacing-1;
+$mds-spacing-xs: $slxd-spacing-2;
+$mds-spacing-sm: $slxd-spacing-3;
+$mds-spacing-md: $slxd-spacing-4;
+$mds-spacing-xl: $slxd-spacing-6;
+$mds-spacing-xxl: $slxd-spacing-7;
+// Not settled: MDS's lg is 1.25rem, a step the brand does not have (its scale goes 1rem, 1.5rem).
+// $mds-spacing-lg: $slxd-spacing-5;
+
+// Space below a heading in the design system's components (5).
+$mds-margin-bottom-heading: $slxd-text-heading-space-after;
+
+// Control sizes (6-9). Not settled: Bootstrap's .form-control also styles textareas, which in the brand keep a 1.5
+// line height (textarea.line-height), so single-line fields and textareas have to be separated first (phase 5).
+// The brand's single-line control is 2.5rem high with a line height of 1; Bootstrap derives the height from the
+// padding, so the padding is what makes it 2.5rem.
+// $input-line-height: $slxd-control-line-height;
+// $input-padding-x: $slxd-control-padding-inline;
+// $input-padding-y: calc(
+//     (#{$slxd-control-height} - #{$slxd-control-font-size} * #{$slxd-control-line-height}
+//     - 2 * #{$slxd-control-border-width}) / 2
+// );
+// $btn-line-height: $slxd-button-line-height;
+// $btn-padding-x: $slxd-button-padding-inline;
+// $btn-padding-y: calc(
+//     (#{$slxd-button-height} - #{$slxd-button-font-size} * #{$slxd-button-line-height}
+//     - 2 * #{$slxd-button-border-width}) / 2
+// );

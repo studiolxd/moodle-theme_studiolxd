@@ -454,3 +454,29 @@ nada con el modo.
   en oscuro de la fase 2.
 - **b.** El resto de insignias con `.bg-primary.text-white` (sección actual, "Oculto para estudiantes") son etiquetas
   con texto, no cifras: siguen siendo el Tag de la marca.
+
+### Componentes MDS que Moodle renderiza
+
+`overrides/_mds-components.scss`, junto con lo ya hecho en `_navbar.scss`, `_secondary-nav.scss` y `_checks.scss`.
+Moodle 5.3 renderiza cinco componentes del sistema de diseño (`@moodlehq/design-system`): NavPill (barra superior y
+navegación secundaria), Switch (interruptor de modo edición), Button (bloque timeline), y los dos de aquí. Los otros
+once del paquete (Avatar, Breadcrumb, Checkbox, Choicebox, CloseButton, FavouriteButton, Link, Pagination,
+ProgressBar, Radio, Tooltip) Moodle aún no los usa: cuando los use, heredarán los tokens ya mapeados.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. MDS badge "Vencida" (`.mds-badge--danger`, timeline) | Sí | relleno `#B30000`, texto `#FFFFFF` `tag.error-*` | = claro (relleno universal) |
+| 2. MDS badge contador (`.mds-badge--secondary`, timeline) | Sí | relleno `#111E30`, texto `#FFFFFF` `number-badge.primary-*` | relleno `#FFFFFF`, texto `#111E30` (par surface-dark, invertido como el Tag) |
+| 3. MDS badge: forma y tipografía | Sí | píldora, `14px`, peso `500`, interlineado `1`, padding `0.25rem` × `0.75rem` `tag.*` | = claro |
+| 4. MDS badge sutil (`.mds-badge--subtle`) | No | no lo renderiza Moodle; si un plugin lo hace, queda el tinte de MDS | = claro |
+| 5. MDS activity icon (`.mds-activity-icon`, timeline) | Parcial | sin losa de categoría (`container="none"`, Moodle) ni talla de la marca: la dibuja MDS | = claro |
+
+**Notas**
+
+- **a.** Los tokens del Badge de MDS (`--mds-bg-feedback-danger-default`, `--mds-text-inverse`…) ya valen los de la
+  marca (fase 2), pero MDS compila sus colores: la píldora de "Vencida" y el contador necesitan la regla.
+- **b.** La marca no tiene un Badge propio: la etiqueta es el Tag y la cifra es el number badge, como en las filas 1
+  y 2. La píldora del contador se distingue del Tag solo en su padding, el del number badge.
+- **c.** El icono de actividad del timeline se dibuja sin losa (sin los colores por categoría de MDS, que la marca
+  tampoco tiene) y su talla no está en la escala de iconos de la marca: no hay nada que mapear, salvo que la marca
+  defina una losa o una talla para él.

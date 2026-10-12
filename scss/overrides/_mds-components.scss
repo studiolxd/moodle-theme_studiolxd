@@ -1,0 +1,53 @@
+// Design system components: the MDS components Moodle itself renders.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Moodle 5.3 renders five MDS
+// components (NavPill and Switch are mapped in _navbar.scss, _secondary-nav.scss and _checks.scss). The two here are
+// the Badge of the timeline block and the ActivityIcon that draws with it. Row numbers refer to
+// docs/brand-mapping.md (phase 5, MDS badge and activity icon).
+//
+// The dark mapping of the custom properties they follow (--mds-text-feedback-*, --mds-bg-feedback-info-default) is in
+// mapping/dark/_color.scss.
+
+// MDS badge (1-3, 6-8): the timeline block renders it as an overdue tag and as an activity counter. They take the
+// brand's shape and typography, and each variant its brand fill:
+// - --danger, "Vencida" (1): the brand's error tag (tag.error-*): red fill with white text, universal, no dark pair.
+// - --secondary with a count (2): the brand's number badge: ink in light mode; in dark mode the surface-dark pair
+//   (number-badge.primary-*) inverts it into white with prussian text, because the prussian fill would disappear on
+//   the dark page (same reason as the Tag).
+.mds-badge {
+    font-family: $slxd-tag-font-family;
+    font-weight: $slxd-tag-font-weight;
+    font-size: $slxd-tag-font-size;
+    line-height: $slxd-tag-line-height;
+    letter-spacing: $slxd-text-letter-spacing;
+    padding-block: $slxd-tag-padding-block;
+    padding-inline: $slxd-tag-padding-inline;
+    border-radius: $slxd-tag-border-radius;
+}
+
+// Danger variant (1): the error tag's universal fill, white text on it.
+.mds-badge--danger {
+    background-color: $slxd-tag-error-bg;
+    color: $slxd-tag-error-color;
+}
+
+// Secondary variant (2): a count, so the number badge's primary pair, following the mode. The brand's surface-dark
+// pair (number-badge.primary-*) inverts it: the prussian fill would disappear on the dark page, so in dark mode it is
+// white with prussian text, like the Tag.
+.mds-badge--secondary {
+    background-color: $slxd-number-badge-primary-bg;
+    color: $slxd-number-badge-primary-color;
+
+    @include dark-mode {
+        background-color: $slxd-color-text-on-dark;
+        color: $slxd-color-bg-dark;
+    }
+}
+
+// Activity icon (9-10): the timeline draws its icons with container="none" (no tile, no category colour), so only
+// the size could apply. The icon it renders is xl (2rem in MDS): the brand's icon scale has 2rem as the size of an
+// icon inside a highlighted context, but its "illustrative" size is 4rem; the timeline draws it inside a 2.5rem
+// line, so the brand has no size for it and MDS's stays (no override).
+
+// The subtle variants (--badge-subtle) are not rendered by Moodle: the timeline only uses the plain danger and
+// secondary ones. If a plugin renders them, they keep MDS's tinted surface, which the brand has no equivalent for.

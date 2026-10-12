@@ -357,3 +357,23 @@ Tabs de la marca en su variante pastilla.
 
 - **a.** En la variante pastilla de la marca el hover solo cambia el color del texto, sin fondo.
 - **b.** Boost usa la misma altura para los enlaces de la barra superior y para esta fila.
+
+### Migas de pan
+
+`mapping/light/components/_breadcrumb.scss` y `overrides/_breadcrumb.scss`. Enlaces, separador y página actual son la
+tinta en la marca, que `--bs-body-color` ya vale en cada modo.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Tamaño | Sí | `0.875rem` `breadcrumb.font-size` | = claro |
+| 2. Padding vertical | Sí | `0.25rem` `breadcrumb.padding-block` (antes `0.5rem`) | = claro |
+| 3. Separación entre elementos | Sí | `0.5rem` `breadcrumb.gap` | = claro |
+| 4. Enlaces y separador (`/`) | Sí | `#111E30` `breadcrumb.link-color`, `breadcrumb.separator-color` (el separador antes gris) | `#FFFFFF` `breadcrumb.surface-dark-*` |
+| 5. Página actual | Sí | `#111E30`, peso `500` `breadcrumb.current-*` | `#FFFFFF` `breadcrumb.surface-dark-current-color` |
+| 6. ⏸ Página actual: subrayado | Sí | ahora subrayada · sugerido sin subrayado ⚠️a | = claro |
+| 7. ⏸ Interlineado | Sí | ahora `1.5` (el del cuerpo) · sugerido `1` `breadcrumb.line-height` ⚠️b | = claro |
+
+**Notas**
+
+- **a.** En la marca la página actual es texto, no enlace; en Moodle es el último enlace (`aria-current="page"`).
+- **b.** La marca la quiere en una sola línea; Moodle deja que los elementos largos salten de línea.

@@ -1,0 +1,17 @@
+// Breadcrumb: the current page.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Moodle marks the current page
+// with aria-current="page" on the last link, not with .active, and Bootstrap has no weight variable for it.
+// Row numbers refer to docs/brand-mapping.md (phase 5, breadcrumb).
+
+.breadcrumb-item [aria-current="page"] {
+    font-weight: $slxd-breadcrumb-current-font-weight;
+
+    // Underline (6). Not settled: in the brand the current page is text, not a link; in Moodle it is still a link.
+    // text-decoration-line: none;
+}
+
+// Line height (7). Not settled: the brand's breadcrumb is single-line (1), but Moodle lets long items wrap.
+// .breadcrumb {
+//     line-height: $slxd-breadcrumb-line-height;
+// }

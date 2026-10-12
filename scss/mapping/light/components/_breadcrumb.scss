@@ -1,0 +1,13 @@
+// Breadcrumb: size, spacing and colours.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// Links, separator and current page are the text colour in the brand (breadcrumb.*-color = color.text.on-light; dark:
+// color.text.on-dark), which --bs-body-color holds in each mode. The separator is "/", as Bootstrap's.
+// Row numbers refer to docs/brand-mapping.md (phase 5, breadcrumb).
+
+$breadcrumb-font-size: $slxd-breadcrumb-font-size;
+$breadcrumb-padding-y: $slxd-breadcrumb-padding-block;
+$breadcrumb-padding-x: $slxd-breadcrumb-padding-inline;
+$breadcrumb-item-padding-x: $slxd-breadcrumb-gap;
+$breadcrumb-divider-color: var(--bs-body-color);
+$breadcrumb-active-color: var(--bs-body-color);

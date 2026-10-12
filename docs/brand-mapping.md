@@ -336,3 +336,24 @@ principal (las pastillas de MDS de Moodle) toma las Tabs de la marca sin línea 
 - **a.** Boost suma px a `$navbar-height` en muchos sitios, así que la altura se calcula desde los tokens y se pasa a px
   con la raíz por defecto del navegador (`16px`): esa conversión es mía. Los enlaces de la barra (`$moremenu-height`)
   toman la misma altura; Boost la usa también para la barra de la navegación secundaria.
+
+### Navegación secundaria
+
+`overrides/_secondary-nav.scss`. Las pestañas bajo el título de la página (las pastillas de MDS de Moodle) toman las
+Tabs de la marca en su variante pastilla.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Color de las pestañas | Sí | `#4A4A4A` `tabs.trigger-color` | `#D0D0D0` `tabs.surface-dark-trigger-color` |
+| 2. Hover | Sí | `#111E30`, sin fondo `tabs.trigger-hover-color` ⚠️a | `#FFFFFF` `tabs.surface-dark-trigger-hover-color` |
+| 3. Pestaña actual | Sí | relleno `#111E30`, texto `#FFFFFF`, peso `500`, sin el punto de Moodle `tabs.trigger-pill-active-*`, `tabs.trigger-active-weight` | relleno `#BAABFF`, texto `#111E30` `tabs.surface-dark-trigger-pill-active-*` |
+| 4. Tamaño y peso | Sí | `1rem`, `300` `tabs.trigger-font-*` (antes `0.875rem`, `500`) | = claro |
+| 5. Padding | Sí | `0.75rem` × `1rem` `tabs.trigger-padding-*` | = claro |
+| 6. Línea inferior de la fila | Sí | sin línea (la variante pastilla no la lleva) | = claro |
+| 7. Altura de la fila | Sí | `56px`, la de la barra superior (`$moremenu-height`) ⚠️b | = claro |
+| 8. Foco | Sí | contorno `2px` a `1px` en la tinta `tabs.focus-ring-*` (MDS, fase 3) | `#FFFFFF` |
+
+**Notas**
+
+- **a.** En la variante pastilla de la marca el hover solo cambia el color del texto, sin fondo.
+- **b.** Boost usa la misma altura para los enlaces de la barra superior y para esta fila.

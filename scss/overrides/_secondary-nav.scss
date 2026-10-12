@@ -1,0 +1,58 @@
+// Secondary navigation: the tabs below the page title (the design system's nav pills).
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. It takes the brand's tabs in
+// their pill variant: no line, the text changes colour on hover, and the current tab is filled
+// (tabs.trigger-*, tabs.trigger-pill-*; dark: tabs.surface-dark-*). Moodle marks the current tab with
+// .mds-nav-pill--selected or .active; Boost styles the active one with this same selector, so it is used here too.
+// Row numbers refer to docs/brand-mapping.md (phase 5, secondary navigation).
+
+.secondary-navigation .navigation.secondarynav-tabbar .mds-nav-pill {
+    --mds-bg-nav-pill-hover: transparent;
+    --mds-bg-nav-pill-pressed: transparent;
+    color: $slxd-tabs-trigger-color;
+    padding: $slxd-tabs-trigger-padding-block $slxd-tabs-trigger-padding-inline;
+
+    .mds-nav-pill__label {
+        font-size: $slxd-tabs-trigger-font-size;
+        font-weight: $slxd-tabs-trigger-font-weight;
+    }
+
+    .mds-nav-pill__indicator {
+        display: none;
+    }
+
+    &:hover {
+        color: $slxd-tabs-trigger-hover-color;
+    }
+
+    &.mds-nav-pill--selected,
+    &.active {
+        --mds-bg-nav-pill-selected: #{$slxd-tabs-trigger-pill-active-bg};
+        color: $slxd-tabs-trigger-pill-active-color;
+        background-color: $slxd-tabs-trigger-pill-active-bg;
+
+        .mds-nav-pill__label {
+            font-weight: $slxd-tabs-trigger-active-weight;
+        }
+
+        // Boost's dot before the current tab.
+        &::before {
+            display: none;
+        }
+    }
+
+    @include dark-mode {
+        color: $slxd-color-text-muted-on-dark;
+
+        &:hover {
+            color: $slxd-color-text-on-dark;
+        }
+
+        &.mds-nav-pill--selected,
+        &.active {
+            --mds-bg-nav-pill-selected: #{$slxd-color-accent-1};
+            color: $slxd-color-primary;
+            background-color: $slxd-color-accent-1;
+        }
+    }
+}

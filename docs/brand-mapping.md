@@ -408,3 +408,26 @@ que así siguen también al modo.
 - **b.** Moodle lo marca con `.active`, `aria-current` o `aria-selected`; Bootstrap lo rellenaba y Boost le ponía una
   marca ✓ delante, con hueco a la izquierda para ella. Al resaltarlo se invierte como cualquier otro ítem.
 
+
+### Tarjetas
+
+`mapping/light/components/_cards.scss` y `overrides/_cards.scss`. Las tarjetas de Moodle (bloques, tarjetas de curso,
+paneles del área personal) son la tarjeta outline de la marca: el fondo de la página con un borde en la tinta, que
+`--bs-body-bg` y `--bs-body-color` ya valen en cada modo.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Fondo | Sí | `#FFFFFF` `card.outline-bg` (antes `var(--bs-white)`) | `#111E30` `card.surface-dark-outline-bg` (antes `#343A40` de Boost) |
+| 2. Borde | Sí | `1px` `#111E30` `card.outline-border-*` (antes gris claro) | `#FFFFFF` `card.surface-dark-outline-border-color` |
+| 3. Radio | Sí | `0` `card.border-radius` | = claro |
+| 4. Padding | Sí | `1rem` lateral y arriba, `0.75rem` abajo `card.padding-*` | = claro |
+| 5. Separación bajo el título | Sí | `0.25rem` `card.header-row-gap` (antes `0.5rem`) ⚠️a | = claro |
+| 6. Fondo de cabecera y pie | Sí | sin fondo propio, el de la tarjeta (antes un tinte del texto al 3 %) | = claro |
+| 7. Tarjeta seleccionada (`.card.active`) | Sí | fondo y borde `#BAABFF`, texto `#111E30` `card.primary-bg`, `card.primary-color` ⚠️b | = claro (sin par oscuro) |
+
+**Notas**
+
+- **a.** La correspondencia es mía: es la separación entre el título y la descripción en la cabecera de la tarjeta.
+- **b.** En el core solo la usan las tarjetas de factores de la autenticación en varios pasos (`tool_mfa`). El lavanda
+  contrasta en cualquier superficie, así que es igual en los dos modos, y el texto de dentro (títulos, enlaces, texto
+  secundario) mantiene los colores de la superficie clara también en oscuro.

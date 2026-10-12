@@ -1,0 +1,23 @@
+// Cards: the brand's bottom padding.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Bootstrap pads a card's body
+// with one vertical value; the brand's card has less air at the bottom (card.padding-block-end).
+// Row 4 of docs/brand-mapping.md (phase 5, cards).
+
+.card-body {
+    padding-block-end: $slxd-card-padding-block-end;
+}
+
+// Selected card (7): the brand's coloured card, lavender with prussian text (card.primary-bg, card.primary-color). It
+// has no dark pair (a saturated colour that contrasts on any surface), so it is the same in both modes, and the text
+// inside keeps the light surface's colours in both modes too. Boost marks it with a grey border.
+.card.active {
+    --#{$prefix}card-bg: #{$slxd-card-primary-bg};
+    --#{$prefix}card-color: #{$slxd-card-primary-color};
+    --#{$prefix}body-color: #{$slxd-card-primary-color};
+    --#{$prefix}heading-color: #{$slxd-card-primary-color};
+    --#{$prefix}link-color-rgb: #{to-rgb($slxd-card-primary-color)};
+    --#{$prefix}link-hover-color-rgb: #{to-rgb($slxd-card-primary-color)};
+    --#{$prefix}secondary-color: #{$slxd-color-text-muted-on-light};
+    border-color: $slxd-card-primary-bg;
+}

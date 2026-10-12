@@ -1,0 +1,24 @@
+// Cards: Moodle's cards (blocks, course cards, dashboard panels) are the brand's outline card.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// The outline card is the page background with a border in the ink (card.outline-bg = color.bg.light,
+// card.outline-border-color = color.text.on-light; dark: color.bg.dark, color.text.on-dark), which --bs-body-bg and
+// --bs-body-color hold in each mode. Row numbers refer to docs/brand-mapping.md (phase 5, cards).
+
+// Panel (1-3).
+$card-bg: var(--bs-body-bg);
+$card-border-color: var(--bs-body-color);
+$card-border-width: $slxd-card-outline-border-width;
+$card-border-radius: $slxd-card-border-radius;
+// Bootstrap derives the inner radius as radius − border, which is -1px with straight corners.
+$card-inner-border-radius: $slxd-card-border-radius;
+
+// Padding (4): Bootstrap has one vertical padding; the brand's bottom padding is in overrides/_cards.scss.
+$card-spacer-x: $slxd-card-padding-inline;
+$card-spacer-y: $slxd-card-padding-block-start;
+
+// Space below the title (5): the brand's gap between a card's title and its description.
+$card-title-spacer-y: $slxd-card-header-row-gap;
+
+// Header and footer background (6): none, the card's own (Bootstrap tints them).
+$card-cap-bg: transparent;

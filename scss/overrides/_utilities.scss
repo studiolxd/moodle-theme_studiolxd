@@ -28,3 +28,21 @@
         color: $slxd-color-bg-dark !important; // stylelint-disable-line declaration-no-important
     }
 }
+
+// Text colour helpers in dark mode (phase 2, rows 17, 21, 23 and 26). Boost recomputes .text-primary, .text-danger,
+// .text-success and .text-info by lightening their colour; they take the brand's text tokens for a dark surface
+// instead. .text-warning keeps Boost's: the brand has no warning text colour.
+$studiolxd-dark-text-colours: (
+    "primary": $slxd-color-text-on-dark,
+    "info": $slxd-color-text-on-dark,
+    "danger": $slxd-color-error-text-on-dark,
+    "success": $slxd-color-success-text-on-dark,
+);
+
+@each $name, $colour in $studiolxd-dark-text-colours {
+    .text-#{$name} {
+        @include dark-mode {
+            --#{$prefix}#{$name}-rgb: #{to-rgb($colour)};
+        }
+    }
+}

@@ -113,6 +113,8 @@ Archivos: `scss/mapping/light/` (variables), `scss/mapping/dark/` (custom proper
   `.bg-primary.text-white` (contadores, insignias) lleva texto prusia en oscuro, como `tag.surface-dark-primary-color`.
 - **h.** En oscuro MDS pone este texto sobre un tinte oscuro (`#665200`), no sobre el relleno: el prusia no se leería.
 - **i.** La marca no tiene "info" en Alert (sí en Banner, sin par oscuro); uso el de la alerta por defecto.
+- **l.** En oscuro, Boost recalculaba las clases de texto `.text-primary`, `.text-info`, `.text-danger` y `.text-success`
+  aclarando su color; ahora toman los tokens de las filas 17, 26, 21 y 23 (`overrides/_utilities.scss`).
 - **k.** No está claro dónde usa Moodle estos fondos (entre otros, el hover de los botones de icono, la mensajería y
   los popovers de notificaciones).
 
@@ -377,3 +379,32 @@ tinta en la marca, que `--bs-body-color` ya vale en cada modo.
 
 - **a.** En la marca la página actual es texto, no enlace; en Moodle es el último enlace (`aria-current="page"`).
 - **b.** La marca la quiere en una sola línea; Moodle deja que los elementos largos salten de línea.
+
+### Menús desplegables
+
+`mapping/light/components/_dropdowns.scss` y `overrides/_dropdowns.scss`. Son el Menú de la marca. Su resaltado es la
+superficie invertida (fondo la tinta, texto el fondo de la página), que `--bs-body-color` y `--bs-body-bg` ya valen en
+cada modo; Boost compila esos colores en muchas reglas propias (menú "Más", búsqueda del calificador, ítems de color),
+que así siguen también al modo.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Panel: fondo y texto | Sí | `#FFFFFF` / `#111E30` `menu.bg`, `menu.item-color` | `#111E30` / `#FFFFFF` `menu.surface-dark-item-color` |
+| 2. Panel: borde | Sí | `1px` `#111E30` `menu.border-*` (antes translúcido) | `#FFFFFF` |
+| 3. Panel: padding | Sí | `0.5rem` × `0.5rem` `menu.padding-*` (antes `0.5rem` × `0`) | = claro |
+| 4. Panel: radio y sombra | Sí | `0`, sin sombra `menu.border-radius`, `menu.shadow` (fase 3) | = claro |
+| 5. Ítems: tamaño, padding e interlineado | Sí | `1rem`, `0.5rem` × `1rem`, `1.3` `menu.item-*` (antes `0.25rem` de padding vertical y `1.5`) | = claro |
+| 6. Ítem resaltado (puntero, teclado o pulsado) | Sí | relleno `#111E30`, texto `#FFFFFF` `menu.item-highlighted-*` ⚠️a | relleno `#FFFFFF`, texto `#111E30` `menu.surface-dark-item-highlighted-*` |
+| 7. Rótulos de sección | Sí | `0.875rem`, `500`, `#4A4A4A` `menu.label-*` | `#D0D0D0` `menu.surface-dark-label-color` |
+| 8. Separador | Sí | `1px` `#111E30`, margen `0.5rem` `menu.separator-*` | `#FFFFFF` `menu.surface-dark-separator-color` |
+| 9. Ítems deshabilitados | Sí | opacidad `0.4` `menu.disabled-opacity` | = claro |
+| 10. Ítem destructivo (`.text-danger`) | Sí | texto `#B30000`; resaltado relleno `#B30000` con texto `#FFFFFF` `menu.item-destructive-*` | texto `#FF8585`; resaltado igual (relleno universal) |
+| 11. Ítem seleccionado (página actual, opción elegida) | Sí | solo peso `500`, sin relleno ni marca ✓ `menu.item-selected-font-weight` ⚠️b | = claro |
+
+**Notas**
+
+- **a.** Boost fija sin `!default` el hover de los menús y pone a mano el texto blanco del resaltado en el menú "Más" y
+  en los ítems con texto de color: esas reglas se sobrescriben para que sigan al resaltado de cada modo.
+- **b.** Moodle lo marca con `.active`, `aria-current` o `aria-selected`; Bootstrap lo rellenaba y Boost le ponía una
+  marca ✓ delante, con hueco a la izquierda para ella. Al resaltarlo se invierte como cualquier otro ítem.
+

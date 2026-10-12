@@ -1,0 +1,32 @@
+// Dropdown menus: the brand's menu.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// Background and text already follow the mode (menu.bg = color.bg.light, menu.item-color = color.text.on-light), and
+// the border and separator are the text colour in the brand (menu.border-color, menu.separator-color), which
+// --bs-body-color holds in each mode. Radius and shadow are phase 3's. The highlighted item, dark mode and what has no
+// variable are in overrides/_dropdowns.scss. Row numbers refer to docs/brand-mapping.md (phase 5, dropdowns).
+
+// Highlighted and active item (4): the brand's highlight is the surface inverted, the ink as background and the page
+// background as text (menu.item-highlighted-bg = color.primary, -color = color.bg.light; dark: color.text.on-dark,
+// color.bg.dark), which --bs-body-color and --bs-body-bg hold in each mode. Boost compiles these variables into many
+// rules of its own (menus, "More" menu, grade search), which then follow the mode too.
+$dropdown-link-active-bg: var(--bs-body-color);
+$dropdown-link-active-color: var(--bs-body-bg);
+$grade-search-hover-color: var(--bs-body-bg);
+
+// Panel (1-2): border in the ink, padding on both axes.
+$dropdown-border-color: var(--bs-body-color);
+$dropdown-padding-y: $slxd-menu-padding-block;
+$dropdown-padding-x: $slxd-menu-padding-inline;
+
+// Items (3).
+$dropdown-font-size: $slxd-menu-item-font-size;
+$dropdown-item-padding-y: $slxd-menu-item-padding-block;
+$dropdown-item-padding-x: $slxd-menu-item-padding-inline;
+
+// Section labels (5): muted text (menu.label-color = color.text.muted-on-light; dark: color.text.muted-on-dark).
+$dropdown-header-color: var(--bs-secondary-color);
+$dropdown-header-padding-y: $slxd-menu-label-padding-block;
+
+// Separator (6).
+$dropdown-divider-margin-y: $slxd-menu-separator-margin-block;

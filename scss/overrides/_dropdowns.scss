@@ -1,0 +1,92 @@
+// Dropdown menus: highlighted and disabled items, labels and line height.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. The brand's highlight is an
+// inversion (prussian with white text; white with prussian text on a dark surface, menu.surface-dark-item-highlighted-*).
+// Row numbers refer to docs/brand-mapping.md (phase 5, dropdowns).
+
+.dropdown-menu {
+    // Highlighted item (4). Boost sets the hover colours without !default, so they are set here, with the same
+    // inversion as the active item (mapping/light/components/_dropdowns.scss).
+    --#{$prefix}dropdown-link-hover-color: var(--#{$prefix}body-bg);
+    --#{$prefix}dropdown-link-hover-bg: var(--#{$prefix}body-color);
+    --#{$prefix}dropdown-header-color: var(--#{$prefix}secondary-color);
+}
+
+// Boost's "More" menus compile the hover text colour as white; it follows the highlight instead.
+.moremenu .dropdownmoremenu > .dropdown-menu .dropdown-menu .dropdown-item,
+.dropdownmoremenu > .dropdown-menu .dropdown-submenu > .dropdown-menu .dropdown-item {
+    &:hover,
+    &:focus {
+        color: var(--#{$prefix}dropdown-link-hover-color);
+    }
+}
+
+// Coloured items (4): Boost turns them white when highlighted, with !important; they take the highlight's text colour,
+// which follows the mode. An item marked .text-danger itself is the destructive item, below.
+@each $colour in map-keys(map-merge($theme-colors, $utilities-text-emphasis-colors)) {
+    .dropdown-item {
+        &:hover,
+        &:focus {
+            &.text-#{$colour},
+            a.text-#{$colour},
+            span.text-#{$colour} {
+                color: var(--#{$prefix}dropdown-link-hover-color) !important; // stylelint-disable-line declaration-no-important
+            }
+        }
+    }
+}
+
+// Items (3): the menu's line height; Bootstrap has no variable for it.
+.dropdown-item {
+    line-height: $slxd-menu-item-line-height;
+}
+
+// Disabled items (7): faded, in the item's colour.
+.dropdown-item.disabled,
+.dropdown-item:disabled {
+    color: var(--#{$prefix}dropdown-link-color);
+    opacity: $slxd-menu-disabled-opacity;
+}
+
+// Section labels (5): the label's size and weight.
+.dropdown-header {
+    font-size: $slxd-menu-label-font-size;
+    font-weight: $slxd-menu-label-font-weight;
+}
+
+// Destructive items (8): Moodle marks them with .text-danger; highlighted, they fill with the universal red with white
+// text, in both modes (menu.item-destructive-highlighted-*).
+.dropdown-item.text-danger {
+    &:hover,
+    &:focus {
+        color: $slxd-menu-item-destructive-highlighted-color !important; // stylelint-disable-line declaration-no-important
+        background-color: $slxd-menu-item-destructive-highlighted-bg;
+    }
+}
+
+// Selected item (11): in the brand it differs only in weight, with no fill and no tick
+// (menu.item-selected-font-weight: "the chosen option, in emphasis: no glyph"). Highlighted, it inverts like any
+// other item. Moodle marks it with .active, aria-current or aria-selected, and Bootstrap and Boost give it a fill, a
+// check mark and room for it; these selectors match Boost's in specificity.
+.dropdown-menu .dropdown-item {
+    &.active,
+    &[aria-current="true"],
+    &[aria-current="page"],
+    &[aria-selected="true"] {
+        font-weight: $slxd-menu-item-selected-font-weight;
+
+        &:not(:hover):not(:focus):not(:focus-within) {
+            color: var(--#{$prefix}dropdown-link-color);
+            background-color: transparent;
+        }
+
+        &::before {
+            content: none;
+        }
+    }
+}
+
+.dropdown-menu:has(.dropdown-item-active) .dropdown-item,
+.more-nav .dropdown-menu:has(.dropdown-item.active) .dropdown-item {
+    padding-left: var(--#{$prefix}dropdown-item-padding-x);
+}

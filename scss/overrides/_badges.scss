@@ -3,11 +3,40 @@
 // Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Boost sets font size and
 // weight to inherit, a .5rem side padding and a 10rem radius directly on .badge, after Bootstrap's own rule, so the
 // $badge-* variables of mapping/light/components/_badges.scss would not show. Bootstrap's .badge already has
-// line-height: 1, the tag's. Row 3 of docs/brand-mapping.md (phase 3).
+// line-height: 1, the tag's. Row 3 of docs/brand-mapping.md (phase 3), counters in phase 5.
+//
+// Counters (phase 5): the unread counters and the popover counts are the brand's number badge, not a tag: they take
+// the number badge's size, weight and padding. They stay on the fill of each role (error, primary), which is
+// universal, so there is nothing dark-specific beyond what the modes already do.
 
 .badge {
     font-size: var(--#{$prefix}badge-font-size);
     font-weight: var(--#{$prefix}badge-font-weight);
     padding-inline: var(--#{$prefix}badge-padding-x);
     border-radius: var(--#{$prefix}badge-border-radius);
+}
+
+// Counters (5-8): unread counters in the message drawer, in the message and notification popovers and in the message
+// content items, plus the popover counts in the nav bar. They are the brand's number badge (12px, weight 300, one
+// line, 1rem round, .25rem wide with more than one digit), not a tag. The classes they arrive with:
+// - .badge.bg-danger.text-white: unread count in the message content items (message/output/popup).
+// - .count-container: the popovers' counts, hand-painted by Boost in red (11px, radius 2px).
+// - .badge.rounded-pill.bg-primary.text-white: the rest (message drawer and course index), with the dark-mode text
+//   fix of overrides/_utilities.scss.
+// The fills stay those of the role (error #B30000, primary the ink): they are universal, the same in both modes. They
+// keep the white text (or the prussian one in dark mode, by the .bg-primary.text-white fix); the number badge has no
+// white on its own.
+.badge.bg-danger.text-white,
+.count-container {
+    font-family: $slxd-number-badge-font-family;
+    font-size: $slxd-number-badge-font-size;
+    font-weight: $slxd-number-badge-font-weight;
+    line-height: $slxd-number-badge-line-height;
+    min-inline-size: $slxd-number-badge-min-size;
+    block-size: $slxd-number-badge-min-size;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: $slxd-number-badge-padding-inline;
+    border-radius: $slxd-number-badge-border-radius;
 }

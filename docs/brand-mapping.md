@@ -150,7 +150,7 @@ con el modo; el anillo de foco toma su color de `--mds-focus-default`, que es pr
 - **d.** No dependen de variables: solo se pueden cambiar con reglas CSS, zona por zona, cuando aparezcan.
 - **e.** Boost fija tamaño y peso a `inherit` (la insignia tomaba el tamaño de su contexto, p. ej. dentro de un
   título); ahora es siempre `14px`, como el Tag. Los contadores (mensajes sin leer) también son `.badge` en Moodle,
-  aunque en la marca corresponderían a `number-badge` (`12px`, peso `300`).
+  aunque en la marca corresponden a `number-badge`; van en la fase 5 (contadores).
 - **f.** Anchos y huecos son tokens; los colores van por `var(--mds-focus-default)` y `var(--bs-body-bg)`, que valen
   los tokens de cada modo (fase 2, filas 6 y 18): un valor SCSS compilado no cambiaría con el modo.
 
@@ -431,3 +431,26 @@ paneles del área personal) son la tarjeta outline de la marca: el fondo de la p
 - **b.** En el core solo la usan las tarjetas de factores de la autenticación en varios pasos (`tool_mfa`). El lavanda
   contrasta en cualquier superficie, así que es igual en los dos modos, y el texto de dentro (títulos, enlaces, texto
   secundario) mantiene los colores de la superficie clara también en oscuro.
+
+### Contadores
+
+`overrides/_badges.scss`. Los contadores de no leídos y los de los popovers de la barra son el `number-badge` de la
+marca (no un Tag): la cifra es de `12px` con peso `300`, en un círculo de `1rem` que se hace píldora con más de un
+dígito. Llegan con las clases que les pone Moodle, y sus rellenos son los del rol, que son universales: no cambia
+nada con el modo.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Mensajería: contador en la lista de conversaciones y de mensajes (cajón) | Sí | píldora prusia, cifra `#FFFFFF` `number-badge.primary-*` (fondo `color.primary`) | píldora blanca, cifra prusia (la corrección de `.bg-primary.text-white`, fase 2) |
+| 2. Mensajería: contador de no leídos de cada sección | Sí | = fila 1 | = fila 1 |
+| 3. Mensajería: contador en cada conversación (popover) | Sí | círculo rojo `#B30000`, cifra `#FFFFFF` `number-badge.error-*` (`$danger`) | = claro (relleno universal) |
+| 4. Notificaciones: contador del popover | Sí | círculo rojo `#B30000`, cifra `#FFFFFF` (Boost lo pinta a mano con `$danger`) | = claro (relleno universal) |
+| 5. Forma y tipografía de todos | Sí | `12px`, peso `300`, interlineado `1`, `1rem` redondo, `0.25rem` lateral `number-badge.*` | = claro |
+
+**Notas**
+
+- **a.** Moodle los marca como `.badge` (Tag) o los pinta a mano Boost (`.count-container`): se sobrescriben por sus
+  clases, no hay variables que tocar. Los que llevan `.bg-primary.text-white` heredan la corrección de texto prusia
+  en oscuro de la fase 2.
+- **b.** El resto de insignias con `.bg-primary.text-white` (sección actual, "Oculto para estudiantes") son etiquetas
+  con texto, no cifras: siguen siendo el Tag de la marca.

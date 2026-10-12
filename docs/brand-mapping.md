@@ -313,3 +313,26 @@ bolita como SVG de color fijo: el modo oscuro, el radio sin relleno y la pista d
 - **b.** En la marca el tamaño de la leyenda se elige en cada grupo (es un título con talla); no hay uno por defecto.
 - **c.** Moodle separa sus filas de formulario con la utilidad `.mb-3`: cambiarlo exige sobrescribirla dentro de los
   formularios.
+
+### Barra superior
+
+`overrides/_navbar.scss` y `mapping/light/components/_navbar.scss`. La barra es el AppHeader de la marca; la navegación
+principal (las pastillas de MDS de Moodle) toma las Tabs de la marca sin línea ni fondo.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Altura | Sí | `56px` (`3.5rem`) más el borde `app-header.content-height`, `app-header.padding-block` ⚠️a | = claro |
+| 2. Borde inferior | Sí | `1px` `#111E30` `app-header.border-*` (antes gris) | `#FFFFFF` `app-header.surface-dark-border-color` |
+| 3. Fondo | Sí | `#FFFFFF` `app-header.bg` (Moodle usa `.bg-body`) | `#111E30` `app-header.surface-dark-bg` |
+| 4. Navegación principal: color | Sí | `#4A4A4A` `tabs.trigger-color` | `#D0D0D0` `tabs.surface-dark-trigger-color` |
+| 5. Navegación principal: hover | Sí | `#111E30` sin fondo `tabs.trigger-hover-color` | `#FFFFFF` `tabs.surface-dark-trigger-hover-color` |
+| 6. Navegación principal: página actual | Sí | `#111E30`, peso `500`, sin fondo ni línea `tabs.trigger-active-*` | `#FFFFFF` `tabs.surface-dark-trigger-active-color` |
+| 7. Navegación principal: tamaño y peso | Sí | `1rem`, `300` `tabs.trigger-font-*` (antes `0.875rem`, `500`) | = claro |
+| 8. Navegación principal: foco | Sí | contorno `2px` a `1px` en la tinta `tabs.focus-ring-*` (MDS, fase 3) | `#FFFFFF` |
+| 9. Navegación principal: padding | Sí | `0.75rem` × `1rem` `tabs.trigger-padding-*` (antes `0.5rem` × `0.75rem`) | = claro |
+
+**Notas**
+
+- **a.** Boost suma px a `$navbar-height` en muchos sitios, así que la altura se calcula desde los tokens y se pasa a px
+  con la raíz por defecto del navegador (`16px`): esa conversión es mía. Los enlaces de la barra (`$moremenu-height`)
+  toman la misma altura; Boost la usa también para la barra de la navegación secundaria.

@@ -1,0 +1,57 @@
+// Top bar: the navbar and its primary navigation.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. The bar is the brand's app
+// header (app-header.*): its background already follows the mode (Moodle's navbar is .bg-body), its border is set
+// by hand in Boost. The primary navigation (the design system's nav pills) takes the brand's tabs, without the
+// line and without a background. Row numbers refer to docs/brand-mapping.md (phase 5, top bar).
+
+// Bottom border (2): app-header.border-color; dark app-header.surface-dark-border-color = color.text.on-dark.
+.navbar.fixed-top {
+    border-bottom-color: $slxd-app-header-border-color !important; // stylelint-disable-line declaration-no-important
+
+    @include dark-mode {
+        border-bottom-color: $slxd-color-text-on-dark !important; // stylelint-disable-line declaration-no-important
+    }
+}
+
+// Primary navigation (4-8): text in the tabs' colours, no background in any state, no indicator line; the current
+// page in the active weight (tabs.trigger-*; dark: tabs.surface-dark-trigger-*).
+.primary-navigation .mds-nav-pill {
+    --mds-bg-nav-pill-hover: transparent;
+    --mds-bg-nav-pill-pressed: transparent;
+    --mds-bg-nav-pill-selected: transparent;
+    color: $slxd-tabs-trigger-color;
+
+    .mds-nav-pill__label {
+        font-size: $slxd-tabs-trigger-font-size;
+        font-weight: $slxd-tabs-trigger-font-weight;
+    }
+
+    .mds-nav-pill__indicator {
+        display: none;
+    }
+
+    // Padding (9): the brand's tabs.
+    padding: $slxd-tabs-trigger-padding-block $slxd-tabs-trigger-padding-inline;
+
+    &:hover {
+        color: $slxd-tabs-trigger-hover-color;
+    }
+
+    &.mds-nav-pill--selected {
+        color: $slxd-tabs-trigger-active-color;
+
+        .mds-nav-pill__label {
+            font-weight: $slxd-tabs-trigger-active-weight;
+        }
+    }
+
+    @include dark-mode {
+        color: $slxd-color-text-muted-on-dark;
+
+        &:hover,
+        &.mds-nav-pill--selected {
+            color: $slxd-color-text-on-dark;
+        }
+    }
+}

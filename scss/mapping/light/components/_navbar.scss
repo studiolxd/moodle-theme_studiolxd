@@ -1,0 +1,10 @@
+// Top bar: height.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// Colours and the primary navigation are in overrides/_navbar.scss. Row 1 of docs/brand-mapping.md (phase 5, top bar).
+
+// Height (1): the brand's app header, a 2.5rem control plus 0.5rem above and below (app-header.height). Boost adds px
+// to $navbar-height in many places, so it is converted to px at the browser's default 16px root.
+$navbar-height: ($slxd-app-header-content-height + 2 * $slxd-app-header-padding-block) / 1rem * 16px;
+// The primary navigation fills the bar. Boost also uses this height for the secondary navigation's tab bar.
+$moremenu-height: $navbar-height;

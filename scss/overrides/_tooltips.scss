@@ -1,0 +1,104 @@
+// Tooltips and popovers: the brand's type, offset, entrance, popover header and no popover arrow.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Bootstrap positions both with
+// Popper, through an inline transform and a data-popper-placement attribute, and resets their type to weight 400 and
+// line height 1.5. Row numbers refer to docs/brand-mapping.md (phase 5, tooltips and popovers).
+
+// --- Tooltip ----------------------------------------------------------------------------------------------------
+
+// Type (5): the brand sets the size (in the variables) and the line height; the weight is the body's.
+.tooltip {
+    font-weight: var(--#{$prefix}body-font-weight);
+    line-height: $slxd-tooltip-line-height;
+}
+
+// Offset (9): the brand's 0.25rem between trigger and tooltip (tooltip.offset). Bootstrap's JavaScript places it 6px
+// away (its tooltip offset), so a margin on the side facing the trigger takes it 2px closer. The sides are physical
+// (Popper's placement), so RTL must not flip them.
+.bs-tooltip-top,
+.bs-tooltip-auto[data-popper-placement^="top"] {
+    margin-top: calc(6px - #{$slxd-tooltip-offset});
+}
+
+.bs-tooltip-bottom,
+.bs-tooltip-auto[data-popper-placement^="bottom"] {
+    margin-top: calc(#{$slxd-tooltip-offset} - 6px);
+}
+
+.bs-tooltip-auto[data-popper-placement^="left"] {
+    /*rtl:ignore*/
+    margin-left: calc(6px - #{$slxd-tooltip-offset});
+}
+
+.bs-tooltip-auto[data-popper-placement^="right"] {
+    /*rtl:ignore*/
+    margin-left: calc(#{$slxd-tooltip-offset} - 6px);
+}
+
+// --- Popover ----------------------------------------------------------------------------------------------------
+
+// Header (16): the brand's popover has none; Moodle's help title is a heading with no fill or line, at the headings'
+// weight, with the air of the panel above it and the Alert's title gap below (alert.content-gap).
+.popover-header {
+    padding: $slxd-popover-padding-block $slxd-popover-padding-inline 0;
+    font-weight: $headings-font-weight;
+    border-bottom: 0;
+
+    + .popover-body {
+        padding-top: $slxd-alert-content-gap;
+    }
+}
+
+// Arrow (17): the brand's popover has none. Bootstrap's 8px offset is then the brand's gap (popover.offset).
+.popover .popover-arrow {
+    display: none;
+}
+
+// --- Entrance (10, 20) ------------------------------------------------------------------------------------------
+
+// The brand fades them in from 0.95 (tooltip.transition-*, popover.transition-*), towards the trigger. Popper places
+// them with an inline transform, so the scale uses the independent scale property.
+.tooltip.fade {
+    transition:
+        opacity $slxd-tooltip-transition-duration $slxd-tooltip-transition-easing,
+        scale $slxd-tooltip-transition-duration $slxd-tooltip-transition-easing;
+}
+
+.popover.fade {
+    transition:
+        opacity $slxd-popover-transition-duration $slxd-popover-transition-easing,
+        scale $slxd-popover-transition-duration $slxd-popover-transition-easing;
+}
+
+.tooltip.fade:not(.show),
+.popover.fade:not(.show) {
+    scale: 0.95;
+}
+
+.tooltip,
+.popover {
+    &[data-popper-placement^="top"] {
+        transform-origin: bottom center;
+    }
+
+    &[data-popper-placement^="bottom"] {
+        transform-origin: top center;
+    }
+
+    &[data-popper-placement^="left"] {
+        /*rtl:ignore*/
+        transform-origin: center right;
+    }
+
+    &[data-popper-placement^="right"] {
+        /*rtl:ignore*/
+        transform-origin: center left;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tooltip.fade,
+    .popover.fade {
+        transition: none;
+    }
+}

@@ -1,0 +1,34 @@
+// Tooltips and popovers: Bootstrap's tooltips and popovers (Moodle's help icons, icon buttons) are the brand's Tooltip
+// and Popover.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// The tooltip is the inverted surface (tooltip.bg = color.primary, tooltip.color = white; dark: tooltip.surface-dark-*
+// = color.bg.light, color.text.on-light) and the popover the floating panel (floating-panel.bg = color.bg.light,
+// border color.primary; dark: color.bg.dark, color.text.on-dark), which --bs-body-color and --bs-body-bg hold in each
+// mode. The rest is in overrides/_tooltips.scss. Row numbers refer to docs/brand-mapping.md (phase 5, tooltips and
+// popovers).
+
+// Tooltip: colours (1, 2), fully opaque (3), padding (4), type size (5), width (6), radius (7).
+$tooltip-bg: var(--bs-body-color);
+$tooltip-color: var(--bs-body-bg);
+$tooltip-opacity: 1;
+$tooltip-padding-y: $slxd-tooltip-padding-block;
+$tooltip-padding-x: $slxd-tooltip-padding-inline;
+$tooltip-font-size: $slxd-tooltip-font-size;
+$tooltip-max-width: $slxd-tooltip-max-width;
+$tooltip-border-radius: $slxd-tooltip-border-radius;
+
+// Arrow (8): the brand's 10 × 5 triangle (the geometry of its Tooltip's SVG, not a token).
+$tooltip-arrow-width: 10px;
+$tooltip-arrow-height: 5px;
+
+// Popover: border (12) in the ink; text (15) the body size; header (16) with no fill, in the heading colour.
+$popover-border-color: var(--bs-body-color);
+$popover-border-width: $slxd-popover-border-width;
+$popover-border-radius: $slxd-popover-border-radius;
+$popover-box-shadow: $slxd-shadow-default;
+$popover-body-padding-y: $slxd-popover-padding-block;
+$popover-body-padding-x: $slxd-popover-padding-inline;
+$popover-font-size: $font-size-base;
+$popover-header-bg: transparent;
+$popover-header-color: var(--bs-heading-color);

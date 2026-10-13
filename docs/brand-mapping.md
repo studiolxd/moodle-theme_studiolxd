@@ -773,3 +773,48 @@ marca. El progreso de los cursos del área personal ya es solo texto, y ninguna 
 - **c.** La marca no tiene rayas; el avance del relleno ya dice que la tarea sigue viva (decisión mía).
 - **d.** La copia de seguridad asíncrona fija `25px` en el HTML (`style`); se fuerza a la talla de la marca con
   `!important` (decisión validada).
+
+### Tooltips y popovers
+
+`mapping/light/components/_tooltips.scss` y `overrides/_tooltips.scss`. Los tooltips y popovers de Bootstrap (iconos
+y botones de Moodle, ayudas `?` de los formularios) son el Tooltip y el Popover de la marca. El tooltip es la
+superficie invertida y el popover el panel flotante, que `--bs-body-color` y `--bs-body-bg` ya valen en cada modo.
+
+| Qué | Eq. | Claro | Oscuro |
+|---|---|---|---|
+| **Tooltip** | | | |
+| 1. Fondo | Sí | `#111E30` (antes `#000000`) | `#FFFFFF` (= antes) |
+| 2. Texto | Sí | `#FFFFFF` (= antes) | `#111E30` (= antes) |
+| 3. Opacidad | Sí | `1` (antes `0.9`) | = |
+| 4. Padding | Sí | `0.25rem` × `0.5rem` (ya) | = |
+| 5. Tipografía | Sí | `0.875rem` / `1.3` ⚠️a | = |
+| 6. Ancho máx. | Sí | `20rem` (antes `200px`) | = |
+| 7. Radio | Sí | `0` (ya) | = |
+| 8. Flecha | Sí | `10px` × `5px` (antes `13` × `6px`) | = |
+| 9. Separación | Sí | `0.25rem` ⚠️b (antes `6px`) | = |
+| 10. Entrada | Sí | `150ms`, escala `0.95` ⚠️c | = |
+| **Popover** | | | |
+| 11. Fondo | Sí | `#FFFFFF` (ya) | `#111E30` (ya) |
+| 12. Borde | Sí | `1px` `#111E30` (antes translúcido) | `#FFFFFF` |
+| 13. Radio y sombra | Sí | `0`, ninguna (ya) | = |
+| 14. Padding | Sí | `1rem` (ya) | = |
+| 15. Texto | No | `1rem` ⚠️d (antes `0.875rem`) | = |
+| 16. Cabecera | No | sin fondo ni línea ⚠️e | = |
+| 17. Flecha | No | sin flecha ⚠️f | = |
+| 18. Ancho máx. | No | `300px` de Moodle | = |
+| 19. Separación | Sí | `8px` (ya) | = |
+| 20. Entrada | Sí | `150ms`, escala `0.95` ⚠️c | = |
+
+**Notas**
+
+- **a.** La marca fija tamaño e interlineado; el peso es el del cuerpo (`300`). Bootstrap los ponía a `400` y `1.5`.
+  La flecha es la geometría del SVG del Tooltip de la marca (no es un token).
+- **b.** Bootstrap separa el tooltip `6px` desde su JavaScript (Popper); un margen en el lado que da al disparador lo
+  acerca a los `0.25rem` de la marca (`tooltip.offset`). Los lados son físicos, así que no se invierten en RTL.
+- **c.** Fundido y escala desde `0.95` hacia el disparador, en `150ms` `ease` (`*.transition-*`). Popper coloca el
+  panel con un `transform` en línea, así que la escala va en la propiedad `scale`. Antes, solo fundido en `0.15s`.
+- **d.** El Popover de la marca hereda el cuerpo de la superficie (decisión mía).
+- **e.** La marca no tiene cabecera en el Popover; el título de la ayuda de Moodle va sin franja gris ni línea, en el
+  color y el peso de los títulos, con `0.5rem` hasta el texto (decisión mía). Antes, franja `#E9ECEF` (`#343A40`).
+- **f.** Como en la marca. Sin flecha, los `8px` de Bootstrap son justo la separación de la marca
+  (`popover.offset`).

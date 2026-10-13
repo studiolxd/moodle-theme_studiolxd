@@ -1,0 +1,220 @@
+// Drawers and course index: the brand's Sidebar border, padding, motion and close button, and the SidebarNav's items.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Boost hard-codes the drawers'
+// transitions, header shadow and close button, and the course index's sizes, weights and current page fill.
+// Commented-out rules are not settled and do not apply. Row numbers refer to docs/brand-mapping.md (phase 5, drawers
+// and course index).
+
+// --- Drawers ----------------------------------------------------------------------------------------------------
+
+// Border (2): the brand's Sidebar has one on the side of the content; Moodle's anchored drawers float as panels, so
+// it goes all round. Only on open drawers: the closed course index is 0 wide and would leave the line behind. In
+// dark mode it is white (sidebar.surface-dark-border-color = color.text.on-dark), which --bs-body-color holds there.
+.drawer.show {
+    border: $slxd-sidebar-border-width solid var(--#{$prefix}body-color);
+}
+
+// Padding (4): the brand's side padding round the header and the list (sidebar.padding-inline).
+.drawer .drawerheader,
+.drawer .drawercontent {
+    padding-inline: $slxd-sidebar-padding-inline;
+}
+
+// ⏸ List padding (4): the brand's air above and below the navigation list (sidebar.panel-padding-block); it may be
+// too much under the drawer's header.
+// .drawer .drawercontent {
+//     padding-block: $slxd-sidebar-panel-padding-block;
+// }
+
+// ⏸ Width (3): the brand's Sidebar width (sidebar.width, 240px); Moodle's are 285px (course index) and 315px (blocks),
+// and its anchored drawers are positioned from them, so it would be set on $drawer-left-width and $drawer-right-width
+// in mapping/light/components/_drawers.scss.
+
+// Header shadow when the list scrolls (5): none (shadow.default).
+.drawer.scrolled .drawerheader {
+    box-shadow: $slxd-shadow-default;
+}
+
+// Opening and closing (6): the brand's duration and easing for whatever each drawer animates (position, width or
+// clip), with Boost's selectors so the anchored drawers take it too. Reduced motion still turns it off.
+.drawer.drawer-left,
+.drawer.drawer-right,
+.pagelayout-standard .drawer.drawer-left,
+.pagelayout-standard .drawer.drawer-right,
+body.limitedwidth .drawer.drawer-left,
+body.limitedwidth .drawer.drawer-right {
+    transition-duration: $slxd-sidebar-transition-duration;
+    transition-timing-function: $slxd-sidebar-transition-easing;
+}
+
+// Close button (8): the brand's CloseButton, as in the modals: a 2.5rem box with the brand's 24px cross in the ink,
+// no fill, no hover, the focus ring only. Moodle's icon is hidden and the brand's cross is masked on a pseudo-element
+// (functions/_close-button.scss), so it follows the mode.
+.drawer .drawerheader .draweractions .btn.drawertoggle {
+    --#{$prefix}btn-color: var(--#{$prefix}body-color);
+    --#{$prefix}btn-hover-color: var(--#{$prefix}body-color);
+    --#{$prefix}btn-active-color: var(--#{$prefix}body-color);
+    --#{$prefix}btn-bg: transparent;
+    --#{$prefix}btn-hover-bg: transparent;
+    --#{$prefix}btn-active-bg: transparent;
+    --#{$prefix}btn-border-width: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: $slxd-close-button-size-md;
+    height: $slxd-close-button-size-md;
+    padding: 0;
+    margin-right: 0;
+    border-radius: 0;
+    background-color: transparent;
+
+    .icon {
+        display: none;
+    }
+
+    &::before {
+        content: "";
+        width: $slxd-close-button-icon-size;
+        height: $slxd-close-button-icon-size;
+        background-color: currentColor;
+        mask-image: escape-svg(studiolxd-close-glyph($black));
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: 100%;
+    }
+
+    &:focus-visible,
+    &:focus.focus {
+        outline: $slxd-close-button-focus-ring-width solid var(--mds-focus-default);
+        outline-offset: $slxd-close-button-focus-ring-offset;
+        box-shadow: none;
+    }
+}
+
+// Drawer title, the course name (10): the brand's group label (sidebar-nav.group-label-*), lined up with the sections'
+// chevrons. Moodle marks it .fw-bold (!important). The label is the ink in light mode and the muted text in dark mode
+// (sidebar-nav.surface-dark-group-label-color = color.text.muted-on-dark).
+#courseindexdrawerheading {
+    margin-left: $slxd-sidebar-nav-group-trigger-padding-inline;
+    font-size: $slxd-sidebar-nav-group-label-font-size;
+
+    .courseindex-link.fw-bold {
+        font-weight: $slxd-sidebar-nav-group-label-font-weight !important; // stylelint-disable-line declaration-no-important
+    }
+}
+
+// --- Course index -----------------------------------------------------------------------------------------------
+
+.courseindex {
+    // Activities (13, 14): the brand's item type, and its padding. The brand indents an item to the text of its
+    // group's label; here the activity's completion slot and the section's chevron are both Moodle's 20px wide with
+    // the brand's 0.5rem after them, so an activity's name starts where its section's title does, with no extra
+    // indentation (Boost added 1.5rem).
+    .courseindex-item {
+        padding-block: $slxd-sidebar-nav-item-padding-block;
+        padding-inline: $slxd-sidebar-nav-group-trigger-padding-inline $slxd-sidebar-nav-item-padding-inline;
+
+        .courseindex-link {
+            font-size: $slxd-sidebar-nav-item-font-size;
+            font-weight: $slxd-sidebar-nav-item-font-weight;
+            line-height: $slxd-sidebar-nav-item-line-height;
+        }
+
+        .completioninfo {
+            flex-shrink: 0;
+            margin-right: $slxd-sidebar-nav-group-trigger-gap;
+        }
+    }
+
+    .courseindex-section .courseindex-sectioncontent:not(.delegated-section) .courseindex-item {
+        padding-left: $slxd-sidebar-nav-group-trigger-padding-inline;
+    }
+
+    // Space between activities and between sections (15).
+    .courseindex-item + .courseindex-item,
+    .courseindex-section + .courseindex-section {
+        margin-top: $slxd-sidebar-nav-item-gap;
+    }
+
+    // Sections (11, 12): the brand's group label and trigger padding, with the brand's gap after the chevron. The label
+    // is the ink in light mode and the muted text in dark mode (sidebar-nav.surface-dark-group-label-color).
+    .courseindex-item.courseindex-section-title {
+        padding-inline: $slxd-sidebar-nav-group-trigger-padding-inline;
+        color: $slxd-sidebar-nav-group-label-color;
+
+        a,
+        .courseindex-link,
+        > span[data-for="section_title"] {
+            font-size: $slxd-sidebar-nav-group-label-font-size;
+            font-weight: $slxd-sidebar-nav-group-label-font-weight;
+            color: $slxd-sidebar-nav-group-label-color;
+        }
+
+        .icons-collapse-expand {
+            flex: 0 0 auto;
+            width: 20px;
+            padding-right: 0;
+            margin-right: $slxd-sidebar-nav-group-trigger-gap;
+        }
+    }
+
+    // Hidden items (20) keep the muted text on hover too: the brand's empty item has no hover.
+    .courseindex-item.dimmed {
+        &:hover,
+        &:focus {
+            &,
+            .courseindex-link,
+            .courseindex-chevron {
+                color: $courseindex-link-dimmed-color;
+            }
+        }
+    }
+
+    // Current page (18): the brand's active item is only heavier (sidebar-nav.item-active-font-weight), with no fill;
+    // Boost fills it with the primary and turns its text white, also on hover and when it is hidden or restricted.
+    .courseindex-item.pageitem {
+        &,
+        &:hover,
+        &:focus {
+            &,
+            a,
+            .courseindex-link,
+            .courseindex-chevron {
+                color: var(--#{$prefix}body-color);
+            }
+        }
+
+        .courseindex-link {
+            font-weight: $slxd-sidebar-nav-item-active-font-weight;
+        }
+
+        &.dimmed {
+            &,
+            a,
+            .courseindex-link,
+            .courseindex-chevron {
+                color: $courseindex-link-dimmed-color;
+            }
+        }
+    }
+
+    // Focus (17): the brand's ring, an outline in the ink 2px out, instead of Boost's box-shadow ring.
+    [role="treeitem"]:not([aria-expanded="true"]):focus,
+    [role="treeitem"]:not([aria-expanded="true"]).focus {
+        outline: $slxd-sidebar-nav-focus-ring-width solid var(--mds-focus-default);
+        outline-offset: $slxd-sidebar-nav-focus-ring-width;
+        box-shadow: none;
+    }
+}
+
+// Dark mode: the group label (10, 11) is the muted text (sidebar-nav.surface-dark-group-label-color).
+@include color-mode(dark) {
+    #courseindexdrawerheading .courseindex-link,
+    #courseindexdrawerheading i.icon,
+    .courseindex .courseindex-item.courseindex-section-title,
+    .courseindex .courseindex-item.courseindex-section-title a,
+    .courseindex .courseindex-item.courseindex-section-title .courseindex-link,
+    .courseindex .courseindex-item.courseindex-section-title > span[data-for="section_title"] {
+        color: $slxd-color-text-muted-on-dark;
+    }
+}

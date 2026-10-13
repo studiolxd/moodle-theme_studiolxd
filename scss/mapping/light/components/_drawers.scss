@@ -1,0 +1,34 @@
+// Drawers and course index: Moodle's drawers (course index, blocks, mobile navigation) are the brand's Sidebar, and the
+// course index is its SidebarNav.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// The Sidebar is the page background with the ink's text (sidebar.bg = color.bg.light; dark: sidebar.surface-dark-bg =
+// color.bg.dark) and the SidebarNav's items are the ink (sidebar-nav.item-color = color.text.on-light; dark:
+// color.text.on-dark), which --bs-body-bg and --bs-body-color hold in each mode. The rest is in
+// overrides/_drawers.scss. Row numbers refer to docs/brand-mapping.md (phase 5, drawers and course index).
+
+// Background (1). Boost's thin scroll bars take their track from these too (9).
+$drawer-left-bg-color: var(--bs-body-bg);
+$drawer-right-bg-color: var(--bs-body-bg);
+
+// Header padding of the anchored drawers (4): the brand's header padding (sidebar.padding-block). Boost subtracts the
+// top one from the drawer's offset, so the header stays lined up with the page title.
+$drawer-anchored-header-padding: $slxd-sidebar-padding-block;
+$drawer-anchored-header-bottom-gap: $slxd-sidebar-padding-block;
+
+// Items (13, 16): the ink, with no hover change. Hidden items (20) are the brand's empty item, the muted text
+// (sidebar-nav.item-empty-color = color.text.muted-on-light; dark: color.text.muted-on-dark), which
+// --bs-secondary-color holds in each mode.
+$courseindex-link-color: var(--bs-body-color);
+$courseindex-link-hover-color: var(--bs-body-color);
+$courseindex-link-dimmed-color: var(--bs-secondary-color);
+
+// Current page (18): no fill, only the weight (in overrides/_drawers.scss). Boost darkens it on hover, so it is a
+// colour, not a custom property.
+$courseindex-item-page-bg: transparent;
+
+// Current section (19): Moodle's bar, in the ink of each mode.
+$courseindex-item-current: var(--bs-body-color);
+
+// Radius (24).
+$courseindex-item-radius: $slxd-sidebar-nav-item-border-radius;

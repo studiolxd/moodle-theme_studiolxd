@@ -534,3 +534,67 @@ pie, y con el CloseButton de la marca en la cabecera. El fondo y el texto son lo
 - Moodle no tiene descripción bajo el título del modal (`modal.description-*`), así que no se mapea. Los diálogos
   antiguos de YUI (`.moodle-dialogue-base`) y el aspa de las alertas y los toasts no entran aquí: van con sus
   componentes.
+
+### Cajones e índice del curso
+
+`mapping/light/components/_drawers.scss` y `overrides/_drawers.scss`. Los cajones de Moodle (índice del curso,
+bloques y navegación móvil) son la Sidebar de la marca, y el índice del curso es su SidebarNav. En las páginas de
+curso Moodle 5.3 ancla los cajones junto al contenido, como paneles; en pantallas estrechas se abren sobre la página.
+El fondo y la tinta son los de la página, que `--bs-body-bg` y `--bs-body-color` ya valen en cada modo.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| **Cajones** | | | |
+| 1. Fondo | Sí | `#FFFFFF` `sidebar.bg` (antes gris `#E9ECEF` el izquierdo y `#F8F9FA` el derecho) | `#111E30` `sidebar.surface-dark-bg` (antes `#292E33` / `#1D2125`) |
+| 2. Borde | Sí | `1px` `#111E30` `sidebar.border-*`, en todo el contorno ⚠️a (antes sin borde) | `#FFFFFF` `sidebar.surface-dark-border-color` |
+| 3. ⏸ Ancho | Sí | `15rem` (`240px`) `sidebar.width` ⚠️b (ahora `285px` el izquierdo y `315px` el derecho) | = claro |
+| 4. Padding | Sí | `0.5rem` lateral `sidebar.padding-inline` (antes `0.4rem` en el contenido); `1rem` arriba y abajo de la cabecera de los cajones anclados `sidebar.padding-block` (antes `0.5rem`); ⏸ `2rem` arriba y abajo de la lista `sidebar.panel-padding-block` ⚠️c | = claro |
+| 5. Sombra de la cabecera al hacer scroll | Sí | ninguna `shadow.default` (antes `0 8px 11px -7px` negro al `25 %`) | = claro |
+| 6. Apertura y cierre | Sí | `250ms` `ease-in-out` `sidebar.transition-*` (antes `0.2s` `ease`) | = claro |
+| 7. Velo en pantallas estrechas | Sí | `#000000` al `0.6` `sidebar.backdrop-*` (Moodle usa el velo de los modales, ya mapeado) | = claro |
+| 8. Botón de cerrar el cajón | Sí | el CloseButton de la marca: caja de `2.5rem`, aspa de `24px` en la tinta, sin fondo ni hover, anillo de foco de `2px` a `2px` `close-button.*` ⚠️d (antes botón gris `#E9ECEF` de `40px`, hover `#CED4DA`) | aspa `#FFFFFF` (antes fondo `#292E33`) |
+| 9. Barra de scroll | No | la de Moodle (pulgar `#6A737B`), con la pista en el nuevo fondo ⚠️e | pulgar `#CED4DA`, pista `#111E30` |
+| 10. Título del cajón (nombre del curso) | Sí | `1rem`, peso `500`, `#111E30` `sidebar-nav.group-label-*`, alineado con los chevrons ⚠️f (antes peso `700`, `#4A4A4A`) | `#D0D0D0` `sidebar-nav.surface-dark-group-label-color` |
+| **Índice del curso** | | | |
+| 11. Sección: texto | Sí | `1rem`, peso `500`, `#111E30` `sidebar-nav.group-label-*` (antes `0.875rem`, peso `700`, `#4A4A4A`) | `#D0D0D0` `sidebar-nav.surface-dark-group-label-color` (= antes) |
+| 12. Sección: padding y chevron | Sí | `0.5rem` × `0.75rem`, `0.5rem` tras el chevron `sidebar-nav.group-trigger-*` (antes `0.5rem` × `0.5rem` y `4px`) ⚠️g | = claro |
+| 13. Actividad: texto | Sí | `1rem`, peso `300`, interlineado `1.3`, `#111E30` `sidebar-nav.item-*` (antes `0.875rem`, `#4A4A4A`) | `#FFFFFF` `sidebar-nav.surface-dark-item-color` (antes `#D0D0D0`) |
+| 14. Actividad: padding y sangría | Sí | `0.5rem` arriba y abajo, `1rem` a la derecha `sidebar-nav.item-padding-*`; el nombre empieza donde el título de su sección ⚠️g (antes `0.5rem` y sangría de `1.5rem`) | = claro |
+| 15. Separación entre actividades y entre secciones | Sí | `0.25rem` `sidebar-nav.item-gap` (antes `0`) | = claro |
+| 16. Hover | Sí | sin cambio, la tinta del ítem (antes negro `#000000`) | sin cambio, `#FFFFFF` (antes `#F8F9FA`) |
+| 17. Foco | Sí | anillo de `2px` en la tinta, separado `2px` `sidebar-nav.focus-ring-*` (antes sombra de `2px` con hueco de `1px`) | anillo `#FFFFFF` |
+| 18. Página actual (`.pageitem`) | Sí | solo peso `500`, sin relleno `sidebar-nav.item-active-font-weight` ⚠️h (antes relleno `#111E30` con texto blanco) | peso `500` (antes relleno `#111E30` sobre `#292E33`, casi invisible) |
+| 19. Sección actual (barra izquierda de `3px`) | No | la barra de Moodle, en la tinta `#111E30` ⚠️i | barra `#FFFFFF` (antes `#111E30`, invisible) |
+| 20. Elementos ocultos a estudiantes (`.dimmed`) | Sí | `#4A4A4A`, también en hover `sidebar-nav.item-empty-color` ⚠️j (antes `#6A737B`, negro en hover) | `#D0D0D0` `sidebar-nav.surface-dark-item-empty-color` (antes `#CED4DA`) |
+| 21. Ítem seleccionado en edición (`.active`) | No | el de Moodle: fondo `#F8F9FA`, borde `#DEE2E6` | `#1D2125` / `#495057` |
+| 22. Ítem que se arrastra (`.dragging`) | No | el tinte de información de Moodle | = claro |
+| 23. Iconos de finalización | No | los de la fase 2 (éxito y error) | = claro |
+| 24. Radio de los ítems | Sí | `0` `sidebar-nav.item-border-radius` (ya lo era) | = claro |
+
+**Notas**
+
+- **a.** La Sidebar de la marca es una columna a toda altura con borde en el lado del contenido; en Moodle el cajón
+  flota como un panel, así que el borde va en todo el contorno, como en las tarjetas. Solo en el cajón abierto: el
+  índice cerrado mide `0` de ancho y dejaría la línea.
+- **b.** Los cajones anclados se colocan a partir de esos anchos, y `240px` deja menos sitio a los nombres de las
+  actividades; la marca tampoco distingue entre cajón izquierdo y derecho. Se aplicaría en `$drawer-left-width` y
+  `$drawer-right-width`.
+- **c.** El padding de la cabecera de los cajones anclados pasa por la variable de Boost, que lo descuenta de la
+  posición del cajón, así que la cabecera sigue alineada con el título de la página. El de la lista puede quedar con
+  demasiado aire bajo la cabecera: comentado hasta verlo.
+- **d.** La correspondencia es mía: la marca cierra sus paneles con el CloseButton. El icono de Moodle se oculta y
+  se dibuja el aspa de la marca, como en los modales.
+- **e.** La marca no define la barra de scroll. Boost toma la pista del fondo del cajón, así que la sigue sola.
+- **f.** La cabecera de la Sidebar de la marca lleva el logo; el nombre del curso como etiqueta de grupo es decisión
+  mía. Se alinea con los chevrons de las secciones (`0.75rem`).
+- **g.** La marca pone el chevron tras el texto y sangra los ítems con el hueco de un icono de `2rem` que el índice no
+  tiene. Moodle lo pone delante, y se queda ahí; el chevron de la sección y el hueco del icono de finalización de la
+  actividad miden lo mismo (`20px`, el de Moodle) con los `0.5rem` de la marca detrás, así que el nombre de la
+  actividad empieza donde el título de su sección, como en la marca.
+- **h.** La marca marca la entrada activa solo con el peso, sin relleno ni color, también si está oculta (sigue en el
+  gris) o restringida.
+- **i.** La marca no tiene marca de sección actual; se queda la barra de Moodle en la tinta, que sigue el modo.
+- **j.** El token es el de una entrada vacía de la marca, que se lee pero no invita a pulsar; usarlo para los
+  elementos ocultos a estudiantes es decisión mía. Como en la marca, no cambia en hover.
+- Los bloques del cajón derecho ya son tarjetas de la marca, y la insignia de sección actual es el Tag. El menú de
+  navegación móvil (`.drawer-primary`) recibe las filas 1 a 8. El cajón de mensajería es otro componente.

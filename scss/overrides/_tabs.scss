@@ -1,0 +1,102 @@
+// Tabs: Moodle's content tabs (tabtree, dynamic tabs, admin setting tabs) are the brand's Tabs, and .nav-pills its
+// pill variant.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Bootstrap's $nav-tabs-*
+// variables also reach the secondary navigation (.nav-tabs.more-nav, mapped as the MDS NavPill), so the brand's tabs
+// are set on the content tabs' own custom properties instead. Their colours are the muted text, the ink and the
+// line of each mode (tabs.trigger-color = color.text.muted-on-light, tabs.trigger-active-color and
+// tabs.list-border-color = color.text.on-light; dark: muted-on-dark and on-dark), which --bs-secondary-color and
+// --bs-body-color hold. Row numbers refer to docs/brand-mapping.md (phase 5, tabs).
+
+.nav-tabs:not(.more-nav) {
+    // Line under the list (1).
+    --#{$prefix}nav-tabs-border-width: #{$slxd-tabs-list-border-width};
+    --#{$prefix}nav-tabs-border-color: var(--#{$prefix}body-color);
+    // Tab (3, 4): padding, and the muted text at rest; hover (5) is the ink, with no box.
+    --#{$prefix}nav-link-padding-y: #{$slxd-tabs-trigger-padding-block};
+    --#{$prefix}nav-link-padding-x: #{$slxd-tabs-trigger-padding-inline};
+    --#{$prefix}nav-link-font-size: #{$slxd-tabs-trigger-font-size};
+    --#{$prefix}nav-link-font-weight: #{$slxd-tabs-trigger-font-weight};
+    --#{$prefix}nav-link-color: var(--#{$prefix}secondary-color);
+    --#{$prefix}nav-link-hover-color: var(--#{$prefix}body-color);
+    --#{$prefix}nav-link-disabled-color: var(--#{$prefix}secondary-color);
+    --#{$prefix}nav-tabs-link-hover-border-color: transparent;
+    // Active tab (6): the ink, and the indicator under it, drawn by the tab's bottom border over the list's line.
+    --#{$prefix}nav-tabs-link-active-color: var(--#{$prefix}body-color);
+    --#{$prefix}nav-tabs-link-active-bg: transparent;
+    --#{$prefix}nav-tabs-link-active-border-color: transparent transparent var(--#{$prefix}body-color);
+    // Radius (7).
+    --#{$prefix}nav-tabs-border-radius: #{$slxd-tabs-trigger-border-radius};
+    // The pill's active colours, which the tabs take on narrow screens (12).
+    --#{$prefix}nav-pills-link-active-bg: #{$slxd-tabs-trigger-pill-active-bg};
+    --#{$prefix}nav-pills-link-active-color: #{$slxd-tabs-trigger-pill-active-color};
+    // Space between tabs (2).
+    gap: $slxd-tabs-list-gap;
+
+    .nav-link {
+        line-height: $slxd-tabs-trigger-line-height;
+        // Transition (10): colour only.
+        transition: color $slxd-tabs-transition-duration $slxd-tabs-transition-easing;
+
+        // Disabled (8): the brand fades it.
+        &.disabled,
+        &:disabled {
+            opacity: $slxd-tabs-trigger-disabled-opacity;
+        }
+
+        // Focus (9): the brand's ring, an outline in the ink 1px out, instead of Boost's box-shadow ring.
+        &:focus-visible {
+            outline: $slxd-tabs-focus-ring-width solid var(--mds-focus-default);
+            outline-offset: $slxd-tabs-focus-ring-offset;
+            box-shadow: none;
+        }
+    }
+
+    .nav-link.active,
+    .nav-item.show .nav-link {
+        font-weight: $slxd-tabs-trigger-active-weight;
+    }
+}
+
+// Pills, active (11): the brand's pill (tabs.trigger-pill-active-*), the ink with white text, heavier. In dark mode
+// it is lavender with prussian text (tabs.surface-dark-trigger-pill-active-* = color.accent-1, color.primary): Boost
+// compiled the prussian fill, which disappeared on the dark page.
+.nav-pills {
+    --#{$prefix}nav-pills-link-active-bg: #{$slxd-tabs-trigger-pill-active-bg};
+    --#{$prefix}nav-pills-link-active-color: #{$slxd-tabs-trigger-pill-active-color};
+
+    .nav-link.active,
+    .show > .nav-link {
+        font-weight: $slxd-tabs-trigger-active-weight;
+    }
+}
+
+// Tabs on narrow screens (12): below md Boost turns tabs and pills into a segmented control (grey track, white tabs,
+// a filled active one). The brand has no segmented control: they are the pill variant, with no track, no line and
+// no indicator, and the active tab filled as in row 11.
+@include media-breakpoint-down(md) {
+    .nav-tabs:not(.more-nav),
+    .nav-pills {
+        --#{$prefix}nav-tabs-link-active-bg: var(--#{$prefix}nav-pills-link-active-bg);
+        --#{$prefix}nav-tabs-link-active-color: var(--#{$prefix}nav-pills-link-active-color);
+        --#{$prefix}nav-tabs-link-active-border-color: transparent;
+        padding: 0;
+        background-color: transparent;
+
+        .nav-link {
+            margin: 0;
+
+            &:not(.active) {
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+@include color-mode(dark) {
+    .nav-pills,
+    .nav-tabs:not(.more-nav) {
+        --#{$prefix}nav-pills-link-active-bg: #{$slxd-color-accent-1};
+        --#{$prefix}nav-pills-link-active-color: #{$slxd-color-primary};
+    }
+}

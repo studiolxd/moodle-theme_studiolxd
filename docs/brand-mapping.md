@@ -598,3 +598,38 @@ El fondo y la tinta son los de la página, que `--bs-body-bg` y `--bs-body-color
   elementos ocultos a estudiantes es decisión mía. Como en la marca, no cambia en hover.
 - Los bloques del cajón derecho ya son tarjetas de la marca, y la insignia de sección actual es el Tag. El menú de
   navegación móvil (`.drawer-primary`) recibe las filas 1 a 8. El cajón de mensajería es otro componente.
+
+### Pestañas
+
+`overrides/_tabs.scss`. Las pestañas de contenido de Moodle (`tabtree` en actividades e informes, las pestañas
+dinámicas y las de los ajustes de administración, todas `.nav-tabs`) son las Tabs de la marca, y `.nav-pills` su
+variante pastilla. La navegación secundaria también es `.nav-tabs`, pero lleva `.more-nav` y ya está mapeada (NavPill):
+por eso la marca se pone en las propiedades de las pestañas de contenido y no en las variables de Bootstrap, que
+llegarían a las dos. Los colores son el texto atenuado, la tinta y la línea de cada modo, que `--bs-secondary-color` y
+`--bs-body-color` ya valen.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Línea bajo la lista | Sí | `1px` `#111E30` `tabs.list-border-*` (antes `#DEE2E6`) | `#FFFFFF` `tabs.surface-dark-list-border-color` (antes `#495057`) |
+| 2. Separación entre pestañas | Sí | `0.25rem` `tabs.list-gap` (antes `0`) | = claro |
+| 3. Pestaña: padding y tipografía | Sí | `0.75rem` × `1rem`; `1rem`, peso `300`, interlineado `1.15` `tabs.trigger-*` (antes `0.5rem` × `1rem` e interlineado `1.5`) | = claro |
+| 4. Pestaña inactiva: color | Sí | `#4A4A4A` `tabs.trigger-color` (antes `#111E30`, el color de enlace) | `#D0D0D0` `tabs.surface-dark-trigger-color` (antes amarillo `#FFCD00`, el enlace en oscuro) |
+| 5. Hover | Sí | texto `#111E30`, sin borde ni fondo `tabs.trigger-hover-color` (antes recuadro gris `#E9ECEF`) | texto `#FFFFFF` (antes recuadro `#343A40`) |
+| 6. Pestaña activa | Sí | texto `#111E30`, peso `500`, indicador de `1px` `#111E30` bajo ella `tabs.trigger-active-*`, `tabs.trigger-indicator-*` ⚠️a (antes recuadro con borde `#DEE2E6` y fondo blanco, texto negro `#000000`) | texto e indicador `#FFFFFF` (antes recuadro con borde `#495057`) |
+| 7. Radio | Sí | `0` `tabs.trigger-border-radius` (ya lo era) | = claro |
+| 8. Pestaña deshabilitada | Sí | opacidad `0.4` `tabs.trigger-disabled-opacity` (antes texto `#4A4A4A`) | = claro (antes `#D0D0D0`) |
+| 9. Foco | Sí | anillo de `2px` en la tinta, separado `1px` `tabs.focus-ring-*` (antes sombra de `2px` con hueco de `1px`) | anillo `#FFFFFF` |
+| 10. Transición | Sí | color en `150ms` `ease-in-out` `tabs.transition-*` (antes color, fondo y borde en `0.15s` `ease-in-out`) | = claro |
+| 11. Pastillas (`.nav-pills`), activa | Sí | relleno `#111E30`, texto `#FFFFFF`, peso `500` `tabs.trigger-pill-active-*` (antes igual, sin el peso) | relleno lavanda `#BAABFF`, texto `#111E30` `tabs.surface-dark-trigger-pill-active-*` (antes relleno `#111E30` sobre el fondo `#111E30`: solo se veía el texto) |
+| 12. Pestañas en pantallas estrechas (menos de `768px`) | No | la variante pastilla de la marca (fila 11), sin pista, sin línea ni indicador ⚠️b (antes control segmentado de Boost: pista gris `#E9ECEF`, pestañas blancas y la activa rellena `#111E30`) | pastilla lavanda con texto `#111E30` (antes pista `#292E33`) |
+| 13. Aire entre la lista y el contenido | Sí | se quedan los márgenes de Moodle (`1rem` en `tabtree`, `1.5rem` en las dinámicas) ⚠️c; la marca: `1rem` `tabs.content-padding-block` | = claro |
+
+**Notas**
+
+- **a.** Es la marca, no una decisión mía: su indicador mide y vale lo mismo que la línea de la lista, así que se
+  pinta encima y no se distingue; la pestaña activa se reconoce por el peso y por el color, frente al gris de las
+  inactivas. Aquí lo dibuja el borde inferior de la pestaña, que Bootstrap ya monta sobre la línea.
+- **b.** La marca no tiene control segmentado; llevarlo a la variante pastilla es decisión mía. Boost lo aplica por
+  debajo de `md` (`768px`), y las pestañas se siguen repartiendo el ancho como en Boost.
+- **c.** Moodle los pone con utilidades en el HTML (`mb-3`, `mb-4`), no con padding del panel; igualarlos quitaría
+  `0.5rem` a las pestañas dinámicas.

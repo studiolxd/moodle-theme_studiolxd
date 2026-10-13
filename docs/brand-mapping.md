@@ -390,7 +390,7 @@ que así siguen también al modo.
 | Qué | Equivalencia | Claro | Oscuro |
 |---|---|---|---|
 | 1. Panel: fondo y texto | Sí | `#FFFFFF` / `#111E30` `menu.bg`, `menu.item-color` | `#111E30` / `#FFFFFF` `menu.surface-dark-item-color` |
-| 2. Panel: borde | Sí | `1px` `#111E30` `menu.border-*` (antes translúcido) | `#FFFFFF` |
+| 2. Panel: borde | Sí | `1px` `#111E30` `menu.border-*` (antes translúcido) | `#FFFFFF` (antes `#495057` de Boost) ⚠️c |
 | 3. Panel: padding | Sí | `0.5rem` × `0.5rem` `menu.padding-*` (antes `0.5rem` × `0`) | = claro |
 | 4. Panel: radio y sombra | Sí | `0`, sin sombra `menu.border-radius`, `menu.shadow` (fase 3) | = claro |
 | 5. Ítems: tamaño, padding e interlineado | Sí | `1rem`, `0.5rem` × `1rem`, `1.3` `menu.item-*` (antes `0.25rem` de padding vertical y `1.5`) | = claro |
@@ -407,6 +407,9 @@ que así siguen también al modo.
   en los ítems con texto de color: esas reglas se sobrescriben para que sigan al resaltado de cada modo.
 - **b.** Moodle lo marca con `.active`, `aria-current` o `aria-selected`; Bootstrap lo rellenaba y Boost le ponía una
   marca ✓ delante, con hueco a la izquierda para ella. Al resaltarlo se invierte como cualquier otro ítem.
+- **c.** Boost pone en oscuro un borde gris (`var(--bs-gray-300)`, `#495057`) a tarjetas, menús y modales con un
+  selector más específico que el de Bootstrap, que tapaba el mapeo: se sobrescribe en modo oscuro para que vuelva a
+  ser el borde del componente.
 
 
 ### Tarjetas
@@ -418,7 +421,7 @@ paneles del área personal) son la tarjeta outline de la marca: el fondo de la p
 | Qué | Equivalencia | Claro | Oscuro |
 |---|---|---|---|
 | 1. Fondo | Sí | `#FFFFFF` `card.outline-bg` (antes `var(--bs-white)`) | `#111E30` `card.surface-dark-outline-bg` (antes `#343A40` de Boost) |
-| 2. Borde | Sí | `1px` `#111E30` `card.outline-border-*` (antes gris claro) | `#FFFFFF` `card.surface-dark-outline-border-color` |
+| 2. Borde | Sí | `1px` `#111E30` `card.outline-border-*` (antes gris claro) | `#FFFFFF` `card.surface-dark-outline-border-color` (antes `#495057` de Boost) ⚠️c |
 | 3. Radio | Sí | `0` `card.border-radius` | = claro |
 | 4. Padding | Sí | `1rem` lateral y arriba, `0.75rem` abajo `card.padding-*` | = claro |
 | 5. Separación bajo el título | Sí | `0.25rem` `card.header-row-gap` (antes `0.5rem`) ⚠️a | = claro |
@@ -431,6 +434,9 @@ paneles del área personal) son la tarjeta outline de la marca: el fondo de la p
 - **b.** En el core solo la usan las tarjetas de factores de la autenticación en varios pasos (`tool_mfa`). El lavanda
   contrasta en cualquier superficie, así que es igual en los dos modos, y el texto de dentro (títulos, enlaces, texto
   secundario) mantiene los colores de la superficie clara también en oscuro.
+- **c.** Boost pone en oscuro un borde gris (`var(--bs-gray-300)`, `#495057`) a tarjetas, menús y modales con un
+  selector más específico que el de Bootstrap, que tapaba el mapeo: se sobrescribe en modo oscuro para que vuelva a
+  ser el borde del componente.
 
 ### Contadores
 

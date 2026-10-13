@@ -90,3 +90,12 @@
 .more-nav .dropdown-menu:has(.dropdown-item.active) .dropdown-item {
     padding-left: var(--#{$prefix}dropdown-item-padding-x);
 }
+
+// Dark border (2): the menu's white border on the dark surface (menu.border-color = color.text.on-dark there), which
+// --bs-dropdown-border-color holds through --bs-body-color. Boost's dark mode gives it a grey one ($gray-300 of the
+// dark palette), with a more specific selector than Bootstrap's.
+@include color-mode(dark) {
+    .dropdown-menu {
+        border-color: var(--#{$prefix}dropdown-border-color);
+    }
+}

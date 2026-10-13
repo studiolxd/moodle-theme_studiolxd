@@ -19,5 +19,16 @@
     --#{$prefix}link-color-rgb: #{to-rgb($slxd-card-primary-color)};
     --#{$prefix}link-hover-color-rgb: #{to-rgb($slxd-card-primary-color)};
     --#{$prefix}secondary-color: #{$slxd-color-text-muted-on-light};
+    // Through the card's own property too, so the dark border rule below keeps it lavender.
+    --#{$prefix}card-border-color: #{$slxd-card-primary-bg};
     border-color: $slxd-card-primary-bg;
+}
+
+// Dark border (2): the outline card's white border on the dark surface (card.surface-dark-outline-border-color =
+// color.text.on-dark), which --bs-card-border-color holds there through --bs-body-color. Boost's dark mode gives it a
+// grey one ($gray-300 of the dark palette), with a more specific selector than Bootstrap's.
+@include color-mode(dark) {
+    .card {
+        border-color: var(--#{$prefix}card-border-color);
+    }
 }

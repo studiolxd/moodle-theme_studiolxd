@@ -858,3 +858,51 @@ usuario es el disparador del UserMenu. El panel del menú ya es el Menú de la m
   oculta el de todos los desplegables, y en los menús de acciones (`⋮`) sobraría.
 - **d.** El panel de Moodle empieza en «Perfil», sin la cabecera con nombre y correo de la marca; se queda así
   (decisión validada). El modo «Has entrado como» mantiene los dos avatares superpuestos de Moodle.
+
+### Pie de página
+
+`overrides/_footer.scss`. Moodle 5.3 no tiene un pie visible: un botón flotante `?` en la esquina inferior abre un
+popover de Bootstrap (`.popover.footer`) con los enlaces de ayuda, la información de sesión y «Funciona con Moodle».
+En la marca es el FloatingDock: un lanzador anclado en una esquina que abre un panel. El SiteFooter y el LegalFooter
+de la marca son pies de página pública y aquí no tienen dónde ir.
+
+| Qué | Eq. | Claro | Oscuro |
+|---|---|---|---|
+| **Lanzador `?`** | | | |
+| 1. Estilo | Sí | botón primario ⚠️a | = |
+| 2. Caja | Sí | `48px` cuadrado (antes `32px` redondo) | = |
+| 3. Icono | Sí | `24px` (antes `16px`) | = |
+| 4. Distancia a la esquina | Sí | `1.5rem` (antes `2rem`) | = |
+| 5. Botón de la sala de chat | No | igual que el `?` ⚠️b | = |
+| **Panel** | | | |
+| 6. Estilo | Sí | el Popover (ya) | = |
+| 7. Ancho | Sí | `22rem` (antes `300px`) | = |
+| 8. Separación del lanzador | Sí | `0.75rem` (antes `8px`) | = |
+| 9. Padding de secciones | Sí | `1rem` (ya) | = |
+| 10. Línea entre secciones | Sí | `1px` `#111E30` ⚠️c (antes `#DEE2E6`) | `#FFFFFF` (antes `#495057`) |
+| 11. Entrada | Sí | sube `0.5rem` en `250ms` ⚠️d | = |
+| **Otros** | | | |
+| 12. Franja de depuración | No | `#111E30`, texto `#FFFFFF` ⚠️e | `#FFFFFF`, texto `#111E30` |
+| 13. Toasts | Sí | se quedan en la esquina ⚠️f | = |
+
+**Notas**
+
+- **a.** El lanzador del FloatingDock: el botón primario de la marca en talla lg y solo con icono, lavanda `#BAABFF`
+  con el icono `#111E30` y hover amarillo `#FFCD00`, igual en los dos modos (`floating-dock.trigger-*`,
+  `button.primary.*`). Antes, gris claro `#CED4DA` y redondo. Boost lo pinta con utilidades con `!important`
+  (`.text-bg-secondary`, `.rounded-circle`): el relleno se cambia por su propiedad (`--bs-secondary-rgb`) y el color
+  y el radio con `!important`.
+- **b.** La marca tiene un solo lanzador por dock; el de la sala de chat toma el mismo estilo y se apila encima del
+  `?`, a `0.75rem` (`floating-dock.gap`) (decisión validada). Los dos suben sobre el pie fijo de Moodle y se apartan
+  del cajón derecho cuando se abre en el borde de la ventana, como hacía Boost.
+- **c.** La marca no define secciones dentro del panel; las separa la línea del sistema, la tinta (decisión
+  validada).
+- **d.** Como el panel del FloatingDock: sube `0.5rem` desde la esquina, con fundido, en `250ms` `ease-in-out`
+  (`floating-dock.panel-enter-offset`, `floating-dock.transition-*`), en vez de la escala del Popover (decisión
+  validada). Va en la propiedad `translate`, porque Popper coloca el panel con un `transform` en línea. La separación
+  del lanzador (fila 8) también es un margen sobre los `8px` que pone Bootstrap desde su JavaScript.
+- **e.** Solo aparece con la depuración activada. Lleva la superficie invertida de la marca, como la alerta neutra
+  (`alert.bg`, `alert.surface-dark-bg`), con los enlaces subrayados en su tinta y el aire del LegalFooter (`1.5rem`
+  arriba y abajo, `legal-footer.padding-block`) (decisión validada). Antes, `#1D2125` con texto claro; en oscuro,
+  gris claro `#E9ECEF` con texto blanco, ilegible.
+- **f.** Comparten esquina con el `?`, pero se cierran solos o se descartan (decisión validada).

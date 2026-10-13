@@ -1,0 +1,142 @@
+// Footer: Moodle's floating footer is the brand's FloatingDock, and its debugging band the brand's inverted surface.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Moodle 5.3 has no visible page
+// footer: a floating "?" button in the bottom corner opens a Bootstrap popover (.popover.footer) with the help links,
+// the login info and "Powered by Moodle". Its buttons are styled with !important utilities (.rounded-circle,
+// .text-bg-secondary, .bg-primary, .text-white), so their colours go through the utilities' own custom properties, or
+// with !important where they set a literal. Row numbers refer to docs/brand-mapping.md (phase 5, footer).
+
+// --- Launcher ---------------------------------------------------------------------------------------------------
+
+// Style (1-3): the brand's FloatingDock launcher, a primary button at size lg, icon only: a 48px square
+// (floating-dock.trigger-size) with a 24px glyph (floating-dock.trigger-icon-size), lavender with a prussian glyph and
+// yellow on hover (button.primary.*), the same in both modes. The chat room button (5) takes the same style.
+.footer-popover .btn-footer-popover,
+.btn-footer-communication {
+    --#{$prefix}secondary-rgb: #{to-rgb($slxd-button-primary-bg)};
+    --#{$prefix}primary-rgb: #{to-rgb($slxd-button-primary-bg)};
+    width: $slxd-floating-dock-trigger-size;
+    height: $slxd-floating-dock-trigger-size;
+    color: $slxd-button-primary-color !important; // stylelint-disable-line declaration-no-important
+    border-radius: $slxd-button-primary-border-radius !important; // stylelint-disable-line declaration-no-important
+
+    .icon {
+        width: $slxd-floating-dock-trigger-icon-size;
+        height: $slxd-floating-dock-trigger-icon-size;
+        font-size: $slxd-floating-dock-trigger-icon-size;
+        color: inherit;
+    }
+
+    &:hover,
+    &:active {
+        --#{$prefix}secondary-rgb: #{to-rgb($slxd-button-primary-hover-bg)};
+        --#{$prefix}primary-rgb: #{to-rgb($slxd-button-primary-hover-bg)};
+    }
+}
+
+// Place (4, 5): 1.5rem from the corner of the window (floating-dock.offset-*), above Moodle's sticky footer when there
+// is one, and beside the right drawer when it opens at the window's edge. The chat room button sits above the "?",
+// the brand's gap between launcher and panel apart (floating-dock.gap).
+$studiolxd-dock-chat-offset: $slxd-floating-dock-trigger-size + $slxd-floating-dock-gap;
+
+.footer-popover .btn-footer-popover {
+    bottom: $slxd-floating-dock-offset-block;
+    right: $slxd-floating-dock-offset-inline;
+}
+
+.btn-footer-communication {
+    bottom: $slxd-floating-dock-offset-block + $studiolxd-dock-chat-offset;
+    right: $slxd-floating-dock-offset-inline;
+}
+
+.hasstickyfooter {
+    .footer-popover .btn-footer-popover {
+        bottom: calc(#{$slxd-floating-dock-offset-block} + var(--sticky-footer-total-height, 4rem));
+    }
+
+    .btn-footer-communication {
+        bottom: calc(#{$slxd-floating-dock-offset-block + $studiolxd-dock-chat-offset} + var(--sticky-footer-total-height, 4rem));
+    }
+}
+
+body:not(.pagelayout-standard):not(.limitedwidth) {
+    #page.drawers.show-drawer-right .btn-footer-popover,
+    #page.drawers.show-drawer-right .btn-footer-communication {
+        right: calc(#{$drawer-right-width} + #{$slxd-floating-dock-offset-inline});
+    }
+}
+
+// --- Panel ------------------------------------------------------------------------------------------------------
+
+// The panel is the brand's Popover (overrides/_tooltips.scss) at the FloatingDock's width (7,
+// floating-dock.panel-width), leaving the window's side air on narrow screens. Its sections keep Moodle's 1rem
+// padding (9) and are separated by the system's line (10), the ink, which the .border-bottom utility takes from
+// --bs-border-color.
+.popover.footer {
+    --#{$prefix}popover-max-width: #{$slxd-floating-dock-panel-width};
+    --#{$prefix}border-color: var(--#{$prefix}body-color);
+    width: min(#{$slxd-floating-dock-panel-width}, calc(100vw - #{$slxd-floating-dock-offset-inline * 2}));
+}
+
+// Gap to the launcher (8): the brand's 0.75rem (floating-dock.gap). Bootstrap's JavaScript places a popover 8px away,
+// so a margin on the side facing the launcher takes it the rest. Moodle opens it above, or below if there is no room.
+.popover.footer[data-popper-placement^="top"] {
+    margin-top: calc(8px - #{$slxd-floating-dock-gap});
+}
+
+.popover.footer[data-popper-placement^="bottom"] {
+    margin-top: calc(#{$slxd-floating-dock-gap} - 8px);
+}
+
+// Entrance (11): the brand's FloatingDock panel slides 0.5rem from the corner it is anchored to
+// (floating-dock.panel-enter-offset), in 250ms ease-in-out (floating-dock.transition-*), instead of the Popover's
+// scale. Popper positions it with an inline transform, so the slide uses the independent translate property.
+.popover.footer.fade {
+    transition:
+        opacity $slxd-floating-dock-transition-duration $slxd-floating-dock-transition-easing,
+        translate $slxd-floating-dock-transition-duration $slxd-floating-dock-transition-easing;
+}
+
+.popover.footer.fade:not(.show) {
+    scale: none;
+    translate: 0 $slxd-floating-dock-panel-enter-offset;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .popover.footer.fade {
+        transition: none;
+    }
+}
+
+// --- Debugging band (12) ----------------------------------------------------------------------------------------
+
+// Shown only with debugging on. The brand's inverted surface, like its neutral alert: prussian with white text on the
+// light page, white with prussian text on the dark one (alert.bg, alert.surface-dark-bg). Boost paints it with the
+// .bg-dark and .text-light utilities, whose colours come from --bs-dark-rgb and --bs-light-rgb; in dark mode they
+// turned it into light grey with white text. Its air is the brand's LegalFooter's (legal-footer.padding-block).
+.footer-content-debugging {
+    --#{$prefix}dark-rgb: #{to-rgb($slxd-alert-bg)};
+    --#{$prefix}light-rgb: #{to-rgb($slxd-alert-description-color)};
+
+    .footer-dark-inner {
+        padding-block: $slxd-legal-footer-padding-block;
+    }
+
+    // Links in the band's ink, underlined (Boost sets them white).
+    a,
+    a .icon,
+    a:focus .icon {
+        color: inherit;
+    }
+
+    a:focus-visible {
+        outline-color: currentColor;
+    }
+}
+
+@include color-mode(dark) {
+    .footer-content-debugging {
+        --#{$prefix}dark-rgb: #{to-rgb($slxd-color-text-on-dark)};
+        --#{$prefix}light-rgb: #{to-rgb($slxd-color-primary)};
+    }
+}

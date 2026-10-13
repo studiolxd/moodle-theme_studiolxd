@@ -745,3 +745,31 @@ sitio y su color.
   marca (Moodle no la anima). Antes, arriba y centrados.
 - **f.** Sin el fondo translúcido, la línea inferior ni el gris de Bootstrap: `1rem`, peso `500`, interlineado `1.3`,
   tracking `-0.02em` (`alert.title-*`).
+
+### Barra de progreso
+
+`mapping/light/components/_progress.scss` y `overrides/_progress.scss`. Las `.progress` de Moodle (tareas en
+segundo plano con `core/progress_bar`, copia de seguridad asíncrona, suscripción de la app) son la ProgressBar de la
+marca. El progreso de los cursos del área personal ya es solo texto, y ninguna barra de Moodle lleva la cifra dentro.
+
+| Qué | Eq. | Claro | Oscuro |
+|---|---|---|---|
+| 1. Carril: fondo | Sí | `#F2F2F2` (antes `#E9ECEF`) | `#4A4A4A` (antes `#343A40`) |
+| 2. Carril: borde | Sí | `1px` `#111E30` (antes no) | `#FFFFFF` |
+| 3. Relleno | Sí | `#111E30` (ya) | `#FFFFFF` (antes `#111E30`) |
+| 4. Relleno: borde | Sí | `1px` `#111E30` ⚠️a | `#FFFFFF` |
+| 5. Alto | Sí | `1.5rem` (md) ⚠️b (antes `1rem`) | = |
+| 6. Radio | Sí | `0` (ya) | = |
+| 7. Avance | Sí | `250ms` `ease-in-out` (antes `0.6s`) | = |
+| 8. Rayas animadas | No | sin rayas ⚠️c | = |
+| 9. Error (`bg-danger`) | Sí | `#B30000` (ya, fase 2) | = |
+| 10. Alto fijo de `25px` | No | `1.5rem` ⚠️d | = |
+
+**Notas**
+
+- **a.** La marca contornea el relleno para que los rellenos claros se distingan del carril. Su lado superior, el
+  inferior y el de inicio ya caen sobre el borde del carril, así que solo se dibuja el final.
+- **b.** La talla por defecto de la marca, aunque Moodle no ponga la cifra dentro (decisión validada).
+- **c.** La marca no tiene rayas; el avance del relleno ya dice que la tarea sigue viva (decisión mía).
+- **d.** La copia de seguridad asíncrona fija `25px` en el HTML (`style`); se fuerza a la talla de la marca con
+  `!important` (decisión validada).

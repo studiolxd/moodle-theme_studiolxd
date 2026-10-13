@@ -1,0 +1,24 @@
+// Progress bars: Moodle's .progress (background tasks, asynchronous backups, the mobile app subscription) is the
+// brand's ProgressBar.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// The fill is the ink with the page background for its text (progress-bar.primary-fill = color.primary; dark:
+// progress-bar.surface-dark-primary-fill = color.text.on-dark, with prussian text), which --bs-body-color and
+// --bs-body-bg hold in each mode. The borders, the dark track and the stripes are in overrides/_progress.scss.
+// Row numbers refer to docs/brand-mapping.md (phase 5, progress bars).
+
+// Track (1): the light secondary surface.
+$progress-bg: $slxd-progress-bar-track-bg;
+$progress-box-shadow: $slxd-shadow-default;
+
+// Fill (3).
+$progress-bar-bg: var(--bs-body-color);
+$progress-bar-color: var(--bs-body-bg);
+
+// Height (5): the brand's default size, md; radius (6).
+$progress-height: $slxd-progress-bar-height-md;
+$progress-border-radius: $slxd-progress-bar-border-radius;
+$progress-font-size: $slxd-progress-bar-font-size;
+
+// Progress (7).
+$progress-bar-transition: width $slxd-progress-bar-transition-duration $slxd-progress-bar-transition-easing;

@@ -1,0 +1,38 @@
+// Progress bars: the brand's outlines, its dark track, no stripes, and one height for every bar.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Row numbers refer to
+// docs/brand-mapping.md (phase 5, progress bars).
+
+// Track border (2): the ink (progress-bar.track-border-*; dark: color.text.on-dark), which --bs-body-color holds.
+.progress {
+    border: $slxd-progress-bar-track-border-width solid var(--#{$prefix}body-color);
+}
+
+// Fill border (4): the brand outlines the fill so light fills stand apart from the track
+// (progress-bar.fill-border-*). Its top, bottom and start already sit on the track's border, so only its end edge
+// is drawn.
+.progress-bar {
+    border-inline-end: $slxd-progress-bar-fill-border-width solid var(--#{$prefix}body-color);
+}
+
+// Stripes (8): the brand has none; the fill's progress already shows the task is alive. Boost and the design system
+// both stripe and animate it.
+.progress-bar-striped {
+    background-image: none;
+}
+
+.progress-bar-animated {
+    animation: none;
+}
+
+// Fixed height (10): the asynchronous backup sets 25px in the HTML (style); it takes the brand's height too.
+.progress.active {
+    height: var(--#{$prefix}progress-height) !important; // stylelint-disable-line declaration-no-important
+}
+
+// Dark track (1): the dark secondary surface (progress-bar.surface-dark-track-bg = color.surface.secondary-on-dark).
+@include color-mode(dark) {
+    .progress {
+        --#{$prefix}progress-bg: #{$slxd-color-surface-secondary-on-dark};
+    }
+}

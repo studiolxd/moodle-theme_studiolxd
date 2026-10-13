@@ -818,3 +818,43 @@ superficie invertida y el popover el panel flotante, que `--bs-body-color` y `--
   color y el peso de los títulos, con `0.5rem` hasta el texto (decisión mía). Antes, franja `#E9ECEF` (`#343A40`).
 - **f.** Como en la marca. Sin flecha, los `8px` de Bootstrap son justo la separación de la marca
   (`popover.offset`).
+
+### Avatar y menú de usuario
+
+`overrides/_avatars.scss` y `functions/_chevron.scss`. Las fotos de usuario de Moodle (`img.userpicture`, con `width`
+igual a su talla) y sus iniciales (`.userinitials.size-<talla>`) son el Avatar de la marca, y el botón del menú de
+usuario es el disparador del UserMenu. El panel del menú ya es el Menú de la marca (desplegables).
+
+| Qué | Eq. | Claro | Oscuro |
+|---|---|---|---|
+| **Avatar** | | | |
+| 1. Forma | Sí | círculo (ya) | = |
+| 2. Iniciales: fondo | Sí | `#111E30` (antes `#E9ECEF`) | `#FFFFFF` (antes `#292E33`) |
+| 3. Iniciales: texto | Sí | `#FFFFFF`, `500` (antes `#343A40`, `400`) | `#111E30` (antes `#E9ECEF`) |
+| 4. Iniciales: tamaño | Sí | el de cada talla ⚠️a | = |
+| 5. Tallas | Sí | las de la marca ⚠️b | = |
+| **Botón del menú** | | | |
+| 6. Avatar | Sí | `32px` (sm) (antes `35px`) | = |
+| 7. Nombre | Sí | `1rem`, `500` (antes `300`) | = |
+| 8. Avatar → nombre | Sí | `0.75rem` (antes `0.5rem`) | = |
+| 9. Padding lateral | Sí | `0.75rem` (antes `0.5rem`) | = |
+| 10. Foco | Sí | anillo `2px` a `1px` (antes a `0.25rem`) | = |
+| 11. Chevron | Sí | el de la marca, siempre ⚠️c | = |
+| **Panel** | | | |
+| 12. Estilo | Sí | el Menú (ya) | = |
+| 13. Ancho mín. | Sí | `14rem` (antes `10rem`) | = |
+| 14. Cabecera con nombre y correo | Sí | no aplica ⚠️d | = |
+
+**Notas**
+
+- **a.** `0.875rem` en sm (`32px`), `1rem` en md (`40px`), `1.25rem` en lg (`48px`), `1.5rem` en xl (`64px`) y
+  `1.75rem` en 2xl (`96px`) (`avatar.initials-font-size-*`). Moodle las dejaba heredar.
+- **b.** Cada talla de Moodle toma la más cercana de la marca (decisión validada): `35px` y `40px` (listas, foros,
+  por defecto) → md `40px`; `50px` → lg `48px`; `60px` y `64px` → xl `64px`; `100px` (ficha) → 2xl `96px`. También
+  las que Boost fija por sitio (cabecera de calificaciones, calificador de foros). Las de `16px` a `24px` no tienen
+  talla en la marca y se quedan.
+- **c.** El del UserMenu de la marca (icono `chevron`, talla sm `16px`), hacia abajo y hacia arriba con el menú
+  abierto, en `150ms` (`user-menu.transition-*`), en todos los anchos (decisión validada). Solo en este botón: Boost
+  oculta el de todos los desplegables, y en los menús de acciones (`⋮`) sobraría.
+- **d.** El panel de Moodle empieza en «Perfil», sin la cabecera con nombre y correo de la marca; se queda así
+  (decisión validada). El modo «Has entrado como» mantiene los dos avatares superpuestos de Moodle.

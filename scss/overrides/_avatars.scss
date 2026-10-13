@@ -1,0 +1,121 @@
+// Avatars and the user menu: the brand's Avatar sizes and initials, and its UserMenu trigger.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Moodle draws a user's picture
+// as img.userpicture with width and height set to its size (35 by default, 100 for the profile), or, with no picture,
+// as span.userinitials.size-<size>. Row numbers refer to docs/brand-mapping.md (phase 5, avatar and user menu).
+
+// --- Avatar -----------------------------------------------------------------------------------------------------
+
+// Initials (2, 3): the ink with the page background for its text (avatar.initials-*; dark: avatar.surface-dark-* =
+// color.text.on-dark, color.primary), which --bs-body-color and --bs-body-bg hold in each mode, at the emphasis weight.
+.userinitials {
+    color: var(--#{$prefix}body-bg);
+    background-color: var(--#{$prefix}body-color);
+    font-weight: $slxd-avatar-initials-font-weight;
+}
+
+// Sizes (4, 5): each of Moodle's picture sizes takes the brand's nearest one (avatar.size-*), and its initials the
+// type size of that step (avatar.initials-font-size-*). Moodle's size: (brand size, initials size). Smaller pictures
+// (16, 20, 24) have no brand step and keep Moodle's.
+$studiolxd-avatar-sizes: (
+    35: ($slxd-avatar-size-md, $slxd-avatar-initials-font-size-md),
+    40: ($slxd-avatar-size-md, $slxd-avatar-initials-font-size-md),
+    50: ($slxd-avatar-size-lg, $slxd-avatar-initials-font-size-lg),
+    60: ($slxd-avatar-size-xl, $slxd-avatar-initials-font-size-xl),
+    64: ($slxd-avatar-size-xl, $slxd-avatar-initials-font-size-xl),
+    100: ($slxd-avatar-size-2xl, $slxd-avatar-initials-font-size-2xl),
+);
+
+@each $moodle, $brand in $studiolxd-avatar-sizes {
+    img.userpicture[width="#{$moodle}"],
+    .userinitials.size-#{$moodle} {
+        width: nth($brand, 1);
+        height: nth($brand, 1);
+    }
+
+    .userinitials.size-#{$moodle} {
+        font-size: nth($brand, 2);
+    }
+}
+
+// Boost sizes a few of them by place, with its own values; they take the brand's step too.
+.path-grade .user-heading .userinitials {
+    width: $slxd-avatar-size-lg;
+    height: $slxd-avatar-size-lg;
+    font-size: $slxd-avatar-initials-font-size-lg;
+}
+
+.path-mod-forum .unified-grader .userpicture {
+    width: $slxd-avatar-size-xl;
+    height: $slxd-avatar-size-xl;
+}
+
+// --- User menu trigger ------------------------------------------------------------------------------------------
+
+// Trigger (8, 9): the brand's gap between avatar, name and chevron, and its side padding (user-menu.trigger-*).
+.navbar.fixed-top .usermenu .dropdown #user-menu-toggle {
+    gap: $slxd-user-menu-trigger-gap;
+    padding-inline: $slxd-user-menu-trigger-padding-inline;
+
+    // Focus (10): the brand's ring, 1px out (user-menu.focus-ring-*), in the ink of the bar.
+    &:focus-visible {
+        outline: $slxd-user-menu-focus-ring-width solid var(--mds-focus-default);
+        outline-offset: $slxd-user-menu-focus-ring-offset;
+    }
+
+    // Avatar (6): the brand's bar size, sm (avatar.size-sm, avatar.initials-font-size-sm). "Logged in as" keeps
+    // Moodle's two stacked pictures.
+    .userbutton .avatar.current {
+        img.userpicture,
+        .userinitials {
+            width: $slxd-avatar-size-sm;
+            height: $slxd-avatar-size-sm;
+        }
+
+        .userinitials {
+            font-size: $slxd-avatar-initials-font-size-sm;
+        }
+    }
+
+    // Name (7): the brand's (user-menu.name-*), the ink of the bar; the gap replaces Boost's margins.
+    .userfirstname {
+        margin-inline: 0;
+        font-size: $slxd-user-menu-name-font-size;
+        font-weight: $slxd-user-menu-name-font-weight;
+    }
+
+    // Chevron (11): the brand's (Icon `chevron` at size sm), pointing down and turning up while the menu is open, in
+    // the trigger's colour. It replaces Bootstrap's caret, which Boost hides on every toggle.
+    &::after {
+        display: block;
+        flex-shrink: 0;
+        width: $slxd-icon-size-sm;
+        height: $slxd-icon-size-sm;
+        margin: 0;
+        vertical-align: middle;
+        content: "";
+        border: 0;
+        background-color: currentColor;
+        mask-image: escape-svg(studiolxd-chevron-glyph($black));
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: 100%;
+        transform: rotate(90deg);
+        transition: transform $slxd-user-menu-transition-duration $slxd-user-menu-transition-easing;
+    }
+
+    &[aria-expanded="true"]::after {
+        transform: rotate(-90deg);
+    }
+}
+
+// Panel (13): wide enough for a name and an email on one line (user-menu.content-min-width).
+#user-action-menu {
+    --#{$prefix}dropdown-min-width: #{$slxd-user-menu-content-min-width};
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #user-menu-toggle::after {
+        transition: none;
+    }
+}

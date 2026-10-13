@@ -4,6 +4,7 @@
 @import "functions/sizing";
 @import "functions/checks";
 @import "functions/close-button";
+@import "functions/chevron";
 
 // Studio LXD brand tokens ($slxd-*). Vendored by studiolxd/sync_brand.sh (repository root); they only define variables, no CSS.
 @import "brand/tokens/index.legacy";

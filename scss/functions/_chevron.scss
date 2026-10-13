@@ -1,0 +1,7 @@
+// Chevron helpers for the overrides. Functions only: no CSS, no variables.
+
+// The brand's chevron as an SVG image (Icon `chevron`, it is not a token): a 90° point 9 wide and 18 tall, centred on
+// a 24 grid, pointing right; the components turn it with CSS. The stroke is the brand's icon stroke, 1 unit.
+@function studiolxd-chevron-glyph($colour) {
+    @return url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#{$colour}' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'><path d='M7.5 3L16.5 12L7.5 21'/></svg>");
+}

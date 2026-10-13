@@ -633,3 +633,64 @@ llegarían a las dos. Los colores son el texto atenuado, la tinta y la línea de
   debajo de `md` (`768px`), y las pestañas se siguen repartiendo el ancho como en Boost.
 - **c.** Moodle los pone con utilidades en el HTML (`mb-3`, `mb-4`), no con padding del panel; igualarlos quitaría
   `0.5rem` a las pestañas dinámicas.
+
+### Tablas y paginación
+
+`mapping/light/components/_tables.scss` y `overrides/_tables.scss`. Las tablas de Moodle (`html_table`, con
+`generaltable table table-hover`, y las tablas flexibles de participantes, informes y calificaciones, con
+`table table-striped table-hover`) son la Table de la marca; la barra de páginas y la de iniciales (`.pagination-sm`)
+son su Pagination. El texto y las líneas de la tabla son la tinta, y el botón outline de la paginación, con su hover y
+su página actual invertidos, la tinta y el fondo de la página, que `--bs-body-color` y `--bs-body-bg` ya valen en
+cada modo.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| **Tablas** | | | |
+| 1. Texto | Sí | `#111E30`; `1rem`, peso `300`, interlineado `1.5` `table.color`, `table.font-*` (antes negro `#000000`) | `#FFFFFF` `table.surface-dark-color` (= antes) |
+| 2. Fondo | Sí | transparente `table.bg` (antes el de la página, `#FFFFFF`) | = claro (antes `#111E30`) |
+| 3. Separadores entre filas | Sí | `1px` `#111E30` `table.border-width`, `table.row-border-color` (antes `#DEE2E6`) | `#FFFFFF` `table.surface-dark-row-border-color` (antes `#495057`) |
+| 4. Borde superior de la tabla | No | ninguno ⚠️a (antes `1px` `#DEE2E6` de Boost) | = claro (antes `#495057`) |
+| 5. Cabecera | Sí | peso `500`, borde inferior de `1px` `#111E30` `table.header-*` (antes peso `700` y borde `#DEE2E6`) | borde `#FFFFFF` `table.surface-dark-header-border-color` |
+| 6. Padding de celdas y cabecera | Sí | `0.75rem` × `0.75rem` `table.cell-padding-*`, `table.header-padding-*` (antes `0.5rem` en las tablas flexibles; `0.75rem` en las `generaltable`) | = claro |
+| 7. Tablas compactas (`.table-sm`) | Sí | `0.5rem` de padding, `0.875rem` `table.sm-*` (antes `0.25rem` y `1rem`) | = claro |
+| 8. Filas alternas (`.table-striped`) | No | sin rayado ⚠️b (antes tinte negro al `3 %`) | = claro (antes tinte blanco al `3 %`) |
+| 9. Hover de fila | Sí | sin hover ⚠️c (antes tinte negro al `7.5 %`) | = claro (antes tinte blanco al `7.5 %`) |
+| 10. Fila seleccionada (`.table-active`) | Sí | tinta `#111E30`, peso `500`, sin fondo `table.row-selected-*` (antes tinte negro al `10 %`) | lavanda `#BAABFF`, peso `500` `table.surface-dark-row-selected-color` (antes tinte blanco al `10 %`) |
+| 11. Cabecera ordenable | Sí | el rótulo hereda la tipografía y el color de la cabecera (peso `500`, `#111E30`), sin subrayado ⚠️d (antes `#111E30`, el color de enlace, subrayado) | hereda `#FFFFFF` (antes amarillo `#FFCD00` y subrayado) |
+| 12. Icono de ordenación | Sí | `#111E30` `table.sort-icon-active-color` ⚠️d (antes el color del enlace) | `#FFFFFF` `table.surface-dark-sort-icon-active-color` |
+| 13. Foco en la cabecera | Sí | anillo de `2px` en la tinta, separado `1px` `table.focus-ring-*` (antes sombra de `2px` con hueco de `1px`) | anillo `#FFFFFF` |
+| 14. Pie (`tfoot`) | Sí | fondo `#F2F2F2`, borde superior de `1px` `#111E30`, peso `500` `table.footer-*` (antes sin estilo propio) | fondo `#4A4A4A`, borde `#FFFFFF` `table.surface-dark-footer-*` |
+| 15. Columna fija (`.sticky-column`) | Sí | fondo opaco `#FFFFFF` `table.sticky-bg` ⚠️e (antes heredaba el de la fila) | `#111E30` `table.surface-dark-sticky-bg` |
+| 26. Última fila | Sí | sin línea inferior (antes `1px` `#DEE2E6`) | = claro (antes `#495057`) |
+| **Paginación** | | | |
+| 16. Botón de página: caja y texto | Sí | cuadrado de `2.5rem`, padding lateral `0.5rem`, `1rem` con interlineado `1` `pagination.btn-*` (antes `0.375rem` × `0.75rem`, unos `38px` de alto) | = claro |
+| 17. Separación entre botones | Sí | `0.25rem` `pagination.controls-gap` (antes pegados, con los bordes solapados) | = claro |
+| 18. Botón en reposo | Sí | outline: borde de `1px` y texto `#111E30`, sin fondo `pagination.btn-*` (antes borde `#DEE2E6` y fondo blanco) | borde y texto `#FFFFFF` `pagination.surface-dark-btn-*` (antes borde `#495057` y texto amarillo `#FFCD00`) |
+| 19. Hover | Sí | invertido: relleno `#111E30`, texto `#FFFFFF` `pagination.btn-hover-*` (antes fondo `#F8F9FA`) | relleno `#FFFFFF`, texto `#111E30` (antes fondo `#292E33`) |
+| 20. Página actual | Sí | relleno `#111E30`, texto `#FFFFFF`, peso `500` `pagination.btn-current-*` (antes igual, sin el peso) | relleno `#FFFFFF`, texto `#111E30` (antes relleno `#111E30` sobre el fondo `#111E30`: solo se veía el texto) |
+| 21. Puntos suspensivos (`…`) | Sí | texto `#4A4A4A`, sin caja `pagination.ellipsis-color` ⚠️f (antes caja de botón deshabilitado: fondo `#E9ECEF` y borde `#DEE2E6`) | `#D0D0D0` (antes fondo `#343A40`) |
+| 22. Botón deshabilitado | Sí | borde y texto `#D0D0D0`, sin fondo, cursor `not-allowed` `pagination.btn-disabled-*` (antes texto `#4A4A4A` y fondo `#E9ECEF`) | `#6B6B6B` `pagination.surface-dark-btn-disabled-*` |
+| 23. Foco | Sí | anillo de `2px` en la tinta, separado `1px` `pagination.focus-ring-*` (antes sombra de `2px` con hueco de `1px`) | anillo `#FFFFFF` |
+| 24. Tallas sm y lg (`sm` en la barra de iniciales) | Sí | sm: `2rem`, `0.875rem`, padding `0.25rem`; lg: `3rem`, `1.25rem`, padding `0.75rem` `pagination.sm-*`, `pagination.lg-*` (antes sm `0.25rem` × `0.5rem`; lg `0.75rem` × `1.5rem`) | = claro |
+| 25. Transición | Sí | `150ms` `ease` `pagination.transition-*` (antes `0.15s` `ease-in-out`) | = claro |
+
+**Notas**
+
+- **a.** La marca separa las filas y marca la cabecera con su borde inferior, sin línea encima de la tabla; quitar
+  la de Boost es decisión mía. En `.generaltable` cada celda lleva también su línea superior, que se quita en la
+  primera fila.
+- **b.** La marca no tiene filas alternas: separa con líneas. Quitar el rayado es decisión mía (dejarlo obligaría a
+  inventar el tinte).
+- **c.** La marca solo marca las filas interactivas (las que se pulsan enteras), con una barra de `2px` en la tinta en
+  su borde de inicio (`table.row-hover-marker-*`); en el core de Moodle no hay filas así, así que no hay hover. Si
+  alguna tabla las tuviera, se les pondría la barra.
+- **d.** Como en la marca, donde la cabecera ordenable es un botón dentro del `th` que hereda su tipografía y su
+  color. En Moodle es un enlace (`a[data-sortable]`), al que Boost subraya y en oscuro pinta de amarillo con un
+  selector de id, que se sobrescribe. Moodle solo muestra el icono de la columna ordenada, así que va siempre en el
+  color activo (el de reposo, `#4A4A4A`, no se ve en el core); lo separa del rótulo con un espacio, no con el gap de
+  `0.5rem` de la marca.
+- **e.** Con la tabla transparente, la columna fija necesita fondo propio para tapar lo que pasa por debajo al hacer
+  scroll horizontal, también en el hover, donde Boost le ponía el del hover.
+- **f.** Moodle pinta los puntos suspensivos como un botón deshabilitado (`.page-item.disabled` con un `span`); en el
+  core es el único deshabilitado de la paginación. Se separan para que vayan como texto, como en la marca; el estilo
+  de la fila 22 queda para los plugins que los usen.

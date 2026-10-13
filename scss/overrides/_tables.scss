@@ -1,0 +1,160 @@
+// Tables and pagination: what Bootstrap's variables do not reach.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Boost adds a top line to its
+// tables, Moodle's sortable headers are content links (underlined, the link colour), and the pagination's square
+// buttons, gap, ellipsis and dark disabled grey have no variables. Row numbers refer to docs/brand-mapping.md
+// (phase 5, tables and pagination).
+
+// --- Tables -----------------------------------------------------------------------------------------------------
+
+// Top line (4): none; the brand marks the header with its bottom line only. Boost adds one to .table and to
+// .generaltable, and .generaltable also draws each cell's top line, which the first row would turn into a top line.
+.table,
+.generaltable {
+    border-top: 0;
+}
+
+.generaltable > :first-child > tr:first-child > * {
+    border-top: 0;
+}
+
+// Last row (26): no line under it, as in the brand.
+.table > tbody > tr:last-child > * {
+    border-bottom-width: 0;
+}
+
+// Compact tables (7): the brand's smaller text.
+.table-sm {
+    font-size: $slxd-table-sm-font-size;
+}
+
+// Selected row (10): the ink and a heavier weight, no fill (table.row-selected-*); lavender in dark mode, below.
+.table-active,
+.table-active > * {
+    font-weight: $slxd-table-row-selected-font-weight;
+}
+
+// Sortable header (11-13): in the brand it is a button inside the header cell that inherits its type and colour;
+// Moodle's is a link (role="button"), which Boost underlines and colours as a content link, yellow in dark mode. The
+// sort icon (Moodle only shows the sorted column's) is the active ink, after the label.
+th a[data-sortable] {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    &:focus-visible {
+        outline: $slxd-table-focus-ring-width solid var(--mds-focus-default);
+        outline-offset: $slxd-table-focus-ring-offset;
+        box-shadow: none;
+    }
+
+    ~ .icon {
+        color: inherit;
+    }
+}
+
+// Boost's dark mode underlines content links with an id selector; this beats it for the sortable headers.
+#page-header,
+#region-main,
+#page-footer {
+    th #{$studiolxd-content-link}[data-sortable] {
+        @include dark-mode {
+            text-decoration: none;
+        }
+    }
+}
+
+// Footer (14): the light secondary surface, a line above and a heavier weight (table.footer-*); dark mode below.
+.table > tfoot > tr > * {
+    --#{$prefix}table-bg: #{$slxd-table-footer-bg};
+    font-weight: $slxd-table-footer-font-weight;
+    border-top: $slxd-table-footer-border-width solid var(--#{$prefix}body-color);
+}
+
+// Sticky column (15): opaque, so the columns that scroll under it do not show (table.sticky-bg; dark: color.bg.dark,
+// which --bs-body-bg holds). Boost inherits the row's background, now transparent, also on hover.
+table .sticky-column,
+.table tbody tr:hover td.sticky-column {
+    background-color: var(--#{$prefix}body-bg);
+}
+
+// --- Pagination -------------------------------------------------------------------------------------------------
+
+// Buttons apart (17).
+.pagination {
+    gap: $slxd-pagination-controls-gap;
+}
+
+// Page button (16): a square of the button's height, the number centred, with the button's line height.
+.page-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: $slxd-pagination-btn-height;
+    height: $slxd-pagination-btn-height;
+    line-height: $slxd-pagination-btn-line-height;
+
+    // Focus (23): the brand's ring, an outline in the ink 1px out.
+    &:focus-visible {
+        outline: $slxd-pagination-focus-ring-width solid var(--mds-focus-default);
+        outline-offset: $slxd-pagination-focus-ring-offset;
+    }
+}
+
+// Sizes (24).
+.pagination-sm .page-link {
+    min-width: $slxd-pagination-sm-btn-height;
+    height: $slxd-pagination-sm-btn-height;
+}
+
+.pagination-lg .page-link {
+    min-width: $slxd-pagination-lg-btn-height;
+    height: $slxd-pagination-lg-btn-height;
+}
+
+// Current page (20): heavier.
+.page-item.active .page-link,
+.page-link.active {
+    font-weight: $slxd-pagination-btn-current-font-weight;
+}
+
+// Disabled (22): the brand's cursor. Bootstrap turns pointer events off, so it is set on the item.
+.page-item.disabled {
+    cursor: $slxd-pagination-btn-disabled-cursor;
+}
+
+// Ellipsis (21): Moodle renders it as a disabled page (a span); in the brand it is text, with no box
+// (pagination.ellipsis-color = color.text.muted-on-light; dark: muted-on-dark, which --bs-secondary-color holds).
+.page-item.disabled > span.page-link {
+    color: var(--#{$prefix}secondary-color);
+    border-color: transparent;
+}
+
+.page-item.disabled:has(> span.page-link) {
+    cursor: default;
+}
+
+// --- Dark mode --------------------------------------------------------------------------------------------------
+
+@include color-mode(dark) {
+    // Selected row (10): lavender (table.surface-dark-row-selected-color = color.accent-1).
+    .table {
+        --#{$prefix}table-active-color: #{$slxd-color-accent-1};
+    }
+
+    // Footer (14): the dark secondary surface (table.surface-dark-footer-bg = color.surface.secondary-on-dark).
+    .table > tfoot > tr > * {
+        --#{$prefix}table-bg: #{$slxd-color-surface-secondary-on-dark};
+    }
+
+    // Disabled (22): the dark disabled border (pagination.surface-dark-btn-disabled-* = color.disabled.border-on-dark).
+    .pagination {
+        --#{$prefix}pagination-disabled-color: #{$slxd-color-disabled-border-on-dark};
+        --#{$prefix}pagination-disabled-border-color: #{$slxd-color-disabled-border-on-dark};
+    }
+}

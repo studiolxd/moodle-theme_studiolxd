@@ -1,0 +1,84 @@
+// Tables and pagination: Moodle's tables (html_table and flexible tables) are the brand's Table, and its paging and
+// initials bars the brand's Pagination.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// The table's text and lines are the ink (table.color, table.row-border-color = color.text.on-light; dark:
+// color.text.on-dark), and the pagination's outline button and its inverted hover and current page are the ink and
+// the page background (pagination.btn-*; dark: the surface-dark pairs, white and prussian), which --bs-body-color and
+// --bs-body-bg hold in each mode. The rest is in overrides/_tables.scss. Row numbers refer to docs/brand-mapping.md
+// (phase 5, tables and pagination).
+
+// Table text and background (1, 2).
+$table-color: var(--bs-body-color);
+$table-bg: transparent;
+
+// Lines between rows and under the header (3, 5).
+$table-border-width: $slxd-table-border-width;
+$table-border-color: var(--bs-body-color);
+
+// Header weight (5).
+$table-th-font-weight: $slxd-table-header-font-weight;
+
+// Cell and header padding (6), and the compact table's (7).
+$table-cell-padding-y: $slxd-table-cell-padding-block;
+$table-cell-padding-x: $slxd-table-cell-padding-inline;
+$table-cell-padding-y-sm: $slxd-table-sm-cell-padding-block;
+$table-cell-padding-x-sm: $slxd-table-sm-cell-padding-inline;
+
+// No stripes (8) and no row hover (9): the brand separates rows with lines and only marks interactive rows.
+$table-striped-bg: transparent;
+$table-striped-color: var(--bs-body-color);
+$table-hover-bg: transparent;
+$table-hover-color: var(--bs-body-color);
+
+// Selected row (10): ink, no fill (the weight and the dark lavender are in overrides/_tables.scss).
+$table-active-bg: transparent;
+$table-active-color: var(--bs-body-color);
+
+// Page button (16, 18): the outline button, 1rem, square (its size is in overrides/_tables.scss).
+$pagination-padding-y: 0;
+$pagination-padding-x: $slxd-pagination-btn-padding-inline;
+$pagination-font-size: $slxd-pagination-btn-font-size;
+$pagination-color: var(--bs-body-color);
+$pagination-bg: transparent;
+$pagination-border-width: $slxd-pagination-btn-border-width;
+$pagination-border-color: var(--bs-body-color);
+$pagination-border-radius: $slxd-pagination-btn-radius;
+
+// Buttons apart (17): Bootstrap overlaps their borders; the gap is in overrides/_tables.scss.
+$pagination-margin-start: 0;
+
+// Hover (19): inverted.
+$pagination-hover-color: var(--bs-body-bg);
+$pagination-hover-bg: var(--bs-body-color);
+$pagination-hover-border-color: var(--bs-body-color);
+
+// Focus (23): no fill and no shadow; the brand's ring is in overrides/_tables.scss.
+$pagination-focus-color: var(--bs-body-color);
+$pagination-focus-bg: transparent;
+$pagination-focus-box-shadow: none;
+
+// Current page (20): the same drawing as the hover.
+$pagination-active-color: var(--bs-body-bg);
+$pagination-active-bg: var(--bs-body-color);
+$pagination-active-border-color: var(--bs-body-color);
+
+// Disabled (22): no fill, the disabled grey for text and border (dark: in overrides/_tables.scss).
+$pagination-disabled-color: $slxd-pagination-btn-disabled-color;
+$pagination-disabled-bg: transparent;
+$pagination-disabled-border-color: $slxd-pagination-btn-disabled-border-color;
+
+// Sizes (24).
+$pagination-padding-y-sm: 0;
+$pagination-padding-x-sm: $slxd-pagination-sm-btn-padding-inline;
+$pagination-font-size-sm: $slxd-pagination-sm-btn-font-size;
+$pagination-border-radius-sm: $slxd-pagination-btn-radius;
+$pagination-padding-y-lg: 0;
+$pagination-padding-x-lg: $slxd-pagination-lg-btn-padding-inline;
+$pagination-font-size-lg: $slxd-pagination-lg-btn-font-size;
+$pagination-border-radius-lg: $slxd-pagination-btn-radius;
+
+// Transition (25).
+$pagination-transition: color $slxd-pagination-transition-duration $slxd-pagination-transition-easing,
+    background-color $slxd-pagination-transition-duration $slxd-pagination-transition-easing,
+    border-color $slxd-pagination-transition-duration $slxd-pagination-transition-easing;

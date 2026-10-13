@@ -1,0 +1,132 @@
+// Modals: the brand's spacing inside the panel, its close button and its dark border.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Bootstrap pads header, body and
+// footer each on their own; the brand's panel has one padding all round, 1rem between header and body
+// (modal.header-gap) and 2rem above the footer (modal.footer-margin-block-start). The close button is the brand's
+// CloseButton (no hover, focus ring only), sized and coloured by the modal (modal.close-*).
+// Commented-out rules are not settled and do not apply. Row numbers refer to docs/brand-mapping.md (phase 5, modals).
+
+// Header (6, 8): the panel's top and side padding, the header gap below it and between title and close button.
+// The close button sits on the title's first line, not in the middle of a title that wraps (as in the brand's Modal).
+.modal-header {
+    align-items: flex-start;
+    gap: $slxd-modal-header-gap;
+    padding-block-end: $slxd-modal-header-gap;
+}
+
+// Body (6): the panel's side padding only; the air above and below belongs to the header and the footer.
+.modal-body {
+    padding-block: 0;
+}
+
+// Footer (6, 9): the air above it and the panel's bottom and side padding, with the brand's gap between buttons
+// instead of Bootstrap's half-gap margins.
+.modal-footer {
+    gap: $slxd-modal-footer-gap;
+    padding: $slxd-modal-footer-margin-block-start $slxd-modal-padding-inline $slxd-modal-padding-block;
+
+    > * {
+        margin: 0;
+    }
+}
+
+// Title (10): the brand's title size (modal.title-font-size), and always whole: the brand never truncates it, long
+// titles wrap. Moodle marks it .fs-5 (1.25rem, !important) and .text-truncate, so both are undone here.
+.modal-title.fs-5 {
+    font-size: $slxd-modal-title-font-size !important; // stylelint-disable-line declaration-no-important
+}
+
+.modal-title.text-truncate {
+    flex: 1;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+}
+
+// Footer on narrow dialogs (11): below 480px of dialog (breakpoint.sm) the brand stacks the buttons full width, the
+// main action (the last one, as Moodle's footers put it) on top. The brand decides it by the dialog's width, not the
+// window's, so the panel is a container.
+.modal-content {
+    container: dialog / inline-size; // stylelint-disable-line csstree/validator
+}
+
+@container dialog (max-width: #{$slxd-breakpoint-sm - 0.02px}) { // stylelint-disable-line csstree/validator
+    .modal-footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+
+        > * {
+            inline-size: 100%;
+        }
+    }
+}
+
+// ⏸ Width on narrow screens and height (5): the brand's panel is 90vw wide and 90dvh tall at most; Bootstrap leaves a
+// 0.5rem margin (1.75rem from 576px up) and only caps the height of scrollable modals.
+// .modal-dialog {
+//     width: $slxd-modal-width;
+// }
+//
+// .modal-content {
+//     max-height: $slxd-modal-max-height;
+// }
+
+// Close button (13-15): a 2.5rem box with the brand's 24px cross drawn in the ink of the surface, already at rest: no
+// transparency, no hover. Bootstrap paints a black 1em cross as a background image at 50% opacity (inverted by a
+// filter in dark mode); the brand's glyph is masked on a pseudo-element instead, so it takes currentColor, which
+// follows the mode (modal.close-color = color.primary; dark: modal.surface-dark-close-color = color.text.on-dark).
+// The glyph is the brand's Icon `close` (functions/_close-button.scss); only its shape counts, the mask takes no colour.
+.modal-header .btn-close {
+    --#{$prefix}btn-close-bg: none;
+    --#{$prefix}btn-close-filter: none;
+    --#{$prefix}btn-close-opacity: 1;
+    --#{$prefix}btn-close-hover-opacity: 1;
+    --#{$prefix}btn-close-focus-opacity: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: $slxd-modal-close-size;
+    height: $slxd-modal-close-size;
+    padding: 0;
+    // Centred on the title's first line: half of what is left between that line (size × line height) and the box.
+    margin: (($slxd-modal-title-font-size * $slxd-modal-title-line-height - $slxd-modal-close-size) / 2) 0 0 auto;
+    color: var(--#{$prefix}body-color);
+    background: none;
+
+    &::before {
+        content: "";
+        width: $slxd-modal-close-icon-size;
+        height: $slxd-modal-close-icon-size;
+        background-color: currentColor;
+        mask-image: escape-svg(studiolxd-close-glyph($black));
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: 100%;
+    }
+
+    &:hover {
+        color: var(--#{$prefix}body-color);
+    }
+
+    // Focus (15): the brand's ring, an outline in the ink 2px out, instead of Bootstrap's box-shadow ring.
+    &:focus-visible,
+    &:focus.focus {
+        outline: $slxd-modal-close-focus-ring-width solid var(--mds-focus-default);
+        outline-offset: $slxd-modal-close-focus-ring-offset;
+        box-shadow: none;
+    }
+
+    &:focus:not(:focus-visible):not(.focus) {
+        box-shadow: none;
+    }
+}
+
+// Dark border (3): the brand's panel has a white border on the dark surface (modal.surface-dark-border-color =
+// color.text.on-dark), which --bs-body-color holds there. Boost's dark mode gives it a grey one.
+@include color-mode(dark) {
+    .modal-content {
+        border-color: var(--#{$prefix}body-color);
+    }
+}

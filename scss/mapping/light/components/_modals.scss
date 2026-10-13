@@ -1,0 +1,44 @@
+// Modals: Moodle's modals (core/modal and every modal built on it) are the brand's Modal.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// The panel is the page background with the ink's text (modal.bg = color.bg.light; dark: modal.surface-dark-bg =
+// color.bg.dark), which --bs-body-bg and --bs-body-color already hold in each mode. The brand's panel has one padding
+// all round and no lines between header, body and footer; the asymmetric padding, the close button and the dark
+// border are in overrides/_modals.scss. Commented-out assignments are not settled and do not apply.
+// Row numbers refer to docs/brand-mapping.md (phase 5, modals).
+
+// Backdrop (1).
+$modal-backdrop-bg: $slxd-modal-backdrop-bg;
+$modal-backdrop-opacity: $slxd-modal-backdrop-opacity;
+
+// Panel (2-4): fill and text follow the mode through Bootstrap's defaults (var(--bs-body-bg), var(--bs-body-color)).
+// The brand's panel has no border on the light surface (modal.border-color, transparent); its dark border is in
+// overrides/_modals.scss. Radius and shadow are already the brand's (phase 3).
+$modal-content-border-width: $slxd-modal-border-width;
+$modal-content-border-color: $slxd-modal-border-color;
+$modal-content-border-radius: $slxd-modal-border-radius;
+$modal-content-inner-border-radius: $slxd-modal-border-radius;
+
+// Width (5): the brand has one width; it is Moodle's default size (.modal-dialog without a size class). Moodle's
+// .modal-sm, .modal-lg and .modal-xl keep their widths.
+$modal-md: $slxd-modal-max-width;
+
+// Padding (6): the brand's panel padding. Bootstrap pads header, body and footer separately; the space between them is
+// in overrides/_modals.scss.
+$modal-inner-padding: $slxd-modal-padding-block;
+$modal-header-padding-y: $slxd-modal-padding-block;
+$modal-header-padding-x: $slxd-modal-padding-inline;
+
+// Header and footer lines (7): none.
+$modal-header-border-width: 0;
+$modal-footer-border-width: 0;
+
+// Space between the footer's buttons (9).
+$modal-footer-margin-between: $slxd-modal-footer-gap;
+
+// Title (10): the brand's tight line height; its size and wrapping are in overrides/_modals.scss.
+$modal-title-line-height: $slxd-modal-title-line-height;
+
+// Entrance (12): the brand's panel slides 0.5rem in 250ms ease-in-out (Bootstrap: 50px in 0.3s ease-out).
+$modal-fade-transform: translate(0, -$slxd-modal-content-enter-offset);
+$modal-transition: transform $slxd-modal-transition-duration $slxd-modal-transition-easing;

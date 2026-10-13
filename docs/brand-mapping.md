@@ -486,3 +486,51 @@ ProgressBar, Radio, Tooltip) Moodle aún no los usa: cuando los use, heredarán 
 - **c.** El icono de actividad del timeline se dibuja sin losa (sin los colores por categoría de MDS, que la marca
   tampoco tiene) y su talla no está en la escala de iconos de la marca: no hay nada que mapear, salvo que la marca
   defina una losa o una talla para él.
+
+### Modales y botón de cerrar
+
+`mapping/light/components/_modals.scss`, `overrides/_modals.scss` y `functions/_close-button.scss`. Los modales de
+Moodle (`core/modal` y todos los que se construyen sobre él: confirmaciones, formularios en modal, selector de
+actividades) son el Modal de la marca: un panel con un único padding alrededor, sin líneas entre cabecera, cuerpo y
+pie, y con el CloseButton de la marca en la cabecera. El fondo y el texto son los de la página, que `--bs-body-bg` y
+`--bs-body-color` ya valen en cada modo.
+
+| Qué | Equivalencia | Claro | Oscuro |
+|---|---|---|---|
+| 1. Velo | Sí | `#000000` al `0.6` `modal.backdrop-*` (antes al `0.5`) | = claro |
+| 2. Panel: fondo y texto | Sí | `#FFFFFF` / `#111E30` `modal.bg`, `modal.title-color` (ya lo eran) | `#111E30` / `#FFFFFF` `modal.surface-dark-bg`, `modal.surface-dark-title-color` (ya lo eran) |
+| 3. Panel: borde | Sí | `1px` transparente `modal.border-*` (antes gris translúcido `rgba(0,0,0,.175)`) | `1px` `#FFFFFF` `modal.surface-dark-border-color` (antes `#495057` de Boost) |
+| 4. Panel: radio y sombra | Sí | `0`, sin sombra `modal.border-radius`, `modal.shadow` (ya lo eran, fase 3) | = claro |
+| 5. Ancho | Sí | `560px` `modal.max-width` en la talla por defecto (antes `500px`) ⚠️a; ⏸ `90vw` de ancho y `90dvh` de alto máximo `modal.width`, `modal.max-height` (ahora: margen de `0.5rem`, `1.75rem` desde `576px`, y sin tope de alto salvo en los modales con scroll) | = claro |
+| 6. Padding | Sí | `2rem` alrededor del panel `modal.padding-*` (antes `1rem` en cabecera, cuerpo y pie por separado) | = claro |
+| 7. Líneas bajo la cabecera y sobre el pie | Sí | ninguna (antes `1px` gris) | = claro |
+| 8. Separación de la cabecera | Sí | `1rem` entre título y aspa y bajo la cabecera `modal.header-gap`; el aspa, centrada en la primera línea del título | = claro |
+| 9. Pie | Sí | `2rem` sobre el pie `modal.footer-margin-block-start`; `0.75rem` entre botones `modal.footer-gap` (antes `0.5rem`) | = claro |
+| 10. Título | Sí | `2rem`, peso `500`, interlineado `1.1`, entero (salta de línea, sin recorte) `modal.title-*` (antes `1.25rem` de `.fs-5` con `1.5`, cortado a una línea) ⚠️b | = claro (color `#FFFFFF`) |
+| 11. Pie en diálogos estrechos | Sí | por debajo de `480px` de diálogo, botones apilados a todo el ancho con la acción principal arriba (antes: fila que salta de línea) ⚠️c | = claro |
+| 12. Entrada | Sí | desliza `0.5rem` en `250ms` `ease-in-out` `modal.content-enter-offset`, `modal.transition-*` (antes `50px` en `0.3s` `ease-out`) | = claro |
+| 13. Aspa: caja y glifo | Sí | caja de `2.5rem`, aspa de `24px` con trazo de `1px` `modal.close-size`, `modal.close-icon-size`, icono `close` ⚠️d (antes aspa gruesa de `16px` de Bootstrap en una caja de `2rem`) | = claro |
+| 14. Aspa: color | Sí | `#111E30` opaco y sin hover `modal.close-color` (antes negro al `50 %`) | `#FFFFFF` `modal.surface-dark-close-color` (antes blanco al `50 %` por un filtro invertido) |
+| 15. Aspa: foco | Sí | anillo `2px` en la tinta a `2px` `modal.close-focus-ring-*` (antes sombra de `2px` con hueco de `1px`) | anillo `#FFFFFF` |
+| 16. Capas (z-index) | Sí | no se aplica: se quedan los de Moodle (`1055` / `1050`) ⚠️e | = claro |
+
+**Notas**
+
+- **a.** La correspondencia es mía (validada): la marca tiene un solo ancho (`90vw` hasta `560px`) y el contenido
+  largo hace scroll dentro del panel; no tiene tallas mayores. Es el de la talla por defecto de Moodle. Las tallas
+  `.modal-sm` (`300px`), `.modal-lg` (`800px`) y `.modal-xl` (`1140px`), que usan el selector de actividades y
+  muchos formularios, no tienen equivalente en la marca y se quedan como están.
+- **b.** La marca pinta siempre el título entero. Moodle lo renderiza como `h2.modal-title.fs-5.text-truncate`
+  (`1.25rem` con `!important` y cortado a una línea): se deshacen las dos clases, y como el título puede ocupar
+  varias líneas, el aspa se alinea con la primera, como en el Modal de la marca.
+- **c.** La marca lo decide por el ancho del diálogo (consulta de contenedor), no de la ventana. Los modales del core
+  ponen la acción principal la última (Cancelar, Guardar), así que al apilar queda arriba. Pendiente de revisar en
+  pantalla los pies que no son solo botones (selector de actividades, plugins): si alguno se rompe, se excluye.
+- **d.** Validado. El glifo no es un token: es el icono `close` del componente `Icon` de la marca (dos trazos a 45° sobre una
+  retícula de 24), copiado como máscara para que tome el color del modo. La marca no tiene hover para el aspa: solo
+  marca el foco.
+- **e.** Validado. Los z-index de la marca (`300` el panel, `200` el velo) son relativos a su propia app; en Moodle el modal
+  tiene que quedar por encima de la barra superior, los cajones y los desplegables, que usan sus propias capas.
+- Moodle no tiene descripción bajo el título del modal (`modal.description-*`), así que no se mapea. Los diálogos
+  antiguos de YUI (`.moodle-dialogue-base`) y el aspa de las alertas y los toasts no entran aquí: van con sus
+  componentes.

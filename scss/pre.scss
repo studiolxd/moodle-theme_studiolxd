@@ -3,6 +3,7 @@
 // Helper functions for the mapping files.
 @import "functions/sizing";
 @import "functions/checks";
+@import "functions/close-button";
 
 // Studio LXD brand tokens ($slxd-*). Vendored by studiolxd/sync_brand.sh (repository root); they only define variables, no CSS.
 @import "brand/tokens/index.legacy";
@@ -22,3 +23,4 @@
 @import "mapping/light/components/breadcrumb";
 @import "mapping/light/components/dropdowns";
 @import "mapping/light/components/cards";
+@import "mapping/light/components/modals";

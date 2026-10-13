@@ -1,0 +1,12 @@
+// Close button helpers for the overrides. Functions only: no CSS, no variables.
+
+// The brand's cross as an SVG image (Icon `close`, it is not a token): on a 24 grid, the first and third lines of the
+// `menu` glyph (18 long, inset 3) turned 45° on the centre, so their ends are centre ± 9·cos(45°). The stroke is the
+// brand's icon stroke, 1 unit, which is 1px at the brand's 24px glyph size.
+@function studiolxd-close-glyph($colour) {
+    $half: 9 * 0.7071;
+    $a: round((12 - $half) * 100) / 100;
+    $b: round((12 + $half) * 100) / 100;
+
+    @return url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='#{$colour}' stroke-width='1'><path d='M#{$a} #{$a}L#{$b} #{$b}M#{$b} #{$a}L#{$a} #{$b}'/></svg>");
+}

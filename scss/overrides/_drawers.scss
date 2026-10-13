@@ -47,9 +47,8 @@ body.limitedwidth .drawer.drawer-right {
     transition-timing-function: $slxd-sidebar-transition-easing;
 }
 
-// Close button (8): the brand's CloseButton, as in the modals: a 2.5rem box with the brand's 24px cross in the ink,
-// no fill, no hover, the focus ring only. Moodle's icon is hidden and the brand's cross is masked on a pseudo-element
-// (functions/_close-button.scss), so it follows the mode.
+// Close button (8): the brand's CloseButton (overrides/_close-button.scss), as in the modals: a 2.5rem box with the
+// 24px cross in the ink of the page, no fill. Moodle's button is a .btn with an icon, which is hidden.
 .drawer .drawerheader .draweractions .btn.drawertoggle {
     --#{$prefix}btn-color: var(--#{$prefix}body-color);
     --#{$prefix}btn-hover-color: var(--#{$prefix}body-color);
@@ -58,36 +57,14 @@ body.limitedwidth .drawer.drawer-right {
     --#{$prefix}btn-hover-bg: transparent;
     --#{$prefix}btn-active-bg: transparent;
     --#{$prefix}btn-border-width: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     width: $slxd-close-button-size-md;
     height: $slxd-close-button-size-md;
-    padding: 0;
     margin-right: 0;
     border-radius: 0;
     background-color: transparent;
 
     .icon {
         display: none;
-    }
-
-    &::before {
-        content: "";
-        width: $slxd-close-button-icon-size;
-        height: $slxd-close-button-icon-size;
-        background-color: currentColor;
-        mask-image: escape-svg(studiolxd-close-glyph($black));
-        mask-position: center;
-        mask-repeat: no-repeat;
-        mask-size: 100%;
-    }
-
-    &:focus-visible,
-    &:focus.focus {
-        outline: $slxd-close-button-focus-ring-width solid var(--mds-focus-default);
-        outline-offset: $slxd-close-button-focus-ring-offset;
-        box-shadow: none;
     }
 }
 

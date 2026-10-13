@@ -1,0 +1,133 @@
+// Toasts: the brand's Toast, an Alert that floats in a corner of the window.
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Boost paints each toast type
+// with a tint, and pads the body with one value; the brand's Toast has the Alert's face (alert.*) and sits in the
+// bottom corner of the window (toast.inset-*). Row numbers refer to docs/brand-mapping.md (phase 5, alerts and toasts).
+
+// Fills by type (10): the Alert's. Success, danger and warning are universal fills; info is the brand's neutral alert,
+// which follows the mode (alert.*; dark: alert.surface-dark-*, white with prussian text). With no type it is the
+// outline alert set in mapping/light/components/_alerts.scss. $type: (bg, text, border) in light and dark mode.
+$studiolxd-toasts: (
+    "info": (
+        light: ($slxd-alert-bg, $slxd-alert-description-color, $slxd-alert-border-color),
+        dark: ($slxd-color-text-on-dark, $slxd-color-primary, $slxd-color-text-on-dark),
+    ),
+    "success": (
+        light: ($slxd-alert-success-bg, $slxd-alert-success-description-color, $slxd-alert-success-border-color),
+    ),
+    "danger": (
+        light: ($slxd-alert-error-bg, $slxd-alert-error-description-color, $slxd-alert-error-border-color),
+    ),
+    "warning": (
+        light: ($slxd-alert-warning-bg, $slxd-alert-warning-description-color, $slxd-alert-warning-border-color),
+    ),
+);
+
+@mixin studiolxd-toast-colours($colours) {
+    --#{$prefix}toast-bg: #{nth($colours, 1)};
+    --#{$prefix}toast-color: #{nth($colours, 2)};
+    --#{$prefix}toast-border-color: #{nth($colours, 3)};
+    background-color: var(--#{$prefix}toast-bg);
+    color: var(--#{$prefix}toast-color);
+}
+
+@each $type, $modes in $studiolxd-toasts {
+    $light: map-get($modes, light);
+    $dark: if(map-has-key($modes, dark), map-get($modes, dark), $light);
+
+    .toast.toast-#{$type} {
+        @include studiolxd-toast-colours($light);
+
+        @include dark-mode {
+            @include studiolxd-toast-colours($dark);
+        }
+
+        // Header (14): the toast's text colour, not Boost's darker one.
+        .toast-header {
+            color: inherit;
+        }
+    }
+}
+
+// Box (12, 16): the Alert's padding on the body too (Bootstrap pads it with the side value all round), the Alert's gap
+// between title and text (alert.content-gap), and room on the right for the close button.
+.toast {
+    position: relative;
+
+    .toast-header {
+        padding: var(--#{$prefix}toast-padding-y) var(--#{$prefix}toast-padding-x) 0;
+    }
+
+    .toast-body {
+        padding: var(--#{$prefix}toast-padding-y) var(--#{$prefix}toast-padding-x);
+    }
+
+    .toast-header + .toast-body {
+        padding-top: $slxd-alert-content-gap;
+    }
+
+    &:has(.btn-close) {
+        .toast-header,
+        .toast-body {
+            padding-right: $slxd-alert-close-inset * 2 + $slxd-alert-close-size;
+        }
+    }
+
+    // Close button (16): the brand's CloseButton (overrides/_close-button.scss) as in the alerts, a 2rem box 0.5rem
+    // from the top corner, in the toast's text colour.
+    .btn-close {
+        --#{$prefix}btn-close-color: var(--#{$prefix}toast-color);
+        position: absolute;
+        top: $slxd-alert-close-inset;
+        right: $slxd-alert-close-inset;
+        width: $slxd-alert-close-size;
+        height: $slxd-alert-close-size;
+        margin: 0;
+    }
+}
+
+// Title (14): the Alert's title (alert.title-*, toast.title-letter-spacing).
+.toast-title {
+    font-weight: $slxd-alert-title-font-weight;
+    line-height: $slxd-alert-title-line-height;
+    letter-spacing: $slxd-toast-title-letter-spacing;
+}
+
+// Entrance and exit (19): the brand's 250ms ease-out, from a point smaller (toast.enter-scale). Bootstrap fades it in
+// 0.15s linear, marking the start and the end with .showing. Reduced motion turns Bootstrap's transitions off.
+.toast.fade {
+    transition:
+        opacity $slxd-toast-duration-in $slxd-toast-easing,
+        transform $slxd-toast-duration-in $slxd-toast-easing;
+}
+
+.toast.showing {
+    transform: scale($slxd-toast-enter-scale);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .toast.fade {
+        transition: none;
+    }
+}
+
+// Position (18): the brand's bottom corner, 1.5rem from the edges of the window (toast.inset-*), above Moodle's sticky
+// footer when there is one, the toasts 0.5rem apart (toast.gap) and the newest at the bottom. Moodle centres them at
+// the top (.fixed-top) in a box with no height. Its z-index stays Moodle's (20).
+.toast-wrapper.fixed-top {
+    top: auto;
+    bottom: calc(#{$slxd-toast-inset-block} + var(--sticky-footer-total-height, 0px));
+    right: $slxd-toast-inset-inline;
+    left: auto;
+    display: flex;
+    flex-direction: column;
+    gap: $slxd-toast-gap;
+    width: min(#{$slxd-toast-max-width}, calc(100vw - #{$slxd-toast-inset-inline * 2}));
+    max-width: none;
+    max-height: none;
+    margin: 0;
+
+    > :first-child {
+        margin-top: 0;
+    }
+}

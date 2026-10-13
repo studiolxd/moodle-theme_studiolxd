@@ -694,3 +694,54 @@ cada modo.
 - **f.** Moodle pinta los puntos suspensivos como un botón deshabilitado (`.page-item.disabled` con un `span`); en el
   core es el único deshabilitado de la paginación. Se separan para que vayan como texto, como en la marca; el estilo
   de la fila 22 queda para los plugins que los usen.
+
+### Alertas y toasts
+
+`mapping/light/components/_alerts.scss`, `overrides/_alerts.scss` (los colores son de la fase 2),
+`overrides/_toasts.scss` y `overrides/_close-button.scss`. Las notificaciones de Moodle (`.alert`) son el Alert de
+la marca, y sus toasts (`core/toast`) el Toast, que en la marca es un Alert flotante. El aspa de cerrar de modales,
+cajones, alertas y toasts está ahora en un solo archivo, `overrides/_close-button.scss`; cada zona pone su talla, su
+sitio y su color.
+
+| Qué | Eq. | Claro | Oscuro |
+|---|---|---|---|
+| **Alertas** | | | |
+| 1. Colores | Sí | fase 2 (filas 28-32) | fase 2 |
+| 2. Padding | Sí | `1rem` × `1.5rem` (antes `1rem`) | = |
+| 3. Borde y radio | Sí | `1px`, `0` (ya) | = |
+| 4. Título | Sí | tracking `-0.02em` (antes `0`) | = |
+| 5. Título → texto | Sí | `0.5rem` (ya) | = |
+| 6. Aspa | Sí | CloseButton sm `2rem` ⚠️a | = |
+| 7. Hueco del aspa | Sí | `3rem` (ya) | = |
+| 8. `secondary`/`light`/`dark` | No | outline ⚠️b | outline |
+| 9. Icono y margen | No | los de Moodle | = |
+| **Toasts** | | | |
+| 10. Rellenos | Sí | los del Alert ⚠️c | ⚠️c |
+| 11. Borde, radio, sombra | Sí | `1px`, `0`, ninguna | = |
+| 12. Padding | Sí | `1rem` × `1.5rem` (antes `0.75rem`) | = |
+| 13. Texto | Sí | `1rem` / `1.5` (antes `0.875rem`) | = |
+| 14. Cabecera | Sí | título del Alert ⚠️f | = |
+| 15. Icono del tipo | No | el de Moodle ⚠️d | = |
+| 16. Aspa | Sí | como la fila 6 | = |
+| 17. Ancho máx. | Sí | `360px` (antes `350px`) | = |
+| 18. Posición | Sí | esquina inferior ⚠️e | = |
+| 19. Entrada/salida | Sí | `250ms` `ease-out` (antes `0.15s`) | = |
+| 20. z-index | Sí | el de Moodle | = |
+
+**Notas**
+
+- **a.** Caja de `2rem` a `0.5rem` de la esquina, aspa de `24px` en el color del texto de la alerta, sin hover
+  (`alert.close-*`). Antes, el aspa negra de Bootstrap de `16px` al `60 %`, que sobre los rellenos prusia y rojo
+  apenas se veía.
+- **b.** La marca no tiene variante secundaria, clara ni oscura: son una alerta outline, sin relleno, con texto y
+  borde en la tinta de la página (decisión validada). Antes, tinte gris `#F5F6F8` (oscuro `#292A2C`).
+- **c.** success `#006616` y danger `#B30000` con texto blanco, warning `#FFCD00` con texto prusia: universales.
+  info es la alerta neutra de la marca, que sigue el modo: prusia con texto y borde blancos en claro, blanca con texto
+  prusia en oscuro. Sin tipo, la neutra en outline: el fondo de la página, con texto y borde en la tinta, opaca para
+  leerse sobre el contenido (decisiones validadas). Antes, tintes al `95 %` (sin tipo, blanco al `85 %`).
+- **d.** El Alert de la marca no lleva icono; se queda el de Moodle, en el color del texto (decisión mía).
+- **e.** Como en la marca: a `1.5rem` de la esquina inferior derecha (`toast.inset-*`), por encima del pie fijo de
+  Moodle cuando lo hay, a `0.5rem` entre sí (`toast.gap`) y el más nuevo abajo. La pila no se recoge como la de la
+  marca (Moodle no la anima). Antes, arriba y centrados.
+- **f.** Sin el fondo translúcido, la línea inferior ni el gris de Bootstrap: `1rem`, peso `500`, interlineado `1.3`,
+  tracking `-0.02em` (`alert.title-*`).

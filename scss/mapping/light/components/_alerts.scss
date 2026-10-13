@@ -1,0 +1,30 @@
+// Alerts and toasts: the brand's Alert, which is also the face of its Toast.
+//
+// Light mapping (imported from pre.scss, before Boost's preset): ONLY variable assignments, no CSS rules.
+// The alerts' colours are in overrides/_alerts.scss (phase 2), the toasts' and their position in overrides/_toasts.scss.
+// Row numbers refer to docs/brand-mapping.md (phase 5, alerts and toasts).
+
+// Alert padding (2), and the room for the close button on the right (7): the close button's box and its inset on
+// both sides (alert.close-size, alert.close-inset).
+$alert-padding-y: $slxd-alert-padding-block;
+$alert-padding-x: $slxd-alert-padding-inline;
+$alert-dismissible-padding-r: $slxd-alert-close-inset * 2 + $slxd-alert-close-size;
+
+// Toast: the Alert's box (11-13), 360px wide at most (17). With no type it is an outline alert: the page background,
+// with the ink for text and border, which --bs-body-bg and --bs-body-color hold in each mode (10).
+$toast-max-width: $slxd-toast-max-width;
+$toast-padding-x: $slxd-alert-padding-inline;
+$toast-padding-y: $slxd-alert-padding-block;
+$toast-font-size: $slxd-alert-description-font-size;
+$toast-color: var(--bs-body-color);
+$toast-background-color: var(--bs-body-bg);
+$toast-border-width: $slxd-alert-border-width;
+$toast-border-color: var(--bs-body-color);
+$toast-border-radius: $slxd-alert-border-radius;
+$toast-box-shadow: $slxd-shadow-default;
+$toast-spacing: $slxd-toast-gap;
+
+// Toast header (14): the Alert's title, with no background or line of its own.
+$toast-header-color: inherit;
+$toast-header-background-color: transparent;
+$toast-header-border-color: transparent;

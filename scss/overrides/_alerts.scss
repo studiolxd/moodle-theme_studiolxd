@@ -1,4 +1,4 @@
-// Alerts: the brand's alerts are solid fills, not tints.
+// Alerts: the brand's alerts are solid fills, not tints; their title and close button.
 //
 // Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Bootstrap paints alerts with
 // the generic --bs-*-bg-subtle / -text-emphasis / -border-subtle, which Boost also uses for its light buttons and
@@ -26,6 +26,17 @@ $studiolxd-alerts: (
     ),
     "warning": (
         light: ($slxd-alert-warning-bg, $slxd-alert-warning-description-color, $slxd-alert-warning-border-color),
+    ),
+    // Secondary, light and dark (phase 5, alerts row 8): the brand has none of them; they are an outline alert, with
+    // no fill and the ink of the page for text and border, which --bs-body-color holds in each mode.
+    "secondary": (
+        light: (transparent, var(--#{$prefix}body-color), var(--#{$prefix}body-color)),
+    ),
+    "light": (
+        light: (transparent, var(--#{$prefix}body-color), var(--#{$prefix}body-color)),
+    ),
+    "dark": (
+        light: (transparent, var(--#{$prefix}body-color), var(--#{$prefix}body-color)),
     ),
 );
 
@@ -56,4 +67,22 @@ $studiolxd-alerts: (
             @include studiolxd-alert-colours($dark);
         }
     }
+}
+
+// Title (phase 5, alerts row 4): the brand's alert title (alert.title-*). Moodle renders it as a heading marked .h6.
+.alert-heading > :is(h1, h2, h3, h4, h5, h6) {
+    font-size: $slxd-alert-title-font-size;
+    font-weight: $slxd-alert-title-font-weight;
+    line-height: $slxd-alert-title-line-height;
+    letter-spacing: $slxd-alert-title-letter-spacing;
+}
+
+// Close button (phase 5, alerts row 6): the brand's CloseButton (overrides/_close-button.scss) in the alert's size, a
+// 2rem box 0.5rem from the top corner (alert.close-size, alert.close-inset), in the alert's text colour.
+.alert-dismissible .btn-close {
+    --#{$prefix}btn-close-color: var(--#{$prefix}alert-color);
+    top: $slxd-alert-close-inset;
+    right: $slxd-alert-close-inset;
+    width: $slxd-alert-close-size;
+    height: $slxd-alert-close-size;
 }

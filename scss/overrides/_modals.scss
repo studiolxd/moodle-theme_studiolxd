@@ -71,56 +71,15 @@
 //     max-height: $slxd-modal-max-height;
 // }
 
-// Close button (13-15): a 2.5rem box with the brand's 24px cross drawn in the ink of the surface, already at rest: no
-// transparency, no hover. Bootstrap paints a black 1em cross as a background image at 50% opacity (inverted by a
-// filter in dark mode); the brand's glyph is masked on a pseudo-element instead, so it takes currentColor, which
-// follows the mode (modal.close-color = color.primary; dark: modal.surface-dark-close-color = color.text.on-dark).
-// The glyph is the brand's Icon `close` (functions/_close-button.scss); only its shape counts, the mask takes no colour.
+// Close button (13-15): the brand's CloseButton (overrides/_close-button.scss) in the modal's size, a 2.5rem box with
+// the 24px cross (modal.close-size, modal.close-icon-size), in the ink of the page (modal.close-color = color.primary;
+// dark: modal.surface-dark-close-color = color.text.on-dark), which --bs-body-color holds.
 .modal-header .btn-close {
-    --#{$prefix}btn-close-bg: none;
-    --#{$prefix}btn-close-filter: none;
-    --#{$prefix}btn-close-opacity: 1;
-    --#{$prefix}btn-close-hover-opacity: 1;
-    --#{$prefix}btn-close-focus-opacity: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-sizing: border-box;
+    --#{$prefix}btn-close-color: var(--#{$prefix}body-color);
     width: $slxd-modal-close-size;
     height: $slxd-modal-close-size;
-    padding: 0;
     // Centred on the title's first line: half of what is left between that line (size × line height) and the box.
     margin: (($slxd-modal-title-font-size * $slxd-modal-title-line-height - $slxd-modal-close-size) / 2) 0 0 auto;
-    color: var(--#{$prefix}body-color);
-    background: none;
-
-    &::before {
-        content: "";
-        width: $slxd-modal-close-icon-size;
-        height: $slxd-modal-close-icon-size;
-        background-color: currentColor;
-        mask-image: escape-svg(studiolxd-close-glyph($black));
-        mask-position: center;
-        mask-repeat: no-repeat;
-        mask-size: 100%;
-    }
-
-    &:hover {
-        color: var(--#{$prefix}body-color);
-    }
-
-    // Focus (15): the brand's ring, an outline in the ink 2px out, instead of Bootstrap's box-shadow ring.
-    &:focus-visible,
-    &:focus.focus {
-        outline: $slxd-modal-close-focus-ring-width solid var(--mds-focus-default);
-        outline-offset: $slxd-modal-close-focus-ring-offset;
-        box-shadow: none;
-    }
-
-    &:focus:not(:focus-visible):not(.focus) {
-        box-shadow: none;
-    }
 }
 
 // Dark border (3): the brand's panel has a white border on the dark surface (modal.surface-dark-border-color =

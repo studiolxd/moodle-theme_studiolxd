@@ -1,0 +1,54 @@
+// Close button: the brand's CloseButton wherever Moodle closes something (modals, drawers, alerts, toasts).
+//
+// Override (imported from post.scss): ONLY CSS rules, for what variables cannot reach. Bootstrap paints a black 1em
+// cross as a background image at partial opacity (inverted by a filter in dark mode), which cannot take the colour of
+// the surface it sits on. The brand's cross (Icon `close`, functions/_close-button.scss) is masked on a pseudo-element
+// instead, so it is drawn in currentColor: each area sets that colour, the ink of its surface (close-button.color =
+// color.text.on-light; dark: color.text.on-dark; on a fill, the fill's text), and its box size and place. Already at
+// rest: no transparency, no hover; the only state it marks is focus, with a ring in the same ink
+// (close-button.focus-ring-*).
+
+$studiolxd-close-buttons: ".modal-header .btn-close, .drawer .drawerheader .draweractions .btn.drawertoggle, .alert-dismissible .btn-close, .toast .btn-close";
+
+#{$studiolxd-close-buttons} {
+    --#{$prefix}btn-close-bg: none;
+    --#{$prefix}btn-close-filter: none;
+    --#{$prefix}btn-close-opacity: 1;
+    --#{$prefix}btn-close-hover-opacity: 1;
+    --#{$prefix}btn-close-focus-opacity: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: 0;
+    opacity: 1;
+    background: none;
+
+    &::before {
+        content: "";
+        width: $slxd-close-button-icon-size;
+        height: $slxd-close-button-icon-size;
+        background-color: currentColor;
+        mask-image: escape-svg(studiolxd-close-glyph($black));
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: 100%;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &:focus-visible,
+    &:focus.focus {
+        outline: $slxd-close-button-focus-ring-width solid currentColor;
+        outline-offset: $slxd-close-button-focus-ring-offset;
+        box-shadow: none;
+        opacity: 1;
+    }
+
+    &:focus:not(:focus-visible):not(.focus) {
+        box-shadow: none;
+    }
+}
